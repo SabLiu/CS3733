@@ -1,5 +1,4 @@
-//html for administrator landing page 
-//11/20/19
+
 
 <html>
 <head>
