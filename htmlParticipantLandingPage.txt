@@ -1,37 +1,50 @@
-//html for administrator landing page 
-//11/20/19
-
 <html>
 <head>
 	<title></title>
 </head>
 <body>
-<h2>Administrator</h2>
+<h2>Participant&nbsp;</h2>
 
-<p><strong>Local Video Segments&nbsp;</strong></p>
+<p><b>Playlists</b></p>
 
-<video width="320" height="240" controls>
-      <source src=”https://hotspurproject.s3.us-east-2.amazonaws.com/segments/Six.mp4" type=video/ogg>
-      <source src="/build/videos/arcnet.io(7-sec).mp4" type=video/mp4>
-    </video>
+<p><b><input name="addPlaylistBtn" type="button" value="Create a new playlist" /></b></p>
 
-<p><img alt="" src="https://brightplanet.com/wp-content/uploads/sites/8/2016/04/play-1073616_1280.png" style="width: 50px; height: 50px;" />&nbsp;<input name="available1" type="button" value="Make remotely available" />&nbsp;<input name="not1" type="button" value="Make remotely UNavailable" /></p>
+<p>[Playlist 1 Name]&nbsp;&nbsp;<input name="p1View" type="button" value="View" /><input name="p1Play" type="button" value="Play" /><input name="p1Delete" type="button" value="Delete" /></p>
 
-<p><img alt="" src="https://brightplanet.com/wp-content/uploads/sites/8/2016/04/play-1073616_1280.png" style="width: 50px; height: 50px;" /><input name="available2" type="button" value="Make remotely available" />&nbsp;<input name="not2" type="button" value="Make remotely UNavailable" /></p>
+<p>[Playlist 2&nbsp;Name]&nbsp;<input name="view2" type="button" value="View" /><input name="play2" type="button" value="Play" /><input name="delete2" type="button" value="Delete" /></p>
 
-<p><img alt="" src="https://brightplanet.com/wp-content/uploads/sites/8/2016/04/play-1073616_1280.png" style="width: 50px; height: 50px;" />&nbsp;<input name="available3" type="button" value="Make remotely available" />&nbsp;<input name="not3" type="button" value="Make remotely UNavailable" /></p>
+<p><b>Playlist: Playlist name here&nbsp;</b></p>
+
+<p><img alt="" src="https://brightplanet.com/wp-content/uploads/sites/8/2016/04/play-1073616_1280.png" style="width: 50px; height: 50px;" />&nbsp;<input name="seg1Del" type="button" value="Delete from playlist " /></p>
+
+<p><img alt="" src="https://brightplanet.com/wp-content/uploads/sites/8/2016/04/play-1073616_1280.png" style="width: 50px; height: 50px;" />&nbsp;<input name="seg2Del" type="button" value="Delete from playlist " /></p>
+
+<p><img alt="" src="https://brightplanet.com/wp-content/uploads/sites/8/2016/04/play-1073616_1280.png" style="width: 50px; height: 50px;" />&nbsp;<input name="seg3Del" type="button" value="Delete from playlist " /></p>
 
 <hr />
-<p><strong>Remote Sites with Access to Library</strong></p>
+<p><b>Local Segments</b></p>
 
-<p>[URL of site 1]&nbsp;<input name="unreg1" type="button" value="Unregister site" /></p>
+<p><b><input name="uploadBtn" type="button" value="Upload a segment to library" /></b></p>
 
-<p>[URL of site 2]&nbsp;<input name="unreg2" type="button" value="Unregister site" /></p>
+<p><img alt="" src="https://brightplanet.com/wp-content/uploads/sites/8/2016/04/play-1073616_1280.png" style="width: 50px; height: 50px;" />&nbsp;<input name="add1" type="button" value="Append to current playlist" />&nbsp;<input name="lseg1Del" type="button" value="Delete" /></p>
 
-<p>[URL of site 3]&nbsp;<input name="unreg3" type="button" value="Unregister site" /></p>
+<p><img alt="" src="https://brightplanet.com/wp-content/uploads/sites/8/2016/04/play-1073616_1280.png" style="width: 50px; height: 50px;" />&nbsp;<input name="lseg2add" type="button" value="Append to current playlist" />&nbsp;<input name="lseg2Del" type="button" value="Delete " /></p>
 
 <p>&nbsp;</p>
 
-<p><input name="URLregister" type="text" value="URL of site to reigster" /><input name="regSite" type="button" value="Register site" /></p>
+<p><strong>Available Remote Segments</strong></p>
+
+<p><img alt="" src="https://brightplanet.com/wp-content/uploads/sites/8/2016/04/play-1073616_1280.png" style="width: 50px; height: 50px;" />&nbsp;<input name="remSegAdd1" type="button" value="Append to current playlist" /></p>
+
+<hr />
+<p><b>Search for a Segment</b></p>
+
+<p>Search by character speaking or spoken sentence</p>
+
+<p><textarea name="searchBar">Type search here </textarea>&nbsp;&nbsp;<input name="searchbtn" type="button" value="Search" /></p>
+
+<p><strong>Search Results</strong></p>
+
+<p><img alt="" src="https://brightplanet.com/wp-content/uploads/sites/8/2016/04/play-1073616_1280.png" style="width: 50px; height: 50px;" />&nbsp;<input name="searchAdd1" type="button" value="Append to current playlist " /></p>
 </body>
 </html>
