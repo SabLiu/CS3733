@@ -40,7 +40,11 @@ paths:
           $ref: '#/definitions/Segment'
       responses:
         200:
-          description: Segment sucessfully uploaded
+          description: Segment sucessfully uploaded, updated list of local segments returned
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Segment'
         400:
           description: Segment not uploaded
     get:
@@ -89,7 +93,11 @@ paths:
           $ref: '#/definitions/idRequest'
       responses:
         200:
-          description: segment sucessfully deleted
+          description: segment sucessfully deleted, updated list of local video segments returned
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Segment'
         400:
           description: invalid segment id
         409:
@@ -99,11 +107,9 @@ paths:
       tags:
       - participant
       - administrator
-      summary: list video segments
+      summary: list video segments (? just local or all)
       operationId: getSegments
-      description: Gets a list of video segments
-      consumes:
-      - application/json
+      description: Gets a list of video segments 
       produces:
       - application/json
       parameters: []
@@ -116,7 +122,8 @@ paths:
               $ref: '#/definitions/Segment'
         400:
           description: Unable to return list of video segments
-    post:
+  /segmentSearch:    
+    get:
       tags:
       - participant
       summary: search video segments
@@ -163,7 +170,11 @@ paths:
           $ref: '#/definitions/Playlist'
       responses:
         200:
-          description: Playlist sucessfully created
+          description: Playlist sucessfully created, updated list of playlists returned
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Playlist'
         400:
           description: Playlist not created
     get:
@@ -210,7 +221,11 @@ paths:
           $ref: '#/definitions/idRequest'
       responses:
         200:
-          description: playlist sucessfully deleted
+          description: playlist sucessfully deleted, updated list of playlists returned
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Playlist'
         400:
           description: invalid playlist id
         409:
@@ -222,8 +237,6 @@ paths:
       summary: list playlists
       operationId: getPlaylists
       description: Get list of playlists in local library
-      consumes:
-      - application/json
       produces:
       - application/json
       parameters: []
@@ -255,7 +268,9 @@ paths:
           $ref: '#/definitions/segmentAndPlaylistIdRequest'
       responses:
         200:
-          description: segment sucessfully added
+          description: segment sucessfully added, updated playlist returned
+          schema:
+            $ref: '#/definitions/Playlist'
         400:
           description: invalid id(s)
         409:
@@ -279,7 +294,9 @@ paths:
           $ref: '#/definitions/segmentAndPlaylistIdRequest'
       responses:
         200:
-          description: segment sucessfully deleted
+          description: segment sucessfully deleted, updated playlist returned
+          schema:
+            $ref: '#/definitions/Playlist'
         400:
           description: invalid id(s)
         409:
@@ -289,7 +306,7 @@ paths:
     post:
       tags:
       - administrator
-      summary: mark local video segment
+      summary: mark local video segment (? is toggle fine)
       operationId: markSegment
       description: make local video segment avaliable for remove access
       consumes:
@@ -304,7 +321,9 @@ paths:
           $ref: '#/definitions/idRequest'
       responses:
         200:
-          description: segment sucessfully marked remotely avaliable
+          description: segment sucessfully marked remotely avaliable, updated segment returned
+          schema:
+            $ref: '#/definitions/Segment'
         400:
           description: invalid id
         409:
@@ -328,7 +347,9 @@ paths:
           $ref: '#/definitions/idRequest'
       responses:
         200:
-          description: segment sucessfully unmarked remotely avaliable
+          description: segment sucessfully unmarked remotely avaliable, updated segment returned
+          schema:
+            $ref: '#/definitions/Segment'
         400:
           description: invalid id
         409:
@@ -353,7 +374,11 @@ paths:
           $ref: '#/definitions/Site'
       responses:
         200:
-          description: site sucessfully added
+          description: site sucessfully added, updated list of remote sites returend
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Site'
         400:
           description: site not sucessfully added
     get:
@@ -362,8 +387,6 @@ paths:
       summary: list remote sites
       operationId: getSites
       description: return remote sites registered to the local library
-      consumes:
-      - application/json
       produces:
       - application/json
       parameters: []
@@ -395,7 +418,11 @@ paths:
           $ref: '#/definitions/Site'
       responses:
         200:
-          description: site sucessfully removed
+          description: site sucessfully removed, updated list of remote sites returend
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Site'
         400:
           description: site not sucessfully removed
             
