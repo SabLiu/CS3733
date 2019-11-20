@@ -186,9 +186,7 @@ paths:
         200:
           description: playist sucessfully returned
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/Playlist'
+            $ref: '#/definitions/Playlist'
         400:
           description: invalid playistid
         409:
@@ -233,7 +231,9 @@ paths:
         200:
           description: playists sucessfully returned
           schema:
-            $ref: '#/definitions/Playlist'
+            type: array
+            items:
+              $ref: '#/definitions/Playlist'
         400:
           description: unable to return playists
   /appendToPlaylist:
