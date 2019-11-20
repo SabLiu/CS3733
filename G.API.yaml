@@ -438,24 +438,6 @@ definitions:
       videoFileAddress:
         type: string
         format: url
-  Library:
-    required:
-    - site
-    properties:
-      localSegments:
-        type: array
-        items:
-          $ref: '#/definitions/Segment'
-      registeredSiteAddresses:
-        type: array
-        items:
-          type: string
-      playlists:
-        type: array
-        items:
-          $ref: '#/definitions/Playlist'
-      site:
-        $ref: '#/definitions/Site'
   Site:
     required:
     - url
