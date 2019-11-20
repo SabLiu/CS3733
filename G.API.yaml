@@ -18,8 +18,6 @@ tags:
 - name: administrator
   description: Administrator functions
 
-#we don't need a play playlist function right?
-
 paths:
   /segment:
     post:
@@ -102,26 +100,46 @@ paths:
           description: invalid segment id
         409:
           description: unable to delete segment    
-  /segments:
+  /localSegments:
     get:
       tags:
       - participant
       - administrator
-      summary: list video segments (? just local or all)
-      operationId: getSegments
-      description: Gets a list of video segments 
+      summary: list video segments 
+      operationId: getLocalSegments
+      description: Gets the list of local video segments 
       produces:
       - application/json
       parameters: []
       responses:
         200:
-          description: List of video segments returned
+          description: List of local video segments returned
           schema:
             type: array
             items:
               $ref: '#/definitions/Segment'
         400:
-          description: Unable to return list of video segments
+          description: Unable to return list of lcoal video segments
+  /remoteSegments:
+    get:
+      tags:
+      - participant
+      - administrator
+      summary: list remote video segments 
+      operationId: getRemoteSegments
+      description: Gets a list of remote video segments 
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: List of remote video segments returned
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Segment'
+        400:
+          description: Unable to return list of remote video segments
   /segmentSearch:    
     get:
       tags:
@@ -306,7 +324,7 @@ paths:
     post:
       tags:
       - administrator
-      summary: mark local video segment (? is toggle fine)
+      summary: mark local video segment 
       operationId: markSegment
       description: make local video segment avaliable for remove access
       consumes:
