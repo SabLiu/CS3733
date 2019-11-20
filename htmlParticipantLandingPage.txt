@@ -1,0 +1,37 @@
+//html for administrator landing page 
+//11/20/19
+
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<h2>Administrator</h2>
+
+<p><strong>Local Video Segments&nbsp;</strong></p>
+
+<video width="320" height="240" controls>
+      <source src=”https://hotspurproject.s3.us-east-2.amazonaws.com/segments/Six.mp4" type=video/ogg>
+      <source src="/build/videos/arcnet.io(7-sec).mp4" type=video/mp4>
+    </video>
+
+<p><img alt="" src="https://brightplanet.com/wp-content/uploads/sites/8/2016/04/play-1073616_1280.png" style="width: 50px; height: 50px;" />&nbsp;<input name="available1" type="button" value="Make remotely available" />&nbsp;<input name="not1" type="button" value="Make remotely UNavailable" /></p>
+
+<p><img alt="" src="https://brightplanet.com/wp-content/uploads/sites/8/2016/04/play-1073616_1280.png" style="width: 50px; height: 50px;" /><input name="available2" type="button" value="Make remotely available" />&nbsp;<input name="not2" type="button" value="Make remotely UNavailable" /></p>
+
+<p><img alt="" src="https://brightplanet.com/wp-content/uploads/sites/8/2016/04/play-1073616_1280.png" style="width: 50px; height: 50px;" />&nbsp;<input name="available3" type="button" value="Make remotely available" />&nbsp;<input name="not3" type="button" value="Make remotely UNavailable" /></p>
+
+<hr />
+<p><strong>Remote Sites with Access to Library</strong></p>
+
+<p>[URL of site 1]&nbsp;<input name="unreg1" type="button" value="Unregister site" /></p>
+
+<p>[URL of site 2]&nbsp;<input name="unreg2" type="button" value="Unregister site" /></p>
+
+<p>[URL of site 3]&nbsp;<input name="unreg3" type="button" value="Unregister site" /></p>
+
+<p>&nbsp;</p>
+
+<p><input name="URLregister" type="text" value="URL of site to reigster" /><input name="regSite" type="button" value="Register site" /></p>
+</body>
+</html>
