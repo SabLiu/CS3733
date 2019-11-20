@@ -46,6 +46,7 @@ paths:
     get:
       tags:
       - participant
+      - administrator
       summary: get a video segment (not a use case)
       operationId: getSegment
       description: Get specified segment from the S3 bucket
@@ -97,6 +98,7 @@ paths:
     get:
       tags:
       - participant
+      - administrator
       summary: list video segments
       operationId: getSegments
       description: Gets a list of video segments
