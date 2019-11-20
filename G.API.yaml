@@ -61,7 +61,7 @@ paths:
         name: segmentID
         description: segment id to return
         schema:
-          $ref: '#/definitions/idRequest'
+          $ref: '#/definitions/id'
       responses:
         200:
           description: segment sucessfully returned
@@ -88,7 +88,7 @@ paths:
         name: segmentID
         description: segment id to delete
         schema:
-          $ref: '#/definitions/idRequest'
+          $ref: '#/definitions/id'
       responses:
         200:
           description: segment sucessfully deleted, updated list of local video segments returned
@@ -105,7 +105,7 @@ paths:
       tags:
       - participant
       - administrator
-      summary: list video segments 
+      summary: list local video segments 
       operationId: getLocalSegments
       description: Gets the list of local video segments 
       produces:
@@ -146,15 +146,15 @@ paths:
       - participant
       summary: search video segments
       operationId: searchSegments
-      description: Searches through provided segments and returns ones matching the given keyword.
+      description: Searches through provided segments and returns ones matching the given keyphrase.
       consumes:
       - application/json
       produces:
       - application/json
       parameters:
       - in: body
-        name: keyword
-        description: keyword for search
+        name: keyphrase
+        description: keyphrase for search
         schema:
           $ref: '#/definitions/searchRequest'
       responses:
@@ -165,7 +165,7 @@ paths:
             items:
               $ref: '#/definitions/Segment'
         400:
-          description: No segments matching keyword found
+          description: No segments matching keyphrase found
         409:
           description: Unable to complete search
         
@@ -210,7 +210,7 @@ paths:
         name: playistID
         description: playist id to return
         schema:
-          $ref: '#/definitions/idRequest'
+          $ref: '#/definitions/id'
       responses:
         200:
           description: playist sucessfully returned
@@ -236,7 +236,7 @@ paths:
         name: playlistID
         description: playist id to delete
         schema:
-          $ref: '#/definitions/idRequest'
+          $ref: '#/definitions/id'
       responses:
         200:
           description: playlist sucessfully deleted, updated list of playlists returned
@@ -336,7 +336,7 @@ paths:
         name: segmentId
         description: local segment to mark
         schema:
-          $ref: '#/definitions/idRequest'
+          $ref: '#/definitions/id'
       responses:
         200:
           description: segment sucessfully marked remotely avaliable, updated segment returned
@@ -362,7 +362,7 @@ paths:
         name: segmentId
         description: local segment to unmark
         schema:
-          $ref: '#/definitions/idRequest'
+          $ref: '#/definitions/id'
       responses:
         200:
           description: segment sucessfully unmarked remotely avaliable, updated segment returned
@@ -430,10 +430,10 @@ paths:
       - application/json
       parameters:
       - in: body
-        name: remoteSite
-        description: site to remove
+        name: remoteSiteId
+        description: site id to remove
         schema:
-          $ref: '#/definitions/Site'
+          $ref: '#/definitions/id'
       responses:
         200:
           description: site sucessfully removed, updated list of remote sites returend
@@ -452,8 +452,7 @@ definitions:
     - name
     properties:
       id:
-        type: integer
-        format: uuid
+        $ref: '#/definitions/id'
       segments:
         type: array
         items:
@@ -470,8 +469,7 @@ definitions:
     - videoFileAddress
     properties:
       id:
-        type: integer
-        format: uuid
+        $ref: '#/definitions/id'
       isRemotelyAvailable:
         type: boolean
       sentence: 
@@ -486,33 +484,35 @@ definitions:
   Site:
     required:
     - url
+    - id
     properties:
+      id:
+        $ref: '#/definitions/id'
       url:
         type: string
         format: url
-  idRequest: #either a segment or playlist
+  id: #either a segment or playlist id
     required:
     - id
     properties:
       id:
-        type: integer
+        type: string
         format: uuid
+        example: 4c3b9ee4-62ca-4605-932a-3c7e9eba7d74
   segmentAndPlaylistIdRequest:
     required:
     - segmentId
     - playlistId
     properties:
       segmentId:
-        type: integer
-        format: uuid
+        $ref: '#/definitions/id'
       playlistId:
-        type: integer
-        format: uuid
+        $ref: '#/definitions/id'
   searchRequest:
     required:
-    - keyword
+    - keyphrase
     properties:
-      keyword:
+      keyphrase:
         type: string
 # Added by API Auto Mocking Plugin
 host: virtserver.swaggerhub.com
