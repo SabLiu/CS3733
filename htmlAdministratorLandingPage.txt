@@ -10,8 +10,7 @@
 <p><strong>Local Video Segments&nbsp;</strong></p>
 
 <video width="320" height="240" controls>
-      <source src=”https://hotspurproject.s3.us-east-2.amazonaws.com/segments/Six.mp4" type=video/ogg>
-      <source src="/build/videos/arcnet.io(7-sec).mp4" type=video/mp4>
+      <source src=”https://hotspurproject.s3.us-east-2.amazonaws.com/segments/Six.mp4" type="video/ogg">
     </video>
 
 <p><img alt="" src="https://brightplanet.com/wp-content/uploads/sites/8/2016/04/play-1073616_1280.png" style="width: 50px; height: 50px;" />&nbsp;<input name="available1" type="button" value="Make remotely available" />&nbsp;<input name="not1" type="button" value="Make remotely UNavailable" /></p>
