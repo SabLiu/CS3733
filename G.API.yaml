@@ -153,8 +153,8 @@ paths:
       - application/json
       parameters:
       - in: body
-        name: keyphrase
-        description: keyphrase for search
+        name: keyphrases
+        description: keyphrases for search (character, segment or both)
         schema:
           $ref: '#/definitions/searchRequest'
       responses:
@@ -165,7 +165,7 @@ paths:
             items:
               $ref: '#/definitions/Segment'
         400:
-          description: No segments matching keyphrase found
+          description: No segments matching keyphrase(s) found or no keyphrase given
         409:
           description: Unable to complete search
         
@@ -509,10 +509,10 @@ definitions:
       playlistId:
         $ref: '#/definitions/id'
   searchRequest:
-    required:
-    - keyphrase
     properties:
-      keyphrase:
+      sentenceKeyphrase:
+        type: string
+      characterKeyphrase:
         type: string
 # Added by API Auto Mocking Plugin
 host: virtserver.swaggerhub.com
