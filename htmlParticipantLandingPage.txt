@@ -5,6 +5,7 @@
 <body>
 <h2>Participant&nbsp;</h2>
 
+<hr />
 <p><b>Playlists</b></p>
 
 <p><b><input name="addPlaylistBtn" type="button" value="Create a new playlist" /></b></p>
