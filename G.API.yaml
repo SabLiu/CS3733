@@ -156,7 +156,7 @@ paths:
         name: keyphrases
         description: keyphrases for search (character, segment or both)
         schema:
-          $ref: '#/definitions/searchRequest'
+          $ref: '#/definitions/SearchRequest'
       responses:
         200:
           description: List of matching video segments returned
@@ -210,7 +210,7 @@ paths:
         name: playistID
         description: playist id to return
         schema:
-          $ref: '#/definitions/id'
+          $ref: '#/definitions/Id'
       responses:
         200:
           description: playist sucessfully returned
@@ -236,7 +236,7 @@ paths:
         name: playlistID
         description: playist id to delete
         schema:
-          $ref: '#/definitions/id'
+          $ref: '#/definitions/Id'
       responses:
         200:
           description: playlist sucessfully deleted, updated list of playlists returned
@@ -283,7 +283,7 @@ paths:
         name: ids
         description: segment id to add and playlist id to add it to
         schema:
-          $ref: '#/definitions/segmentAndPlaylistIdRequest'
+          $ref: '#/definitions/SegmentAndPlaylistIdRequest'
       responses:
         200:
           description: segment sucessfully added, updated playlist returned
@@ -309,7 +309,7 @@ paths:
         name: ids
         description: segment id to delete and playlist id to delete it from
         schema:
-          $ref: '#/definitions/segmentAndPlaylistIdRequest'
+          $ref: '#/definitions/SegmentAndPlaylistIdRequest'
       responses:
         200:
           description: segment sucessfully deleted, updated playlist returned
@@ -433,7 +433,7 @@ paths:
         name: remoteSiteId
         description: site id to remove
         schema:
-          $ref: '#/definitions/id'
+          $ref: '#/definitions/Id'
       responses:
         200:
           description: site sucessfully removed, updated list of remote sites returend
@@ -452,7 +452,7 @@ definitions:
     - name
     properties:
       id:
-        $ref: '#/definitions/id'
+        $ref: '#/definitions/Id'
       segments:
         type: array
         items:
@@ -469,7 +469,7 @@ definitions:
     - videoFileAddress
     properties:
       id:
-        $ref: '#/definitions/id'
+        $ref: '#/definitions/Id'
       isRemotelyAvailable:
         type: boolean
       sentence: 
