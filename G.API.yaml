@@ -1,0 +1,521 @@
+swagger: '2.0'
+info:
+  description: G.API for CS3733 B20
+  version: 1.0.0
+  title: Simple Inventory API
+  # put the contact info for your development or API team
+  contact:
+    email: mcsharman@wpi.edu
+
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+# tags are used for organizing operations
+tags:
+- name: participant
+  description: Participant functions
+- name: administrator
+  description: Administrator functions
+
+paths:
+  /segment:
+    post:
+      tags:
+      - participant
+      summary: upload video segment
+      operationId: uploadSegment
+      description: Uploads a segment to the S3 bucket and stores corrisponding data
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: segment
+        description: segment to upload
+        schema:
+          $ref: '#/definitions/Segment'
+      responses:
+        200:
+          description: Segment sucessfully uploaded, updated list of local segments returned
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Segment'
+        400:
+          description: Segment not uploaded
+    get:
+      tags:
+      - participant
+      - administrator
+      summary: get a video segment (not a use case)
+      operationId: getSegment
+      description: Get specified segment from the S3 bucket
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: segmentID
+        description: segment id to return
+        schema:
+          $ref: '#/definitions/Id'
+      responses:
+        200:
+          description: segment sucessfully returned
+          schema:
+            $ref: '#/definitions/Segment'
+        400:
+          description: invalid segment id
+        409:
+          description: unable to return segment  
+  /deleteSegment:
+    post:
+      tags:
+      - participant
+      - administrator
+      summary: delete video segment
+      operationId: deleteSegment
+      description: Delete specified segment from the S3 bucket
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: segmentID
+        description: segment id to delete
+        schema:
+          $ref: '#/definitions/Id'
+      responses:
+        200:
+          description: segment sucessfully deleted, updated list of local video segments returned
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Segment'
+        400:
+          description: invalid segment id
+        409:
+          description: unable to delete segment    
+  /localSegments:
+    get:
+      tags:
+      - participant
+      - administrator
+      summary: list local video segments 
+      operationId: getLocalSegments
+      description: Gets the list of local video segments 
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: List of local video segments returned
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Segment'
+        400:
+          description: Unable to return list of lcoal video segments
+  /remoteSegments:
+    get:
+      tags:
+      - participant
+      - administrator
+      summary: list remote video segments 
+      operationId: getRemoteSegments
+      description: Gets a list of remote video segments 
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: List of remote video segments returned
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Segment'
+        400:
+          description: Unable to return list of remote video segments
+  /segmentSearch:    
+    get:
+      tags:
+      - participant
+      summary: search video segments
+      operationId: searchSegments
+      description: Searches through provided segments and returns ones matching the given keyphrase.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: keyphrases
+        description: keyphrases for search (character, segment or both)
+        schema:
+          $ref: '#/definitions/SearchRequest'
+      responses:
+        200:
+          description: List of matching video segments returned
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Segment'
+        400:
+          description: No segments matching keyphrase(s) found or no keyphrase given
+        409:
+          description: Unable to complete search
+        
+  /playlist:
+    post:
+      tags:
+      - participant
+      summary: create playlist
+      operationId: createPlaylist
+      description: Creates a new playlist in the partipant's local library
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: playlist
+        description: data to create playist
+        schema:
+          $ref: '#/definitions/Playlist'
+      responses:
+        200:
+          description: Playlist sucessfully created, updated list of playlists returned
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Playlist'
+        400:
+          description: Playlist not created
+    get:
+      tags:
+      - participant
+      summary: get playlist (not a use case)
+      operationId: getPlaylist
+      description: Get specified playlist 
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: playistID
+        description: playist id to return
+        schema:
+          $ref: '#/definitions/Id'
+      responses:
+        200:
+          description: playist sucessfully returned
+          schema:
+            $ref: '#/definitions/Playlist'
+        400:
+          description: invalid playistid
+        409:
+          description: unable to return playists
+  /deletePlaylist:
+    post:
+      tags:
+      - participant
+      summary: delete playlist
+      operationId: deletePlaylist
+      description: Delete specified playlist 
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: playlistID
+        description: playist id to delete
+        schema:
+          $ref: '#/definitions/Id'
+      responses:
+        200:
+          description: playlist sucessfully deleted, updated list of playlists returned
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Playlist'
+        400:
+          description: invalid playlist id
+        409:
+          description: unable to delete playist
+  /playlists:
+    get:
+      tags:
+      - participant
+      summary: list playlists
+      operationId: getPlaylists
+      description: Get list of playlists in local library
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: playists sucessfully returned
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Playlist'
+        400:
+          description: unable to return playists
+  /appendToPlaylist:
+    post:
+      tags:
+      - participant
+      summary: append video segment to playlist
+      operationId: appendToPlaylist
+      description: Add available segment to playist
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: ids
+        description: segment id to add and playlist id to add it to
+        schema:
+          $ref: '#/definitions/SegmentAndPlaylistIdRequest'
+      responses:
+        200:
+          description: segment sucessfully added, updated playlist returned
+          schema:
+            $ref: '#/definitions/Playlist'
+        400:
+          description: invalid id(s)
+        409:
+          description: unable to add segment
+  /removeFromPlaylist:
+    post:
+      tags:
+      - participant
+      summary: delete video segment from playlist
+      operationId: removeFromPlaylist
+      description: delete available segment to playist
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: ids
+        description: segment id to delete and playlist id to delete it from
+        schema:
+          $ref: '#/definitions/SegmentAndPlaylistIdRequest'
+      responses:
+        200:
+          description: segment sucessfully deleted, updated playlist returned
+          schema:
+            $ref: '#/definitions/Playlist'
+        400:
+          description: invalid id(s)
+        409:
+          description: unable to delete segment
+          
+  /markSegment:
+    post:
+      tags:
+      - administrator
+      summary: mark local video segment 
+      operationId: markSegment
+      description: make local video segment avaliable for remove access
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: segmentId
+        description: local segment to mark
+        schema:
+          $ref: '#/definitions/Id'
+      responses:
+        200:
+          description: segment sucessfully marked remotely avaliable, updated segment returned
+          schema:
+            $ref: '#/definitions/Segment'
+        400:
+          description: invalid id
+        409:
+          description: unable to mark segment remotely avaliable
+  /unmarkSegment:
+    post:
+      tags:
+      - administrator
+      summary: unmark local video segment
+      operationId: unmarkSegment
+      description: make local video segment unavaliable for remove access
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: segmentId
+        description: local segment to unmark
+        schema:
+          $ref: '#/definitions/Id'
+      responses:
+        200:
+          description: segment sucessfully unmarked remotely avaliable, updated segment returned
+          schema:
+            $ref: '#/definitions/Segment'
+        400:
+          description: invalid id
+        409:
+          description: unable to unmark segment remotely avaliable
+          
+  /remoteSite:
+    post:
+      tags:
+      - administrator
+      summary: register remote site
+      operationId: registerSite
+      description: add a remote site to the local library to make its video segments available for use
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: remoteSite
+        description: site to add
+        schema:
+          $ref: '#/definitions/Site'
+      responses:
+        200:
+          description: site sucessfully added, updated list of remote sites returend
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Site'
+        400:
+          description: site not sucessfully added
+    get:
+      tags:
+      - administrator
+      summary: list remote sites
+      operationId: getSites
+      description: return remote sites registered to the local library
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: sites sucessfully returned
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Site'
+        400:
+          description: sites not sucessfully returned
+  /removeRemoteSite:
+    post:
+      tags:
+      - administrator
+      summary: remove remote site
+      operationId: removeSite
+      description: remove a remote site frome to the local library
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: remoteSiteId
+        description: site id to remove
+        schema:
+          $ref: '#/definitions/Id'
+      responses:
+        200:
+          description: site sucessfully removed, updated list of remote sites returend
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Site'
+        400:
+          description: site not sucessfully removed
+            
+definitions:
+  Playlist:
+    type: object
+    required:
+    - id
+    - name
+    properties:
+      id:
+        $ref: '#/definitions/Id'
+      segments:
+        type: array
+        items:
+          $ref: '#/definitions/Segment'
+      name:
+        type: string
+        example: My playlist
+  Segment:
+    required:
+    - id
+    - isRemotelyAvailable
+    - sentence
+    - character
+    - videoFileAddress
+    properties:
+      id:
+        $ref: '#/definitions/Id'
+      isRemotelyAvailable:
+        type: boolean
+      sentence: 
+        type: string
+        example: Elementary, my dear Watson.
+      character: 
+        type: string
+        example: Sherlock Holmes
+      videoFileAddress:
+        type: string
+        format: url
+  Site:
+    required:
+    - url
+    - id
+    properties:
+      id:
+        $ref: '#/definitions/Id'
+      url:
+        type: string
+        format: url
+  Id: #either a segment or playlist id
+    required:
+    - id
+    properties:
+      id:
+        type: string
+        format: uuid
+        example: 4c3b9ee4-62ca-4605-932a-3c7e9eba7d74
+  SegmentAndPlaylistIdRequest:
+    required:
+    - segmentId
+    - playlistId
+    properties:
+      segmentId:
+        $ref: '#/definitions/Id'
+      playlistId:
+        $ref: '#/definitions/Id'
+  SearchRequest:
+    properties:
+      sentenceKeyphrase:
+        type: string
+      characterKeyphrase:
+        type: string
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /mariasharman137/G.API/1.0.0
+schemes:
+ - https
