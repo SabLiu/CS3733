@@ -5,6 +5,10 @@
 <body>
 <h2>Participant&nbsp;</h2>
 
+
+
+
+
 <hr />
 <p><b>Playlists</b></p>
 
@@ -14,38 +18,139 @@
 
 <p>[Playlist 2&nbsp;Name]&nbsp;<input name="view2" type="button" value="View" /><input name="play2" type="button" value="Play" /><input name="delete2" type="button" value="Delete" /></p>
 
+
+
+
+
+
+
 <p><b>Playlist: Playlist name here&nbsp;</b></p>
 
-<p><img alt="" src="https://brightplanet.com/wp-content/uploads/sites/8/2016/04/play-1073616_1280.png" style="width: 50px; height: 50px;" />&nbsp;<input name="seg1Del" type="button" value="Delete from playlist " /></p>
+<p>
+<video controls="" height="240" id="vid1" width="320"><source src="https://hotspurproject.s3.us-east-2.amazonaws.com/segments/NewEight.ogg" type="video/ogg" /> Your browser does not support the video tag.</video>
+</p>
 
-<p><img alt="" src="https://brightplanet.com/wp-content/uploads/sites/8/2016/04/play-1073616_1280.png" style="width: 50px; height: 50px;" />&nbsp;<input name="seg2Del" type="button" value="Delete from playlist " /></p>
+<p><input name="del1" type="button" value="Delete from playlist" /></p>
 
-<p><img alt="" src="https://brightplanet.com/wp-content/uploads/sites/8/2016/04/play-1073616_1280.png" style="width: 50px; height: 50px;" />&nbsp;<input name="seg3Del" type="button" value="Delete from playlist " /></p>
+<p>
+<video controls="" height="240" id="vid2" width="320"><source src="https://hotspurproject.s3.us-east-2.amazonaws.com/segments/NewSix.ogg" type="video/ogg" /> Your browser does not support the video tag.</video>
+</p>
+
+<p><input name="del2" type="button" value="Delete from playlist" /></p>
+
+<p>
+<video controls="" height="240" id="vid3" width="320"><source src="https://hotspurproject.s3.us-east-2.amazonaws.com/segments/NewThree.ogg" type="video/ogg" /> Your browser does not support the video tag.</video>
+</p>
+
+<p><input name="del3" type="button" value="Delete from playlist" /></p>
+
+
+
+
+
 
 <hr />
 <p><b>Local Segments</b></p>
 
 <p><b><input name="uploadBtn" type="button" value="Upload a segment to library" /></b></p>
 
-<p><img alt="" src="https://brightplanet.com/wp-content/uploads/sites/8/2016/04/play-1073616_1280.png" style="width: 50px; height: 50px;" />&nbsp;<input name="add1" type="button" value="Append to current playlist" />&nbsp;<input name="lseg1Del" type="button" value="Delete" /></p>
+<p>
+<video controls="" height="240" id="loc1" width="320"><source src="https://hotspurproject.s3.us-east-2.amazonaws.com/segments/NewOne.ogg" type="video/ogg" /> Your browser does not support the video tag.</video>
+</p>
 
-<p><img alt="" src="https://brightplanet.com/wp-content/uploads/sites/8/2016/04/play-1073616_1280.png" style="width: 50px; height: 50px;" />&nbsp;<input name="lseg2add" type="button" value="Append to current playlist" />&nbsp;<input name="lseg2Del" type="button" value="Delete " /></p>
+<p><input name="app1" type="button" value="Append to current playlist" /><input name="del1" type="button" value="Delete from library" /></p>
 
-<p>&nbsp;</p>
+<p>
+<video controls="" height="240" id="loc2" width="320"><source src="https://hotspurproject.s3.us-east-2.amazonaws.com/segments/NewTwo.ogg" type="video/ogg" /> Your browser does not support the video tag.</video>
+</p>
+
+<p><input name="app2" type="button" value="Append to current playlist" /><input name="del2" type="button" value="Delete from library" /></p>
+
+<p>
+<video controls="" height="240" id="loc3" width="320"><source src="https://hotspurproject.s3.us-east-2.amazonaws.com/segments/NewThree.ogg" type="video/ogg" /> Your browser does not support the video tag.</video>
+</p>
+
+<p><input name="app3" type="button" value="Append to current playlist" /><input name="del3" type="button" value="Delete from library" /></p>
+
+<p>
+<video controls="" height="240" id="loc4" width="320"><source src="https://hotspurproject.s3.us-east-2.amazonaws.com/segments/NewFour.ogg" type="video/ogg" /> Your browser does not support the video tag.</video>
+</p>
+
+<p><input name="app4" type="button" value="Append to current playlist" /><input name="del4" type="button" value="Delete from library" /></p>
+
+<p>
+<video controls="" height="240" id="loc5" width="320"><source src="https://hotspurproject.s3.us-east-2.amazonaws.com/segments/NewFive.ogg" type="video/ogg" /> Your browser does not support the video tag.</video>
+</p>
+
+<p><input name="app5" type="button" value="Append to current playlist" /><input name="del5" type="button" value="Delete from library" /></p>
+
+<p>
+<video controls="" height="240" id="loc6" width="320"><source src="https://hotspurproject.s3.us-east-2.amazonaws.com/segments/NewSix.ogg" type="video/ogg" /> Your browser does not support the video tag.</video>
+</p>
+
+<p><input name="app6" type="button" value="Append to current playlist" /><input name="del6" type="button" value="Delete from library" /></p>
+
+<p>
+<video controls="" height="240" id="loc7" width="320"><source src="https://hotspurproject.s3.us-east-2.amazonaws.com/segments/NewSeven.ogg" type="video/ogg" /> Your browser does not support the video tag.</video>
+</p>
+
+<p><input name="app7" type="button" value="Append to current playlist" /><input name="del7" type="button" value="Delete from library" /></p>
+
+<p>
+<video controls="" height="240" id="loc8" width="320"><source src="https://hotspurproject.s3.us-east-2.amazonaws.com/segments/NewEight.ogg" type="video/ogg" /> Your browser does not support the video tag.</video>
+</p>
+
+<p><input name="app8" type="button" value="Append to current playlist" /><input name="del8" type="button" value="Delete from library" /></p>
+
+<p>
+<video controls="" height="240" id="loc9" width="320"><source src="https://hotspurproject.s3.us-east-2.amazonaws.com/segments/NewNine.ogg" type="video/ogg" /> Your browser does not support the video tag.</video>
+</p>
+
+<p><input name="app9" type="button" value="Append to current playlist" /><input name="del9" type="button" value="Delete from library" /></p>
+
+<p>
+<video controls="" height="240" id="loc10" width="320"><source src="https://hotspurproject.s3.us-east-2.amazonaws.com/segments/NewTen.ogg" type="video/ogg" /> Your browser does not support the video tag.</video>
+</p>
+
+<p><input name="app10" type="button" value="Append to current playlist" /><input name="del10" type="button" value="Delete from library" /></p>
+
+
+
+
+
+
+
 
 <p><strong>Available Remote Segments</strong></p>
 
-<p><img alt="" src="https://brightplanet.com/wp-content/uploads/sites/8/2016/04/play-1073616_1280.png" style="width: 50px; height: 50px;" />&nbsp;<input name="remSegAdd1" type="button" value="Append to current playlist" /></p>
+<p>
+<video controls="" height="240" id="rem1" width="320"><source src="https://hotspurproject.s3.us-east-2.amazonaws.com/segments/takeThis.mpg.ogg" type="video/ogg" /> Your browser does not support the video tag.</video>
+</p>
 
+<p><input name="appR1" type="button" value="Append to current playlist" /></p>
 <hr />
+
+
+
+
+
 <p><b>Search for a Segment</b></p>
 
 <p>Search by character speaking or spoken sentence</p>
 
 <p><textarea name="searchBar">Type search here </textarea>&nbsp;&nbsp;<input name="searchbtn" type="button" value="Search" /></p>
 
+
+
+
+
+
 <p><strong>Search Results</strong></p>
 
-<p><img alt="" src="https://brightplanet.com/wp-content/uploads/sites/8/2016/04/play-1073616_1280.png" style="width: 50px; height: 50px;" />&nbsp;<input name="searchAdd1" type="button" value="Append to current playlist " /></p>
+<p>
+<video controls="" height="240" id="loc7" width="320"><source src="https://hotspurproject.s3.us-east-2.amazonaws.com/segments/NewSeven.ogg" type="video/ogg" /> Your browser does not support the video tag.</video>
+</p>
+
+<p><input name="appS1" type="button" value="Append to current playlist" /></p>
 </body>
 </html>
