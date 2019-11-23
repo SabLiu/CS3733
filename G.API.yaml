@@ -475,10 +475,10 @@ definitions:
         type: boolean
       sentence: 
         type: string
-        example: Elementary, my dear Watson.
+      #  example: Elementary, my dear Watson.
       character: 
         type: string
-        example: Sherlock Holmes
+      #  example: Sherlock Holmes
       videoFileAddress:
         type: string
         format: url
@@ -501,7 +501,7 @@ definitions:
       id:
         type: string
         format: uuid
-        example: 4c3b9ee4-62ca-4605-932a-3c7e9eba7d74
+      #  example: 4c3b9ee4-62ca-4605-932a-3c7e9eba7d74
   SegmentAndPlaylistIdRequest:
     type: object
     required:
