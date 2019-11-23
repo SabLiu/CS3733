@@ -1,5 +1,5 @@
 package databases;
-
+import java.sql.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -20,6 +20,22 @@ public class SegmentsDAO {
     	try  {
     		conn = DatabaseUtil.connect();
     	} catch (Exception e) {
+
+    		//********************************//
+
+    		//********************************//
+
+    		//********************************//
+
+    		//********************************//
+    		//********************************//
+    		
+    		
+    		//********************************//
+    		//this is called thus it isn't conecting
+    		
+    		
+    		System.out.println("jdhbfvhb");
     		conn = null;
     	}
     }
@@ -104,16 +120,22 @@ public class SegmentsDAO {
         
         List<Segment> allSegments = new ArrayList<>();
         try {
+        	System.out.println("1");
             Statement statement = conn.createStatement();
+            System.out.println("2");
             String query = "SELECT * FROM constants";
+            System.out.println("3");
             ResultSet resultSet = statement.executeQuery(query);
+            System.out.println("4");
 
             while (resultSet.next()) {
+            	System.out.println("2");
                 Segment c = generateSegment(resultSet);
                 allSegments.add(c);
             }
             resultSet.close();
             statement.close();
+            System.out.println("3");
             return allSegments;
 
         } catch (Exception e) {

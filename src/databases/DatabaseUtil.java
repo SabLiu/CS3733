@@ -11,7 +11,11 @@ public class DatabaseUtil {
 		//  dbUsername = System.getenv("dbUsername");
 		//  dbPassword = System.getenv("dbPassword");
 		//  rdsMySqlDatabaseUrl = System.getenv("rdsMySqlDatabaseUrl");
-		//
+	
+	
+		//librarydb.csqjgbtipsjp.us-east-2.rds.amazonaws.com
+	
+	
 		// https://docs.aws.amazon.com/lambda/latest/dg/env_variables.html
 		//
 		// The above link shows how to do that.
