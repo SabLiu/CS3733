@@ -46,10 +46,12 @@ function processListResponse(result) {
     var character 		= constantJson["character"];
     var segAddr 		= constantJson["segmentAddress"];
     //updates html
-    output = output + "<p><video controls="" height="240" id=" + segID + " width="320"><source src=" + segAddr + "type="video/ogg" /> Your browser does not support the video tag.</video></p>";
+    output = output + "<p><video controls="" height="240" id=" + segID + " width="320"><source src=" + segAddr + "type="video/ogg" /> Your browser does not support the video tag.</video></p>" + "<p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
 
     /* HTML for showing a video (template) : 
      *<p><video controls="" height="240" id="vid1" width="320"><source src="https://hotspurproject.s3.us-east-2.amazonaws.com/segments/NewOne.ogg" type="video/ogg" /> Your browser does not support the video tag.</video></p>
+     show character and speech 
+     <p>McCoy: &quot;Then I need a drink.&quot;&nbsp;</p>
      */
   }
 
