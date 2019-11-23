@@ -1,7 +1,7 @@
 package definitions;
 
 public class Site {
-	Id id;
+	Id id; 
 	String url;
 	
 	public Site(Id id, String url) {
@@ -15,5 +15,21 @@ public class Site {
 	
 	public String getUrl() {
 		return url;
+	}
+
+	@Override
+	public int hashCode() {
+		return id.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return (obj != null) && (obj instanceof Site) && (this.id.equals(((Site)obj).id));
+	}
+
+	@Override
+	public String toString() {
+		return ("Site: " + url + '\n' +
+				"\t" + id + "\n");
 	}
 }

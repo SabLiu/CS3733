@@ -1,13 +1,19 @@
 package definitions;
 
+import java.util.UUID;
+
 public class Id {
-	String id;
+	final UUID id;
 	
-	public Id(String uuid) {
+	public Id() {
+		this.id = UUID.randomUUID();
+	}
+	
+	public Id(UUID uuid) {
 		this.id = uuid;
 	}
 	
-	public String getId() {
+	public UUID getId() {
 		return id;
 	}
 
@@ -18,7 +24,12 @@ public class Id {
 
 	@Override
 	public boolean equals(Object obj) {
-		return (obj instanceof Id) && (((Id)obj).id == this.id);
+		return (obj != null) &&  (obj instanceof Id) && (((Id)obj).id == this.id);
 	}
-		
+
+	@Override
+	public String toString() {
+		return id.toString();
+	}
+			
 }
