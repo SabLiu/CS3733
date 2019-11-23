@@ -3,18 +3,18 @@ package definitions;
 import java.util.UUID;
 
 public class Id {
-	final UUID id;
+	final String id;
 	
 	public Id() {
-		this.id = UUID.randomUUID();
+		this.id = UUID.randomUUID().toString();
 	}
 	
-	public Id(UUID uuid) {
+	public Id(String uuid) {
 		this.id = uuid;
 	}
 	
-	public UUID getId() {
-		return id;
+	public String getId() {
+		return this.id;
 	}
 
 	@Override
@@ -29,7 +29,7 @@ public class Id {
 
 	@Override
 	public String toString() {
-		return id.toString();
+		return this.id;
 	}
 			
 }
