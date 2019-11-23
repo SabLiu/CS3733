@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Playlist {
 	final Id id;
 	String name;
-	ArrayList<Segment> segments;
+	Segment[] segments;
 	
 	public Playlist(Id id, String name) {
 		this.id = id;
@@ -20,7 +20,7 @@ public class Playlist {
 		return name;
 	}
 
-	public ArrayList<Segment> getSegments() {
+	public Segment[] getSegments() {
 		return segments;
 	}
 	
