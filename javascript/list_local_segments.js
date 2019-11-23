@@ -40,16 +40,19 @@ function processListResponse(result) {
 	var constantJson = js.list[i];
     console.log(constantJson);
     
-    var cname = constantJson["name"];
-    var cval = constantJson["value"];
-    var sysvar = constantJson["system"];
-    
+    var segID 			= constantJson["id"];
+    var isRemAvailable 	= constantJson["isRemotelyAvailable"];
+    var sent			= constantJson["sentence"];
+    var character 		= constantJson["character"];
+    var segAddr 		= constantJson["segmentAddress"];
     //updates html
-    if (sysvar) {
-    	output = output + "<div id=\"const" + cname + "\"><b>" + cname + ":</b> = " + cval + "<br></div>";
-    } else {
-    	output = output + "<div id=\"const" + cname + "\"><b>" + cname + ":</b> = " + cval + "(<a href='javaScript:requestDelete(\"" + cname + "\")'><img src='deleteIcon.png'></img></a>) <br></div>";
-    }
+    output = output + "<p><video controls="" height="240" id=" + segID + " width="320"><source src=" + segAddr + "type="video/ogg" /> Your browser does not support the video tag.</video></p>" + "<p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
+
+    /* HTML for showing a video (template) : 
+     *<p><video controls="" height="240" id="vid1" width="320"><source src="https://hotspurproject.s3.us-east-2.amazonaws.com/segments/NewOne.ogg" type="video/ogg" /> Your browser does not support the video tag.</video></p>
+     show character and speech 
+     <p>McCoy: &quot;Then I need a drink.&quot;&nbsp;</p>
+     */
   }
 
   // Update computation result
