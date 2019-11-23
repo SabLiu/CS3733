@@ -459,8 +459,9 @@ definitions:
           $ref: '#/definitions/Segment'
       name:
         type: string
-        example: My playlist
+        #example: My playlist
   Segment:
+    type: object
     required:
     - id
     - isRemotelyAvailable
@@ -474,14 +475,15 @@ definitions:
         type: boolean
       sentence: 
         type: string
-        example: Elementary, my dear Watson.
+      #  example: Elementary, my dear Watson.
       character: 
         type: string
-        example: Sherlock Holmes
+      #  example: Sherlock Holmes
       videoFileAddress:
         type: string
         format: url
   Site:
+    type: object
     required:
     - url
     - id
@@ -492,14 +494,16 @@ definitions:
         type: string
         format: url
   Id: #either a segment or playlist id
+    type: object
     required:
     - id
     properties:
       id:
         type: string
         format: uuid
-        example: 4c3b9ee4-62ca-4605-932a-3c7e9eba7d74
+      #  example: 4c3b9ee4-62ca-4605-932a-3c7e9eba7d74
   SegmentAndPlaylistIdRequest:
+    type: object
     required:
     - segmentId
     - playlistId
@@ -509,6 +513,7 @@ definitions:
       playlistId:
         $ref: '#/definitions/Id'
   SearchRequest:
+    type: object
     properties:
       sentenceKeyphrase:
         type: string
