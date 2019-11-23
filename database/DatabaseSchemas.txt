@@ -12,13 +12,13 @@ CREATE TABLE `Library` (
 
 CREATE TABLE `Playlists` (
   `PlayListID` varchar(256) NOT NULL,
-  `SegmentID` varchar(20) DEFAULT NULL,
+  `SegmentID` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`PlayListID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
 
 
 CREATE TABLE `SiteLibrary` (
-  `SiteID` varchar(45) NOT NULL,
+  `SiteID` varchar(64) NOT NULL,
   `SiteURL` text NOT NULL,
   PRIMARY KEY (`SiteID`),
   UNIQUE KEY `SiteID_UNIQUE` (`SiteID`)
