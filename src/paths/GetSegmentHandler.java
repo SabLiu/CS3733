@@ -2,13 +2,14 @@ package paths;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
+
+import definitions.Id;
 import definitions.Segment;
 
-
-public class CreateSegmentHandler implements RequestHandler<Segment,Segment[]>{
+ class GetSegmentHandler implements RequestHandler<Id, Segment>{
 
 	@Override
-	public Segment[] handleRequest(Segment input, Context context) {
+	public Segment handleRequest(Id input, Context context) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -2,13 +2,14 @@ package paths;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-import definitions.Segment;
 
+import definitions.Id;
+import definitions.Playlist;
 
-public class CreateSegmentHandler implements RequestHandler<Segment,Segment[]>{
+ class GetPlaylistHandler implements RequestHandler<Id, Playlist>{
 
 	@Override
-	public Segment[] handleRequest(Segment input, Context context) {
+	public Playlist handleRequest(Id input, Context context) {
 		// TODO Auto-generated method stub
 		return null;
 	}
