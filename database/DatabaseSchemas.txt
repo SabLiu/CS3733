@@ -1,5 +1,5 @@
 CREATE TABLE `Library` (
-  `SegmentID` varchar(20) NOT NULL,
+  `SegmentID` varchar(64) NOT NULL,
   `SegmentName` varchar(45) DEFAULT NULL, //Just so we can debug easier
   `SegmentWords` text,
   `SegmentSpeaker` tinytext,
