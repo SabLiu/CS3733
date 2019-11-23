@@ -12,8 +12,7 @@ CREATE TABLE `Library` (
 
 CREATE TABLE `Playlists` (
   `PlayListID` varchar(256) NOT NULL,
-  `SegmentID` varchar(64) DEFAULT NULL,
-  PRIMARY KEY (`PlayListID`)
+  `SegmentID` varchar(64) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
 
 
