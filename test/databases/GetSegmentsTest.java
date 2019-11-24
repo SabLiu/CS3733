@@ -46,7 +46,7 @@ public class GetSegmentsTest {
 			int i = 0;
 			while(i<10) {
 				if(!gottenSegments.get(i).equals(controllerSegments.get(i))) {
-					System.out.println("wrong");
+					System.out.println(gottenSegments.get(i) + "\n" + controllerSegments.get(i));
 					assertEquals(false, true);
 				}
 				i++;

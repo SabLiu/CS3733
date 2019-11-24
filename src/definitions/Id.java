@@ -24,7 +24,7 @@ public class Id {
 
 	@Override
 	public boolean equals(Object obj) {
-		return (obj != null) &&  (obj instanceof Id) && (((Id)obj).id == this.id);
+		return (obj != null) &&  (obj instanceof Id) && (((Id)obj).id.equals(this.id));
 	}
 
 	@Override

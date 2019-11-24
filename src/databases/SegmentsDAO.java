@@ -126,7 +126,6 @@ public class SegmentsDAO {
 
             while (resultSet.next()) {
                 Segment c = generateSegment(resultSet);
-                System.out.println(c);
                 allSegments.add(c);
             }
             resultSet.close();
