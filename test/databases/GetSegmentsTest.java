@@ -1,4 +1,4 @@
-package SegmentsDAO;
+package databases;
 
 import static org.junit.Assert.*;
 

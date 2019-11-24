@@ -120,22 +120,17 @@ public class SegmentsDAO {
         
         List<Segment> allSegments = new ArrayList<>();
         try {
-        	System.out.println("1");
             Statement statement = conn.createStatement();
-            System.out.println("2");
-            String query = "SELECT * FROM constants";
-            System.out.println("3");
+            String query = "SELECT * FROM Library";
             ResultSet resultSet = statement.executeQuery(query);
-            System.out.println("4");
 
             while (resultSet.next()) {
-            	System.out.println("2");
                 Segment c = generateSegment(resultSet);
+                System.out.println(c);
                 allSegments.add(c);
             }
             resultSet.close();
             statement.close();
-            System.out.println("3");
             return allSegments;
 
         } catch (Exception e) {
