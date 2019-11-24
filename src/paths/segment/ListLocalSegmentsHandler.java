@@ -36,6 +36,7 @@ import definitions.Segment;
 			response = new Response<Segment[]>(list, 200);
 		} catch (Exception e) {
 			response = new Response<Segment[]>(400, e.getMessage());
+			logger.log(e.getMessage());
 		}
 		
 		return response;

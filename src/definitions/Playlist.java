@@ -1,7 +1,5 @@
 package definitions;
 
-import java.util.ArrayList;
-
 public class Playlist {
 	final Id id;
 	String name;
