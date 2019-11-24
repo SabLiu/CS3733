@@ -6,6 +6,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.amazonaws.services.lambda.runtime.LambdaLogger;
+
 import definitions.Id;
 import definitions.Segment;
 
@@ -39,7 +41,8 @@ public class SegmentsDAO {
     		conn = null;
     	}
     }
-/*
+
+	/*
     public Segment getSegment(String id) throws Exception {
         
         try {
@@ -116,8 +119,7 @@ public class SegmentsDAO {
         }
     }
 */
-    public List<Segment> getAllLocalSegments() throws Exception {
-        
+    public List<Segment> getAllLocalSegments() throws Exception {;
         List<Segment> allSegments = new ArrayList<>();
         try {
             Statement statement = conn.createStatement();

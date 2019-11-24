@@ -3,6 +3,8 @@ package databases;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+import com.amazonaws.services.lambda.runtime.LambdaLogger;
+
 public class DatabaseUtil {
 	// These should never be stored directly in code.  I am doing this quickly complete the 
 		// demonstration code. The appropriate solution is to store these values in environment
@@ -37,10 +39,11 @@ public class DatabaseUtil {
 		 */
 		protected static Connection connect() throws Exception {
 			if (conn != null) { return conn; }
-			
 			try {
 				//System.out.println("start connecting......");
 				Class.forName("com.mysql.jdbc.Driver");
+				
+				DriverManager.setLoginTimeout(10);
 				conn = DriverManager.getConnection(
 						jdbcTag + rdsMySqlDatabaseUrl + ":" + rdsMySqlDatabasePort + "/" + dbName + multiQueries,
 						dbUsername,
@@ -48,6 +51,7 @@ public class DatabaseUtil {
 				//System.out.println("Database has been connected successfully.");
 				return conn;
 			} catch (Exception ex) {
+				
 				System.out.println("Failed in database connection " + ex.getMessage());
 				throw new Exception("Failed in database connection");
 			}
