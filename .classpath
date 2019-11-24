@@ -26,5 +26,6 @@
 	<classpathentry kind="lib" path="C:/eclipse-soft-eng/CS3733-B19-Hotspur/libs/gson-2.6.2.jar"/>
 	<classpathentry kind="lib" path="C:/eclipse-soft-eng/CS3733-B19-Hotspur/libs/mysql-connector-java-5.1.6.jar"/>
 	<classpathentry kind="lib" path="C:/eclipse-soft-eng/CS3733-B19-Hotspur/libs/simpleJSON.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

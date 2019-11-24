@@ -6,65 +6,18 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.amazonaws.services.lambda.runtime.LambdaLogger;
-
 import definitions.Id;
 import definitions.Segment;
 
 
 
 
-public class SegmentsDAO {
-
-	java.sql.Connection conn;
-
-    public SegmentsDAO() {
-    	try  {
-    		conn = DatabaseUtil.connect();
-    	} catch (Exception e) {
-
-    		//********************************//
-
-    		//********************************//
-
-    		//********************************//
-
-    		//********************************//
-    		//********************************//
-    		
-    		
-    		//********************************//
-    		//this is called thus it isn't conecting
-    		
-    		
-    		System.out.println("jdhbfvhb");
-    		conn = null;
-    	}
-    }
-
-	/*
-    public Segment getSegment(String id) throws Exception {
-        
-        try {
-            Segment segment = null;
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM segments WHERE name=?;");
-            ps.setString(1,  id);
-            ResultSet resultSet = ps.executeQuery();
-            
-            while (resultSet.next()) {
-                segment = generateConstant(resultSet);
-            }
-            resultSet.close();
-            ps.close();
-            
-            return constant;
-
-        } catch (Exception e) {
-        	e.printStackTrace();
-            throw new Exception("Failed in getting constant: " + e.getMessage());
-        }
-    }
+public class SegmentsDAO extends DAO{
+	
+	public SegmentsDAO() {super();}
+	public SegmentsDAO(java.sql.Connection conn) {super(conn);}
    
+    /*
     public boolean updateConstant(Constant constant) throws Exception {
         try {
         	String query = "UPDATE constants SET value=? WHERE name=?;";
@@ -119,6 +72,33 @@ public class SegmentsDAO {
         }
     }
 */
+    
+    public Segment getSegment(String id) throws Exception {
+        //TODO later update to also get remote segments
+ 
+        try {
+            Segment segment = null;
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Library WHERE SegmentID=?;");
+            ps.setString(1,  id);
+            
+            ResultSet resultSet = ps.executeQuery();
+            
+            while (resultSet.next()) {
+                segment = generateSegment(resultSet);
+            }
+            
+            resultSet.close();
+            ps.close();
+            
+            return segment;
+
+        } catch (Exception e) {
+        	e.printStackTrace();
+            throw new Exception("Failed in getting segment: " + e.getMessage());
+        }
+        
+    }
+    
     public List<Segment> getAllLocalSegments() throws Exception {;
         List<Segment> allSegments = new ArrayList<>();
         try {

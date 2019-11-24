@@ -11,10 +11,10 @@ import databases.SegmentsDAO;
 import definitions.Id;
 import definitions.Segment;
 
-public class GetSegmentsTest {
+public class SegmentsDAOTest {
 
 	@Test
-	public void test() {
+	public void getSegmentsTest() {
 		List<Segment> controllerSegments = new ArrayList<>();
 		List<Id> id = new ArrayList<>();
 		id.add(new Id("1dba4225-9077-450e-9c94-21f2eaba4e7b.ogg"));
@@ -58,8 +58,23 @@ public class GetSegmentsTest {
 			assertEquals(false, true);
 		}
 				
+	}
+	
+	@Test
+	public void getSegmentTestLocal() {
+		String testID = "c9314e2c-68df-48ec-af09-de17bac46ecd.ogg";
+		Segment controlSegment = new Segment(new Id(testID), false, "", "", "");
+
+		SegmentsDAO getter = new SegmentsDAO();
 		
-		
+		try {
+			Segment returnedSegment = getter.getSegment(testID);
+			System.out.println(returnedSegment);
+			assertTrue(returnedSegment.equals(controlSegment));
+		}catch(Exception e) {
+			System.out.print("Exception: ");
+			System.out.println(e.getMessage());
+		}
 	}
 
 }
