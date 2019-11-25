@@ -73,13 +73,13 @@ public class SegmentsDAO extends DAO{
     }
 */
     
-    public Segment getSegment(String id) throws Exception {
+    public Segment getSegment(Id id) throws Exception {
         //TODO later update to also get remote segments
  
         try {
             Segment segment = null;
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM Library WHERE SegmentID=?;");
-            ps.setString(1,  id);
+            ps.setString(1,  id.getId());
             
             ResultSet resultSet = ps.executeQuery();
             
