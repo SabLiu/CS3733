@@ -25,7 +25,7 @@ function refreshLocalSegmentsList() {
 /**
  * Respond to server JSON object.
  *
- * Replace the contents of 'constantList' with a <br>-separated list of name,value pairs.
+ * Replace the contents of 'localSegmentsList' with a <br>-separated list of name,value pairs.
  */
 function processListResponse(result) {
   console.log("res:" + result);
