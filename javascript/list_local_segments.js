@@ -20,6 +20,9 @@ function refreshLocalSegmentsList() {
       processListResponse("N/A");
     }
   };
+//  var testHtml = "<input name="regSite" type="button" value="Register site" />"; 
+//  var localSegmentsList = document.getElementById('model');
+//  localSegmentsList.innerHTML = testHtml;
 }
 
 /**
@@ -51,12 +54,14 @@ function processListResponse(result) {
     // updates html
     
     // video
-    output = output + "<p><video controls="" height="240" id=" + segID + " width="320"><source src=" + segAddr + "type="video/ogg" /> Your browser does not support the video tag.</video></p>" ;
+//    output = output + "<p><video controls="" height="240" id=" + segID + " width="320"><source src=" + segAddr + "type="video/ogg" /> Your browser does not support the video tag.</video></p>" ;
+    output = output + "<p><video controls="" height="240" id="" width="320"><source src=" + segAddr + "type="video/ogg" /> Your browser does not support the video tag.</video></p>" ;
+    
     // character : sentence
-    output = output + "<p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
+//    output = output + "<p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
     // buttons: delete, mark available, mark unavailable 
     // these don't need names since when you delete them, you just "redraw" and only the segments still in the list will create these buttons 
-    output = output + "<p>  <input type="button" value="Delete segment" /> <input type="button" value="Mark segment remotely available" /><input type="button" value="Mark segment remotely UNavailable" /></p></br>"; 
+//    output = output + "<p>  <input type="button" value="Delete segment" /> <input type="button" value="Mark segment remotely available" /><input type="button" value="Mark segment remotely UNavailable" /></p></br>"; 
     
     /*
      * Original code from administratorLandingPage.html
