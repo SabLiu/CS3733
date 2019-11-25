@@ -1,26 +1,17 @@
 <html>
 <head>
+<script type='text/javascript' src='../js/list_local_segments.js'></script>
+<script type='text/javascript' src='../js/api.js'></script>
 
 <script type="text/javascript">
 //this is JAVASCRIPT STUFF
 
-// Copied from heineman's index.html. 
-// api URL with correct staging ext
-var add_url = "https://xkdxootdqe.execute-api.us-east-2.amazonaws.com/HotsuprAPI1";
 
 //calculator.html pattern: don't need to include listlocaljs here
-funtction initialize(){
+function initialize(){
 	//get all segments
 	refreshLocalSegmentsList();
-	
-	// !!!!!!!!!!!!!!!!!!!!!!!!!!
-	
-	
-	//needs args? processListResponse(result);
 }
-
-
-
 
 // Line 60: (see Calculator.html, line 15)
 </script>
@@ -33,6 +24,8 @@ funtction initialize(){
 <p><strong>Local Video Segments&nbsp;</strong></p>
 
 <p>&nbsp;</p>
+
+<div id="model"></div>
 
 <p>
 <video controls="" height="240" id="vid1" width="320">

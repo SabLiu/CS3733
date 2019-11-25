@@ -31,8 +31,9 @@ function processListResponse(result) {
   console.log("res:" + result);
   // Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
   var js = JSON.parse(result);
-//  var constList = document.getElementById('constantList');
+//  var constList = document.getElementById('constantList'); this is from get_constantList.js
   var localSegmentsList = document.getElementById('model');
+  // model is a list of segment objects
   
   var output = "";
   for (var i = 0; i < js.list.length; i++) {
@@ -46,10 +47,27 @@ function processListResponse(result) {
     var sent			= localSegsJson["sentence"];
     var character 		= localSegsJson["character"];
     var segAddr 		= localSegsJson["videoFileAddress"];
-    //updates html
-    output = output + "<p><video controls="" height="240" id=" + segID + " width="320"><source src=" + segAddr + "type="video/ogg" /> Your browser does not support the video tag.</video></p>" + "<p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
+    
+    // updates html
+    
+    // video
+    output = output + "<p><video controls="" height="240" id=" + segID + " width="320"><source src=" + segAddr + "type="video/ogg" /> Your browser does not support the video tag.</video></p>" ;
+    // character : sentence
+    output = output + "<p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
+    // buttons: delete, mark available, mark unavailable 
+    // these don't need names since when you delete them, you just "redraw" and only the segments still in the list will create these buttons 
+    output = output + "<p>  <input type="button" value="Delete segment" /> <input type="button" value="Mark segment remotely available" /><input type="button" value="Mark segment remotely UNavailable" /></p></br>"; 
+    
+    /*
+     * Original code from administratorLandingPage.html
+<p>
+<input name="del2" type="button" value="Delete segment" />
+<input name="remy2" type="button" value="Mark segment remotely available" />
+<input name="remn2" type="button" value="Mark segment remotely UNavailable" />
+</p>
 
-    /* HTML for showing a video (template) : 
+</br>
+video (template) : 
      *<p><video controls="" height="240" id="vid1" width="320"><source src="https://hotspurproject.s3.us-east-2.amazonaws.com/segments/NewOne.ogg" type="video/ogg" /> Your browser does not support the video tag.</video></p>
      show character and speech 
      <p>McCoy: &quot;Then I need a drink.&quot;&nbsp;</p>
