@@ -20,9 +20,9 @@ function refreshLocalSegmentsList() {
       processListResponse("N/A");
     }
   };
-// var testHtml = "<input name="regSite" type="button" value="Register site" />"; 
+// var testHtml = "<input name=\"regSite\" type=\"button\" value=\"Register site\" />"; 
    var localSegmentsList = document.getElementById('model');
-   localSegmentsList.innerHTML = testHtml;
+   localSegmentsList.innerHTML = "euhrvbierbviehrbviehrbviehrbv";
 }
 
 /**
