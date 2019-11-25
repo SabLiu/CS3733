@@ -1,0 +1,250 @@
+<html>
+<head>
+
+<script type="text/javascript">
+//this is JAVASCRIPT STUFF
+
+// Copied from heineman's index.html. 
+// api URL with correct staging ext
+var add_url = "https://mgyv26g317.execute-api.us-east-2.amazonaws.com/beta";//"https://q0ec12olg0.execute-api.us-east-1.amazonaws.com/beta/calculator";
+
+// below: from listLocalSegments JS
+/**
+ * Refresh list of local segments
+ *
+ *    GET list_url
+ *    RESPONSE  list of [name, value] constants 
+ */
+function refreshLocalSegmentsList() {
+   var xhr = new XMLHttpRequest();
+   xhr.open("GET", list_local_segments_url, true);
+   xhr.send();
+   
+   console.log("sent");
+
+  // This will process results and update HTML as appropriate. 
+  xhr.onloadend = function () {
+    if (xhr.readyState == XMLHttpRequest.DONE) {
+      console.log ("XHR:" + xhr.responseText);
+      processListResponse(xhr.responseText);
+    } else {
+      processListResponse("N/A");
+    }
+  };
+}
+
+/**
+ * Respond to server JSON object.
+ *
+ * Replace the contents of 'constantList' with a <br>-separated list of name,value pairs.
+ */
+function processListResponse(result) {
+  console.log("res:" + result);
+  // Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
+  var js = JSON.parse(result);
+//  var constList = document.getElementById('constantList');
+  var localSegmentsList = document.getElementById('localSegmentsList');
+  
+  var output = "";
+  for (var i = 0; i < js.list.length; i++) {
+    
+	//grabs stuff out of json
+	var localSegsJson = js.list[i];
+    console.log(localSegsJson);
+    
+//ISN'T THIS STUFF FROM THE DATABASE??? 
+    var segID 			= localSegsJson["id"];
+    var isRemAvailable 	= localSegsJson["isRemotelyAvailable"];
+    var sent			= localSegsJson["sentence"];
+    var character 		= localSegsJson["character"];
+    var segAddr 		= localSegsJson["segmentAddress"];
+    //updates html
+    output = output + "<p><video controls="" height="240" id=" + segID + " width="320"><source src=" + segAddr + "type="video/ogg" /> Your browser does not support the video tag.</video></p>" + "<p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
+
+    /* HTML for showing a video (template) : 
+     *<p><video controls="" height="240" id="vid1" width="320"><source src="https://hotspurproject.s3.us-east-2.amazonaws.com/segments/NewOne.ogg" type="video/ogg" /> Your browser does not support the video tag.</video></p>
+     show character and speech 
+     <p>McCoy: &quot;Then I need a drink.&quot;&nbsp;</p>
+     */
+  }
+
+  // Update computation result
+  constList.innerHTML = output;
+}
+
+
+
+
+</script>
+	<title></title>
+</head>
+<body>
+<h2>Administrator</h2>
+
+<p><strong>Local Video Segments&nbsp;</strong></p>
+
+<p>&nbsp;</p>
+
+<p>
+<video controls="" height="240" id="vid1" width="320">
+<source src="https://hotspurproject.s3.us-east-2.amazonaws.com/segments/NewOne.ogg" type="video/ogg" /> 
+Your browser does not support the video tag.</video>
+</p>
+
+<p>
+<input name="del1" type="button" value="Delete segment" />
+<input name="remy1" type="button" value="Mark segment remotely available" />
+<input name="remn1" type="button" value="Mark segment remotely UNavailable" />
+</p>
+
+</br>
+
+<p>
+<video controls="" height="240" id="vid2" width="320">
+<source src="https://hotspurproject.s3.us-east-2.amazonaws.com/segments/NewTwo.ogg" type="video/ogg" /> 
+Your browser does not support the video tag.</video>
+</p>
+
+<p>
+<input name="del2" type="button" value="Delete segment" />
+<input name="remy2" type="button" value="Mark segment remotely available" />
+<input name="remn2" type="button" value="Mark segment remotely UNavailable" />
+</p>
+
+</br>
+
+<p>
+<video controls="" height="240" id="vid3" width="320">
+<source src="https://hotspurproject.s3.us-east-2.amazonaws.com/segments/NewThree.ogg" type="video/ogg" /> 
+Your browser does not support the video tag.</video>
+</p>
+
+<p>
+<input name="del3" type="button" value="Delete segment" />
+<input name="remy3" type="button" value="Mark segment remotely available" />
+<input name="remn3" type="button" value="Mark segment remotely UNavailable" />
+</p>
+
+</br>
+
+<p>
+<video controls="" height="240" id="vid4" width="320">
+<source src="https://hotspurproject.s3.us-east-2.amazonaws.com/segments/NewFour.ogg" type="video/ogg" /> 
+Your browser does not support the video tag.</video>
+</p>
+
+<p>
+<input name="del4" type="button" value="Delete segment" />
+<input name="remy4" type="button" value="Mark segment remotely available" />
+<input name="remn4" type="button" value="Mark segment remotely UNavailable" />
+</p>
+
+</br>
+
+<p>
+<video controls="" height="240" id="vid5" width="320">
+<source src="https://hotspurproject.s3.us-east-2.amazonaws.com/segments/NewFive.ogg" type="video/ogg" /> 
+Your browser does not support the video tag.</video>
+</p>
+
+<p>
+<input name="del5" type="button" value="Delete segment" />
+<input name="remy5" type="button" value="Mark segment remotely available" />
+<input name="remn5" type="button" value="Mark segment remotely UNavailable" />
+</p>
+
+</br>
+
+<p>
+<video controls="" height="240" id="vid6" width="320">
+<source src="https://hotspurproject.s3.us-east-2.amazonaws.com/segments/NewSix.ogg" type="video/ogg" /> 
+Your browser does not support the video tag.</video>
+</p>
+
+<p>
+<input name="del6" type="button" value="Delete segment" />
+<input name="remy6" type="button" value="Mark segment remotely available" />
+<input name="remn6" type="button" value="Mark segment remotely UNavailable" />
+</p>
+
+</br>
+
+<p>
+<video controls="" height="240" id="vid7" width="320">
+<source src="https://hotspurproject.s3.us-east-2.amazonaws.com/segments/NewSeven.ogg" type="video/ogg" /> 
+Your browser does not support the video tag.</video>
+</p>
+
+<p>
+<input name="del7" type="button" value="Delete segment" />
+<input name="remy7" type="button" value="Mark segment remotely available" />
+<input name="remn7" type="button" value="Mark segment remotely UNavailable" />
+</p>
+
+</br>
+
+<p>
+<video controls="" height="240" id="vid8" width="320">
+<source src="https://hotspurproject.s3.us-east-2.amazonaws.com/segments/NewEight.ogg" type="video/ogg" /> 
+Your browser does not support the video tag.</video>
+</p>
+
+<p>
+<input name="del8" type="button" value="Delete segment" />
+<input name="remy8" type="button" value="Mark segment remotely available" />
+<input name="remn8" type="button" value="Mark segment remotely UNavailable" />
+</p>
+
+</br>
+
+<p>
+<video controls="" height="240" id="vid9" width="320">
+<source src="https://hotspurproject.s3.us-east-2.amazonaws.com/segments/NewNine.ogg" type="video/ogg" /> 
+Your browser does not support the video tag.</video>
+</p>
+
+<p>
+<input name="del9" type="button" value="Delete segment" />
+<input name="remy9" type="button" value="Mark segment remotely available" />
+<input name="remn9" type="button" value="Mark segment remotely UNavailable" />
+</p>
+ 
+</br>
+
+<p>
+<video controls="" height="240" id="vid10" width="320">
+<source src="https://hotspurproject.s3.us-east-2.amazonaws.com/segments/NewTen.ogg" type="video/ogg" /> 
+Your browser does not support the video tag.</video>
+</p>
+
+<p>
+<input name="del10" type="button" value="Delete segment" />
+<input name="remy10" type="button" value="Mark segment remotely available" />
+<input name="remn10" type="button" value="Mark segment remotely UNavailable" />
+</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<hr />
+<p><strong>Remote Sites with Access to Library</strong></p>
+
+<p>[URL of site 1]&nbsp;<input name="unreg1" type="button" value="Unregister site" /></p>
+
+<p>[URL of site 2]&nbsp;<input name="unreg2" type="button" value="Unregister site" /></p>
+
+<p>[URL of site 3]&nbsp;<input name="unreg3" type="button" value="Unregister site" /></p>
+
+<p>&nbsp;</p>
+
+<p>
+<input name="URLregister" type="text" value="URL of site to reigster" />
+<input name="regSite" type="button" value="Register site" />
+</p>
+
+
+</body>
+</html>
