@@ -9,7 +9,6 @@ public class Id {
 		setRandomId();
 	}
 	
-	//to generate new Random ID input "RANDOM"
 	public Id(String uuid) { 
 		this.id = uuid;
 	}
