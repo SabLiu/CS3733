@@ -9,7 +9,7 @@ public abstract class DAO{
     public DAO() {
 		try  {
 			this.conn = DatabaseUtil.connect();
-		} catch (Exception e) {
+		} catch (Exception e) { 
 			//this is called thus it isn't conencting
 			System.out.println("Database not connecting");
 			this.conn = null;

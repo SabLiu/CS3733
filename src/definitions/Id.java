@@ -3,18 +3,27 @@ package definitions;
 import java.util.UUID;
 
 public class Id {
-	final String id;
+	String id;
 	
 	public Id() {
-		this.id = UUID.randomUUID().toString();
+		setRandomId();
 	}
 	
-	public Id(String uuid) {
+	//to generate new Random ID input "RANDOM"
+	public Id(String uuid) { 
 		this.id = uuid;
 	}
 	
 	public String getId() {
 		return this.id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	public void setRandomId() {
+		this.id = UUID.randomUUID().toString();
 	}
 
 	@Override

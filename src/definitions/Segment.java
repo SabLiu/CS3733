@@ -1,7 +1,7 @@
 package definitions;
 
 public class Segment {
-	final Id id;
+	Id id;
 	boolean isRemotelyAvailable;
 	String sentence;
 	String character;
@@ -29,6 +29,27 @@ public class Segment {
 
 	public String getCharacter() {
 		return character;
+	}
+	
+
+	public void setId(Id id) {
+		this.id = id;
+	}
+
+	public void setRemotelyAvailable(boolean isRemotelyAvailable) {
+		this.isRemotelyAvailable = isRemotelyAvailable;
+	}
+
+	public void setSentence(String sentence) {
+		this.sentence = sentence;
+	}
+
+	public void setCharacter(String character) {
+		this.character = character;
+	}
+
+	public void setVideoFileAddress(String videoFileAddress) {
+		this.videoFileAddress = videoFileAddress;
 	}
 
 	public String getVideoFileAddress() {

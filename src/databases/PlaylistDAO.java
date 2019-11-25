@@ -16,7 +16,7 @@ public class PlaylistDAO extends DAO{
 	 * get id and name of all playlist
 	 * @return
 	 * @throws Exception
-	 */
+	 */ 
     public List<Playlist> getAllPlaylists() throws Exception {;
 	    List<Playlist> allPlaylists = new ArrayList<>();
 	    try {
@@ -33,7 +33,7 @@ public class PlaylistDAO extends DAO{
 	        statement.close();
 	        return allPlaylists;
 	
-	    } catch (Exception e) {
+	    } catch (Exception e) { 
 	        throw new Exception("Failed in getting books: " + e.getMessage());
 	    }
 	}
@@ -41,7 +41,7 @@ public class PlaylistDAO extends DAO{
     public Playlist getFullPlaylist(Id playlistId) throws Exception{;
 	    try {
 	        Playlist playlist = null;
-	        PreparedStatement ps = conn.prepareStatement("SELECT * FROM Library WHERE PlayListID=?;");
+	        PreparedStatement ps = conn.prepareStatement("SELECT * FROM Playlists WHERE PlayListID=?;");
 	        ps.setString(1,  playlistId.getId());
 	        
 	        ResultSet resultSet = ps.executeQuery();
@@ -54,11 +54,14 @@ public class PlaylistDAO extends DAO{
 	        resultSet.close();
 	        ps.close();
 	        
+			if(playlist == null) {
+				throw new NullPointerException("playlist not found");
+			}
 	        return playlist;
 	
 	    } catch (Exception e) {
 	    	e.printStackTrace();
-	        throw new Exception("Failed in getting segment: " + e.getMessage());
+	        throw new Exception("Failed in getting playlist: " + e.getMessage());
 	    }
     }
     
@@ -73,7 +76,7 @@ public class PlaylistDAO extends DAO{
 	    Id id = new Id(idStr);
 	    String name = resultSet.getString("PlaylistName");
 	    	
-	    return new Playlist (id, name);
+	    return new Playlist(id, name);
 	}
 	
 	/**

@@ -10,6 +10,11 @@ import definitions.Playlist;
 import definitions.Response;
 import definitions.Segment;
 
+/**
+ * Gets names and ids (metadata) of all playlists (doesn't get segments in each playlist)
+ * @author maria
+ *
+ */
 public class ListPlaylistsHandler implements RequestHandler<Object, Response<Playlist[]>>{
 
 	public LambdaLogger logger;
@@ -21,7 +26,7 @@ public class ListPlaylistsHandler implements RequestHandler<Object, Response<Pla
 	 * @throws Exception 
 	 */
 	Playlist[] getPlaylists() throws Exception {
-			logger.log("in getSegments\n");
+			logger.log("in getPlaylists\n");
 			PlaylistDAO dao = new PlaylistDAO();
 			Playlist[] p = {};
 			p = dao.getAllPlaylists().toArray(p);
@@ -38,7 +43,7 @@ public class ListPlaylistsHandler implements RequestHandler<Object, Response<Pla
 		
 		
 		try {
-			list = getPlaylists();	
+			list = getPlaylists();	 
 			response = new Response<Playlist[]>(list, 200);
 			logger.log("finished getSegments\n");
 		} catch (Exception e) {

@@ -44,7 +44,7 @@ public class PlaylistDAOTest {
 		}catch(Exception e){
 			System.out.println("exception");
 			System.out.println(e.getMessage());
-			fail();
+			fail(); 
 		}
 				
 	}

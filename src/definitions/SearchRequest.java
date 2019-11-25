@@ -9,7 +9,7 @@ public class SearchRequest {
 	
 	public SearchRequest(String characterKeyphrase, String sentenceKeyphrase) {
 		this.sentenceKeyphrase = sentenceKeyphrase;
-		this.characterKeyphrase = characterKeyphrase;
+		this.characterKeyphrase = characterKeyphrase; 
 	}
 
 	public String getSentenceKeyphrase() {
@@ -27,6 +27,8 @@ public class SearchRequest {
 	public void setCharacterKeyphrase(String characterKeyphrase) {
 		this.characterKeyphrase = characterKeyphrase;
 	}
+	
+	
 
 	@Override
 	public int hashCode() {

@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 
-public class DatabaseUtil {
+public class DatabaseUtil { 
 	// These should never be stored directly in code.  I am doing this quickly complete the 
 		// demonstration code. The appropriate solution is to store these values in environment
 		// variables that are accessed by the Lambda function at run time like this

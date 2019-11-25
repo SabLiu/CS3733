@@ -1,7 +1,7 @@
 package definitions;
 
 public class Playlist {
-	final Id id;
+	Id id;
 	String name;
 	Segment[] segments;
 	
@@ -20,7 +20,7 @@ public class Playlist {
 	public void addSegments(Segment[] segments) {
 		Segment[] newSegments = new Segment[this.segments.length + segments.length];
 	    System.arraycopy(this.segments, 0, newSegments, 0, this.segments.length);
-	    System.arraycopy(this.segments, 0, newSegments, this.segments.length, segments.length);
+	    System.arraycopy(segments, 0, newSegments, this.segments.length, segments.length);
 		this.segments = newSegments;
 	}
 	
@@ -44,6 +44,18 @@ public class Playlist {
 	}
 	
 	
+	public void setId(Id id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setSegments(Segment[] segments) {
+		this.segments = segments;
+	}
+
 	@Override
 	public int hashCode() {
 		return id.hashCode();

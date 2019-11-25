@@ -7,7 +7,7 @@ public class Site {
 	public Site(Id id, String url) {
 		this.id = id;
 		this.url = url;
-	}
+	}  
 	
 	public Id getId() {
 		return id;
