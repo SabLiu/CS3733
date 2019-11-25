@@ -1,6 +1,6 @@
 /**
  * Refresh list of local segments
- *
+ *   n ergergergewrgergergergergergergerggggggggggggggggggggggggggggggggggggggg
  *    GET list_url
  *    RESPONSE  list of [name, value] constants 
  */
@@ -12,7 +12,8 @@ function refreshLocalSegmentsList() {
    console.log("sent");
 
   // This will process results and update HTML as appropriate. 
-  xhr.onloadend = function () {
+  /*
+   xhr.onloadend = function () {
     if (xhr.readyState == XMLHttpRequest.DONE) {
       console.log ("XHR:" + xhr.responseText);
       processListResponse(xhr.responseText);
@@ -20,9 +21,11 @@ function refreshLocalSegmentsList() {
       processListResponse("N/A");
     }
   };
-//  var testHtml = "<input name="regSite" type="button" value="Register site" />"; 
-//  var localSegmentsList = document.getElementById('model');
-//  localSegmentsList.innerHTML = testHtml;
+  */
+  //var testHtml = "<input name=\"regSite\" type=\"button\" value=\"Register site\" />"; 
+  var testStr = "vjhebfrvhjbehrfvbhebrvberk";
+  var localSegmentsList = document.getElementById('model');
+  localSegmentsList.innerHTML = testStr;
 }
 
 /**
@@ -55,7 +58,7 @@ function processListResponse(result) {
     
     // video
 //    output = output + "<p><video controls="" height="240" id=" + segID + " width="320"><source src=" + segAddr + "type="video/ogg" /> Your browser does not support the video tag.</video></p>" ;
-    output = output + "<p><video controls="" height="240" id="" width="320"><source src=" + segAddr + "type="video/ogg" /> Your browser does not support the video tag.</video></p>" ;
+    output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + segAddr + "type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
     
     // character : sentence
 //    output = output + "<p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
