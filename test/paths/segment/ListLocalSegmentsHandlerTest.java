@@ -20,7 +20,8 @@ public class ListLocalSegmentsHandlerTest extends LambdaTest{
         boolean hasMcCoy = false;
         
         for (Segment s : resp.model) {
-        	if (s.getCharacter().equals("McCoy")) { hasMcCoy = true; break; }
+        	System.out.println(s);
+        	if (s.getCharacter().equals("McCoy")) { hasMcCoy = true; }
         }
         
         assertTrue("there is a segment with McCoy as a character in the database", hasMcCoy);

@@ -68,7 +68,7 @@ public class SegmentsDAOTest {
 		SegmentsDAO getter = new SegmentsDAO();
 		
 		try {
-			Segment returnedSegment = getter.getSegment(testID);
+			Segment returnedSegment = getter.getSegment(new Id(testID));
 			System.out.println(returnedSegment);
 			assertTrue(returnedSegment.equals(controlSegment));
 		}catch(Exception e) {
