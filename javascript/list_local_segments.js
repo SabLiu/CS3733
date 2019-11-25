@@ -32,7 +32,7 @@ function processListResponse(result) {
   // Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
   var js = JSON.parse(result);
 //  var constList = document.getElementById('constantList');
-  var localSegmentsList = document.getElementById('localSegmentsList');
+  var localSegmentsList = document.getElementById('model');
   
   var output = "";
   for (var i = 0; i < js.list.length; i++) {
@@ -42,10 +42,10 @@ function processListResponse(result) {
     console.log(localSegsJson);
     
     var segID 			= localSegsJson["id"];
-    var isRemAvailable 	= localSegsJson["isRemotelyAvailable"];
+    var isRemAvailable 	= localSegsJson["remotelyAvailable"];
     var sent			= localSegsJson["sentence"];
     var character 		= localSegsJson["character"];
-    var segAddr 		= localSegsJson["segmentAddress"];
+    var segAddr 		= localSegsJson["videoFileAddress"];
     //updates html
     output = output + "<p><video controls="" height="240" id=" + segID + " width="320"><source src=" + segAddr + "type="video/ogg" /> Your browser does not support the video tag.</video></p>" + "<p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
 
@@ -57,6 +57,6 @@ function processListResponse(result) {
   }
 
   // Update computation result
-  constList.innerHTML = output;
+  localSegmentsList.innerHTML = output;
 }
 
