@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   description: G.API for CS3733 B20
   version: 1.0.0
-  title: Simple Inventory API
+  title: Hotspur API
   # put the contact info for your development or API team
   contact:
     email: mcsharman@wpi.edu
@@ -61,7 +61,7 @@ paths:
         name: segmentID
         description: segment id to return
         schema:
-          $ref: '#/definitions/id'
+          $ref: '#/definitions/Id'
       responses:
         200:
           description: segment sucessfully returned
@@ -88,7 +88,7 @@ paths:
         name: segmentID
         description: segment id to delete
         schema:
-          $ref: '#/definitions/id'
+          $ref: '#/definitions/Id'
       responses:
         200:
           description: segment sucessfully deleted, updated list of local video segments returned
@@ -156,7 +156,7 @@ paths:
         name: keyphrases
         description: keyphrases for search (character, segment or both)
         schema:
-          $ref: '#/definitions/searchRequest'
+          $ref: '#/definitions/SearchRequest'
       responses:
         200:
           description: List of matching video segments returned
@@ -210,7 +210,7 @@ paths:
         name: playistID
         description: playist id to return
         schema:
-          $ref: '#/definitions/id'
+          $ref: '#/definitions/Id'
       responses:
         200:
           description: playist sucessfully returned
@@ -236,7 +236,7 @@ paths:
         name: playlistID
         description: playist id to delete
         schema:
-          $ref: '#/definitions/id'
+          $ref: '#/definitions/Id'
       responses:
         200:
           description: playlist sucessfully deleted, updated list of playlists returned
@@ -283,7 +283,7 @@ paths:
         name: ids
         description: segment id to add and playlist id to add it to
         schema:
-          $ref: '#/definitions/segmentAndPlaylistIdRequest'
+          $ref: '#/definitions/SegmentAndPlaylistIdRequest'
       responses:
         200:
           description: segment sucessfully added, updated playlist returned
@@ -309,7 +309,7 @@ paths:
         name: ids
         description: segment id to delete and playlist id to delete it from
         schema:
-          $ref: '#/definitions/segmentAndPlaylistIdRequest'
+          $ref: '#/definitions/SegmentAndPlaylistIdRequest'
       responses:
         200:
           description: segment sucessfully deleted, updated playlist returned
@@ -336,7 +336,7 @@ paths:
         name: segmentId
         description: local segment to mark
         schema:
-          $ref: '#/definitions/id'
+          $ref: '#/definitions/Id'
       responses:
         200:
           description: segment sucessfully marked remotely avaliable, updated segment returned
@@ -362,7 +362,7 @@ paths:
         name: segmentId
         description: local segment to unmark
         schema:
-          $ref: '#/definitions/id'
+          $ref: '#/definitions/Id'
       responses:
         200:
           description: segment sucessfully unmarked remotely avaliable, updated segment returned
@@ -433,7 +433,7 @@ paths:
         name: remoteSiteId
         description: site id to remove
         schema:
-          $ref: '#/definitions/id'
+          $ref: '#/definitions/Id'
       responses:
         200:
           description: site sucessfully removed, updated list of remote sites returend
@@ -452,15 +452,16 @@ definitions:
     - name
     properties:
       id:
-        $ref: '#/definitions/id'
+        $ref: '#/definitions/Id'
       segments:
         type: array
         items:
           $ref: '#/definitions/Segment'
       name:
         type: string
-        example: My playlist
+        #example: My playlist
   Segment:
+    type: object
     required:
     - id
     - isRemotelyAvailable
@@ -469,46 +470,50 @@ definitions:
     - videoFileAddress
     properties:
       id:
-        $ref: '#/definitions/id'
+        $ref: '#/definitions/Id'
       isRemotelyAvailable:
         type: boolean
       sentence: 
         type: string
-        example: Elementary, my dear Watson.
+      #  example: Elementary, my dear Watson.
       character: 
         type: string
-        example: Sherlock Holmes
+      #  example: Sherlock Holmes
       videoFileAddress:
         type: string
         format: url
   Site:
+    type: object
     required:
     - url
     - id
     properties:
       id:
-        $ref: '#/definitions/id'
+        $ref: '#/definitions/Id'
       url:
         type: string
         format: url
-  id: #either a segment or playlist id
+  Id: #either a segment or playlist id
+    type: object
     required:
     - id
     properties:
       id:
         type: string
         format: uuid
-        example: 4c3b9ee4-62ca-4605-932a-3c7e9eba7d74
-  segmentAndPlaylistIdRequest:
+      #  example: 4c3b9ee4-62ca-4605-932a-3c7e9eba7d74
+  SegmentAndPlaylistIdRequest:
+    type: object
     required:
     - segmentId
     - playlistId
     properties:
       segmentId:
-        $ref: '#/definitions/id'
+        $ref: '#/definitions/Id'
       playlistId:
-        $ref: '#/definitions/id'
-  searchRequest:
+        $ref: '#/definitions/Id'
+  SearchRequest:
+    type: object
     properties:
       sentenceKeyphrase:
         type: string
