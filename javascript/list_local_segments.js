@@ -56,7 +56,7 @@ function processListResponse(result) {
     
     // video
 //    output = output + "<p><video controls="" height="240" id=" + segID + " width="320"><source src=" + segAddr + "type="video/ogg" /> Your browser does not support the video tag.</video></p>" ;
-    output = output + "<p><video controls="" height="240" id="" width="320"><source src=" + segAddr + "type="video/ogg" /> Your browser does not support the video tag.</video></p>" ;
+   // output = output + "<p><video controls="" height="240" id="" width="320"><source src=" + segAddr + "type="video/ogg" /> Your browser does not support the video tag.</video></p>" ;
     
     // character : sentence
 //    output = output + "<p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
