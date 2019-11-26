@@ -22,10 +22,6 @@ function refreshLocalSegmentsList(isAdmin) {
       processListResponse("N/A", isAdmin);
     }
   };
-  console.log("sentuuuuuuu\n\n\n\n");
-// var testHtml = "<input name=\"regSite\" type=\"button\" value=\"Register site\" />"; 
-   var localSegmentsList = document.getElementById('model');
-   localSegmentsList.innerHTML = "euhrvbierbviehrbviehrbviehrbv";
 }
 
 /**
@@ -43,7 +39,6 @@ function processListResponse(result, isAdmin) {
   
   var output = "";
   for (var i = 0; i < js.model.length; i++) {
-	  console.log(i + "sent\n\n\n\n\n\n\n\n\n");
 	//grabs stuff out of json
 	var localSegsJson = js.model[i];
     console.log(localSegsJson);
@@ -56,16 +51,15 @@ function processListResponse(result, isAdmin) {
     
     // updates html
     if (isAdmin){
-    // video
-//    output = output + "<p><video controls="" height="240" id=" + segID + " width="320"><source src=" + segAddr + "type="video/ogg" /> Your browser does not support the video tag.</video></p>" ;
-    output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + s3_segments_url  + segID + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
-    
-    // character : sentence
-    output = output + "<p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
-    // buttons: delete, mark available, mark unavailable 
-    output = output + "<p>  <input type=\"button\" value=\"Delete segment\" /> <input type=\"button\" value=\"Mark segment remotely available\" /><input type=\"button\" value=\"Mark segment remotely UNavailable\" /></p></br>"; 
+    	// video
+    	output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + s3_segments_url  + segID + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
+    	// character : sentence
+    	output = output + "<p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
+    	// buttons: delete, mark available, mark unavailable 
+    	output = output + "<p>  <input type=\"button\" value=\"Delete segment\" /> <input type=\"button\" value=\"Mark segment remotely available\" /><input type=\"button\" value=\"Mark segment remotely UNavailable\" /></p></br>"; 
     }
     else {
+    	
     	// character : sentence
     	output = output + "</br><p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
     	output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + s3_segments_url  + segID + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
@@ -74,7 +68,6 @@ function processListResponse(result, isAdmin) {
   }
 
   // Update computation result
-  console.log("sentjjjj\n\n\n\n");
   localSegmentsList.innerHTML = output;
   console.log(output);
 }

@@ -1,6 +1,7 @@
 <html>
 <head>
 <script type='text/javascript' src='../list_local_segments.js'></script>
+<script type='text/javascript' src='../list_playlists.js'></script>
 <script type='text/javascript' src='../api.js'></script>
 
 <script type="text/javascript">
@@ -9,6 +10,7 @@ function initialize(){
 	//get all segments
 	var isAdmin = false; 
 	refreshLocalSegmentsList(isAdmin);
+	refreshPlaylistsList();
 }
 </script>
 </head><body onload="initialize()">
@@ -23,19 +25,14 @@ function initialize(){
 <hr />
 <p><b>Playlists</b></p>
 
-<p><b><input name="addPlaylistBtn" type="button" value="Create a new playlist" /></b></p>
+<p>&nbsp;</p>
 
-<p>Sabrina&#39;s Symphonies &nbsp;&nbsp;<input name="p1View" type="button" value="View" /><input name="p1Play" type="button" value="Play" /><input name="Pdel1" type="button" value="Delete" /></p>
+<div id="playlists"></div>
 
-<p>Maria&#39;s Melodies &nbsp;<input name="p2View" type="button" value="View" /><input name="p2Play" type="button" value="Play" /><input name="Pdel2" type="button" value="Delete" /></p>
+<p>&nbsp;</p>
 
-<p>Sarah&#39;s Songs &nbsp;&nbsp;<input name="p3View" type="button" value="View" /><input name="p3Play" type="button" value="Play" /><input name="Pdel3" type="button" value="Delete" /></p>
-
-<p>Erich&#39;s Entertainment &nbsp;&nbsp;<input name="p4View" type="button" value="View" /><input name="p4Play" type="button" value="Play" /><input name="Pdel4" type="button" value="Delete" /></p>
-
-</br>
-
-<p><b>Playlist: Playlist name here&nbsp;</b></p>
+<p><b>View a playlist (not implemented yet)&nbsp;</b></p>
+<p><b>Playlist: Playlist name goes here&nbsp;</b></p>
 
 
 
@@ -52,14 +49,6 @@ function initialize(){
 
 <p><strong>Available Remote Segments</strong></p>
 
-<p>
-<video controls="" height="240" id="rem1" width="320">
-<source src="https://hotspurproject.s3.us-east-2.amazonaws.com/segments/takeThis.mpg.ogg" type="video/ogg" /> 
-Your browser does not support the video tag.</video>
-</p>
-
-<p><input name="appR1" type="button" value="Append to current playlist" /></p>
-
 <hr />
 <p><b>Search for a Segment</b></p>
 
@@ -68,11 +57,3 @@ Your browser does not support the video tag.</video>
 <p><textarea name="searchBar">Type search here </textarea>&nbsp;&nbsp;<input name="searchbtn" type="button" value="Search" /></p>
 
 <p><strong>Search Results</strong></p>
-
-<p>
-<video controls="" height="240" id="loc7" width="320"><source src="https://hotspurproject.s3.us-east-2.amazonaws.com/segments/NewSeven.ogg" type="video/ogg" /> Your browser does not support the video tag.</video>
-</p>
-
-<p><input name="appS1" type="button" value="Append to current playlist" /></p>
-</body>
-</html>
