@@ -5,7 +5,7 @@
  *    GET list_url
  *    RESPONSE  list of [name, value] constants 
  */
-function refreshLocalSegmentsList() {
+function refreshLocalSegmentsList(isAdmin) {
    var xhr = new XMLHttpRequest();
    xhr.open("GET", list_local_segments_url, true);
    xhr.send();
@@ -17,9 +17,9 @@ function refreshLocalSegmentsList() {
   xhr.onloadend = function () {
     if (xhr.readyState == XMLHttpRequest.DONE) {
       console.log ("XHR:" + xhr.responseText);
-      processListResponse(xhr.responseText);
+      processListResponse(xhr.responseText, isAdmin);
     } else {
-      processListResponse("N/A");
+      processListResponse("N/A", isAdmin);
     }
   };
   console.log("sentuuuuuuu\n\n\n\n");
@@ -33,7 +33,7 @@ function refreshLocalSegmentsList() {
  *
  * Replace the contents of 'localSegmentsList' with a <br>-separated list of name,value pairs.
  */
-function processListResponse(result) {
+function processListResponse(result, isAdmin) {
   console.log("res:" + result);
   // Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
   var js = JSON.parse(result);
@@ -55,7 +55,7 @@ function processListResponse(result) {
     var segAddr 		= localSegsJson["videoFileAddress"];
     
     // updates html
-    
+    if (isAdmin){
     // video
 //    output = output + "<p><video controls="" height="240" id=" + segID + " width="320"><source src=" + segAddr + "type="video/ogg" /> Your browser does not support the video tag.</video></p>" ;
     output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + s3_segments_url  + segID + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
@@ -63,23 +63,14 @@ function processListResponse(result) {
     // character : sentence
     output = output + "<p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
     // buttons: delete, mark available, mark unavailable 
-    // these don't need names since when you delete them, you just "redraw" and only the segments still in the list will create these buttons 
     output = output + "<p>  <input type=\"button\" value=\"Delete segment\" /> <input type=\"button\" value=\"Mark segment remotely available\" /><input type=\"button\" value=\"Mark segment remotely UNavailable\" /></p></br>"; 
-    
-    /*
-     * Original code from administratorLandingPage.html
-<p>
-<input name="del2" type="button" value="Delete segment" />
-<input name="remy2" type="button" value="Mark segment remotely available" />
-<input name="remn2" type="button" value="Mark segment remotely UNavailable" />
-</p>
-
-</br>
-video (template) : 
-     *<p><video controls="" height="240" id="vid1" width="320"><source src="https://hotspurproject.s3.us-east-2.amazonaws.com/segments/NewOne.ogg" type="video/ogg" /> Your browser does not support the video tag.</video></p>
-     show character and speech 
-     <p>McCoy: &quot;Then I need a drink.&quot;&nbsp;</p>
-     */
+    }
+    else {
+    	// character : sentence
+    	output = output + "</br><p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
+    	output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + s3_segments_url  + segID + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
+    	output = output + "<p><input type=\"button\" value=\"Append to current playlist\" /><input type=\"button\" value=\"Delete from library\" /></p></br>";
+    }
   }
 
   // Update computation result
