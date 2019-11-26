@@ -13,6 +13,7 @@ function refreshLocalSegmentsList() {
    console.log("sent");
 
   // This will process results and update HTML as appropriate. 
+   /*
   xhr.onloadend = function () {
     if (xhr.readyState == XMLHttpRequest.DONE) {
       console.log ("XHR:" + xhr.responseText);
@@ -21,6 +22,7 @@ function refreshLocalSegmentsList() {
       processListResponse("N/A");
     }
   };
+  */
 // var testHtml = "<input name=\"regSite\" type=\"button\" value=\"Register site\" />"; 
    var localSegmentsList = document.getElementById('model');
    localSegmentsList.innerHTML = "euhrvbierbviehrbviehrbviehrbv";
