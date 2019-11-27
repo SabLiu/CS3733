@@ -33,6 +33,21 @@ public class SegmentsDAO extends DAO{
         }
     }
     */
+	
+	public boolean deleteSegment(Id segmentId) throws Exception {
+        try {
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM Library WHERE SegmentID = ?;");
+            ps.setString(1, segmentId.getId());
+            int numAffected = ps.executeUpdate();
+            ps.close();
+            
+            return (numAffected == 1);
+
+        } catch (Exception e) {
+            throw new Exception("Failed to deleat segment: " + e.getMessage());
+        }
+    }
+	
     public boolean deleteSegment(Segment segment) throws Exception {
         try {
             PreparedStatement ps = conn.prepareStatement("DELETE FROM Library WHERE SegmentID = ?;");
@@ -87,12 +102,15 @@ public class SegmentsDAO extends DAO{
             ResultSet resultSet = ps.executeQuery();
             
             while (resultSet.next()) {
-            	System.out.println("ejrhbvehr");
                 segment = generateSegment(resultSet);
             }
             
             resultSet.close();
             ps.close();
+            
+            if(segment == null) {
+				throw new NullPointerException("segment not found");
+			}
             
             return segment;
 

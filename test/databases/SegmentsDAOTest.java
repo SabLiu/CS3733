@@ -103,19 +103,56 @@ public class SegmentsDAOTest {
 		SegmentsDAO deleter = new SegmentsDAO();
 		List<Segment> gottenSegmentsBeforDelete = new ArrayList<>();
 		List<Segment> gottenSegmentsAfterDelete = new ArrayList<>();
+		int difference  = -1;
+		boolean oneAffected = false;
 		try {	
 			gottenSegmentsBeforDelete = deleter.getAllLocalSegments();
 			int lengthBefor = gottenSegmentsBeforDelete.size();
-			deleter.deleteSegment(deletedSegment);
+			oneAffected = deleter.deleteSegment(deletedSegment);
 			gottenSegmentsAfterDelete = deleter.getAllLocalSegments();
 			int lengthAfter = gottenSegmentsAfterDelete.size();
-			int difference = lengthBefor - lengthAfter;
-			Segment returnedSegment = deleter.getSegment(id);
-			//should return null if there isn't that segment in there
-			assertTrue(returnedSegment == null && difference == 1);
+			difference = lengthBefor - lengthAfter;
 		}catch(Exception e){
 			assertEquals(false, true);
-		}	
+		}
+		try {
+
+			Segment returnedSegment = deleter.getSegment(id);
+			assertTrue(false);
+		}catch(Exception e) {
+			//Should throw an exception if there isn't a segment there
+			assertTrue(difference == 1 && oneAffected);
+		}
+	}
+	
+	@Test
+	public void deleteSegmentsTestTwo() {
+		Id id = new Id("d92c327e-1615-4869-90c4-13f797ad72f2.ogg");
+		Segment deletedSegment = new Segment(id, false, "testing testing 123", "erich", "test.ogg");
+		SegmentsDAO deleter = new SegmentsDAO();
+		List<Segment> gottenSegmentsBeforDelete = new ArrayList<>();
+		List<Segment> gottenSegmentsAfterDelete = new ArrayList<>();
+		int difference  = -1;
+		boolean oneAffected = false;
+		try {	
+			deleter.addSegment(deletedSegment);
+			gottenSegmentsBeforDelete = deleter.getAllLocalSegments();
+			int lengthBefor = gottenSegmentsBeforDelete.size();
+			oneAffected = deleter.deleteSegment(id);
+			gottenSegmentsAfterDelete = deleter.getAllLocalSegments();
+			int lengthAfter = gottenSegmentsAfterDelete.size();
+			difference = lengthBefor - lengthAfter;
+		}catch(Exception e){
+			assertEquals(false, true);
+		}
+		try {
+
+			Segment returnedSegment = deleter.getSegment(id);
+			assertTrue(false);
+		}catch(Exception e) {
+			//Should throw an exception if there isn't a segment there
+			assertTrue(difference == 1 && oneAffected);
+		}
 	}
 
 }
