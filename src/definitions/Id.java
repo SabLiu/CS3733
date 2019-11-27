@@ -22,7 +22,7 @@ public class Id {
 	}
 	
 	public void setRandomId() {
-		this.id = UUID.randomUUID().toString();
+		this.id = UUID.randomUUID().toString() + ".ogg";
 	}
 
 	@Override

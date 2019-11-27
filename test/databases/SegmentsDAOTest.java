@@ -12,7 +12,8 @@ import definitions.Id;
 import definitions.Segment;
 
 public class SegmentsDAOTest {
-
+   // (Id id, boolean isRemotelyAvailable, String sentence, String character, String videoFileAddress) 	
+	
 	@Test
 	public void getSegmentsTest() {
 		List<Segment> controllerSegments = new ArrayList<>();
@@ -66,7 +67,6 @@ public class SegmentsDAOTest {
 		Segment controlSegment = new Segment(new Id(testID), false, "", "", "");
 
 		SegmentsDAO getter = new SegmentsDAO();
-		
 		try {
 			Segment returnedSegment = getter.getSegment(new Id(testID));
 			System.out.println(returnedSegment);
@@ -75,6 +75,47 @@ public class SegmentsDAOTest {
 			System.out.print("Exception: ");
 			System.out.println(e.getMessage());
 		}
+	}
+	
+	@Test
+	public void addSegmentsTest() {
+		Id id = new Id("d92c327e-1615-4869-90c4-13f797ad72f2.ogg");
+		Segment sentSegment = new Segment(id, false, "testing testing 123", "erich", "test.ogg");
+		SegmentsDAO setter = new SegmentsDAO();
+		try {	
+			setter.addSegment(sentSegment);
+			Segment returnedSegment = setter.getSegment(id);
+			boolean didSetPass = returnedSegment.equals(sentSegment);
+			boolean didTryToSetPass = false;
+			if(didSetPass) {
+				didTryToSetPass = !setter.addSegment(sentSegment); 
+			}
+			assertTrue(didTryToSetPass && didSetPass);
+		}catch(Exception e){
+			assertEquals(false, true);
+		}		
+	}
+	
+	@Test
+	public void deleteSegmentsTest() {
+		Id id = new Id("d92c327e-1615-4869-90c4-13f797ad72f2.ogg");
+		Segment deletedSegment = new Segment(id, false, "testing testing 123", "erich", "test.ogg");
+		SegmentsDAO deleter = new SegmentsDAO();
+		List<Segment> gottenSegmentsBeforDelete = new ArrayList<>();
+		List<Segment> gottenSegmentsAfterDelete = new ArrayList<>();
+		try {	
+			gottenSegmentsBeforDelete = deleter.getAllLocalSegments();
+			int lengthBefor = gottenSegmentsBeforDelete.size();
+			deleter.deleteSegment(deletedSegment);
+			gottenSegmentsAfterDelete = deleter.getAllLocalSegments();
+			int lengthAfter = gottenSegmentsAfterDelete.size();
+			int difference = lengthBefor - lengthAfter;
+			Segment returnedSegment = deleter.getSegment(id);
+			//should return null if there isn't that segment in there
+			assertTrue(returnedSegment == null && difference == 1);
+		}catch(Exception e){
+			assertEquals(false, true);
+		}	
 	}
 
 }

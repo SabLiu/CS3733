@@ -32,46 +32,49 @@ public class SegmentsDAO extends DAO{
             throw new Exception("Failed to update report: " + e.getMessage());
         }
     }
-    
-    public boolean deleteConstant(Constant constant) throws Exception {
+    */
+    public boolean deleteSegment(Segment segment) throws Exception {
         try {
-            PreparedStatement ps = conn.prepareStatement("DELETE FROM constants WHERE name = ?;");
-            ps.setString(1, constant.name);
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM Library WHERE SegmentID = ?;");
+            ps.setString(1, segment.getId().getId());
             int numAffected = ps.executeUpdate();
             ps.close();
             
             return (numAffected == 1);
 
         } catch (Exception e) {
-            throw new Exception("Failed to insert constant: " + e.getMessage());
+            throw new Exception("Failed to deleat segment: " + e.getMessage());
         }
     }
 
-
-    public boolean addConstant(Constant constant) throws Exception {
+    public boolean addSegment(Segment segment) throws Exception {
         try {
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM constants WHERE name = ?;");
-            ps.setString(1, constant.name);
+        	
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Library  WHERE SegmentID = ?;");
+            ps.setString(1, segment.getId().getId());
             ResultSet resultSet = ps.executeQuery();
-            
+           
             // already present?
-            while (resultSet.next()) {
-                Constant c = generateConstant(resultSet);
+            while (resultSet.next()) {              
                 resultSet.close();
                 return false;
             }
-
-            ps = conn.prepareStatement("INSERT INTO constants (name,value) values(?,?);");
-            ps.setString(1,  constant.name);
-            ps.setDouble(2,  constant.value);
+          
+            ps = conn.prepareStatement("INSERT INTO Library (SegmentID,SegmentName,SegmentWords,SegmentSpeaker,IsSegmentPublic) values(?,?,?,?,?);");
+            ps.setString(1,  segment.getId().getId());
+            ps.setString(2,  segment.getVideoFileAddress());
+            ps.setString(3,  segment.getSentence());
+            ps.setString(4,  segment.getCharacter());
+            ps.setBoolean(5,  segment.isRemotelyAvailable());
+            
             ps.execute();
             return true;
 
         } catch (Exception e) {
-            throw new Exception("Failed to insert constant: " + e.getMessage());
+            throw new Exception("Failed to insert segment: " + e.getMessage());
         }
     }
-*/
+
     
     public Segment getSegment(Id id) throws Exception {
         //TODO later update to also get remote segments
@@ -84,6 +87,7 @@ public class SegmentsDAO extends DAO{
             ResultSet resultSet = ps.executeQuery();
             
             while (resultSet.next()) {
+            	System.out.println("ejrhbvehr");
                 segment = generateSegment(resultSet);
             }
             
