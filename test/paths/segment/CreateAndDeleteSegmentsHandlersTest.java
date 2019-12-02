@@ -2,6 +2,14 @@ package paths.segment;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -21,6 +29,7 @@ public class CreateAndDeleteSegmentsHandlersTest extends LambdaTest{
 	
 	@Test
 	public void testShouldPass() {
+		System.out.println(testIdPass);
 		testCreateSegmentHandler();
 		testDeleteSegmentHandler();
 	}
@@ -34,11 +43,12 @@ public class CreateAndDeleteSegmentsHandlersTest extends LambdaTest{
 	public void testCreateSegmentHandler(){
     	CreateSegmentHandler createHandler = new CreateSegmentHandler();
     	ListLocalSegmentsHandler listHandler = new ListLocalSegmentsHandler();
-        Segment segment = new Segment(testIdPass, false, "Test upload", "test", "test\\resources\\test_segment.ogg");
+        Segment segment = new Segment(testIdPass, false, "Test upload", "test", getEncodedValue("test\\resources\\test_segment.ogg"));
         try {
         	Response<Segment[]> response = createHandler.handleRequest(segment, createContext("list"));
 			Response<Segment[]> expectedResponse =  listHandler.handleRequest(null, createContext("list"));
 			
+			System.out.println(response);
 			boolean addedToDatabase = false;
 			for(Segment s: response.getModel()){
 				if(s.equals(segment)){
@@ -48,17 +58,20 @@ public class CreateAndDeleteSegmentsHandlersTest extends LambdaTest{
 			}
 			
 			AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_2).build();
-		   
-			assertTrue("Segment added into bucket", s3.doesObjectExist("hotspurproject/segments", segment.getId().getId()));
+			
+			assertTrue("Response indicates sucess", response.statusCode == 200);
+			assertTrue("Segment added into bucket", s3.doesObjectExist("hotspurproject", "segments/" +segment.getId().getId()));
 			assertTrue("Segment added to database", addedToDatabase);
 			assertArrayEquals("All segments in database returned", response.getModel(), expectedResponse.getModel());  
-			
 		} catch (Exception e) {
 			System.out.println("EXCPETION: " + e.getMessage());
 			e.printStackTrace();
+			fail("EXCPETION: " + e.getMessage());
 		}
         
 	}
+	
+
 	
 	public void testCreateSegmentHandlerShouldFail() {
     	CreateSegmentHandler createHandler = new CreateSegmentHandler();
@@ -81,13 +94,14 @@ public class CreateAndDeleteSegmentsHandlersTest extends LambdaTest{
 			AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_2).build();
 			
 			assertTrue("Response indicates failure", response.getStatusCode() != 200);
-			assertTrue("Segment not added into bucket", !s3.doesObjectExist("hotspurproject/segments", segment.getId().getId()));
+			assertTrue("Segment not added into bucket", !s3.doesObjectExist("hotspurproject", "segments/" + segment.getId().getId()));
 			assertTrue("Segment not added to database", !addedToDatabase);
 			assertArrayEquals("Segments in database didn't change", databaseBefore.getModel(), databaseAfter.getModel());  
         	
         }catch(Exception e){
 			System.out.println("EXCPETION: " + e.getMessage());
 			e.printStackTrace();
+			fail("EXCPETION: " + e.getMessage());
         }
 
 	}
@@ -109,13 +123,15 @@ public class CreateAndDeleteSegmentsHandlersTest extends LambdaTest{
 			
 			AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_2).build();
 		   
-			assertTrue("Segment removed from bucket", !s3.doesObjectExist("hotspurproject/segments", testIdPass.getId()));
+			assertTrue("Response indicates sucess", response.statusCode == 200);
+			assertTrue("Segment removed from bucket", !s3.doesObjectExist("hotspurproject", "segments/" + testIdPass.getId()));
 			assertTrue("Segment removed from", removedFromDatabase);
 			assertArrayEquals("All segments in database returned", response.getModel(), expectedResponse.getModel());  
 			
 		} catch (Exception e) {
 			System.out.println("EXCPETION: " + e.getMessage());
 			e.printStackTrace();
+			fail("EXCPETION: " + e.getMessage());
 		}
         
 	}
@@ -135,8 +151,25 @@ public class CreateAndDeleteSegmentsHandlersTest extends LambdaTest{
         }catch(Exception e){
 			System.out.println("EXCPETION: " + e.getMessage());
 			e.printStackTrace();
+			fail("EXCPETION: " + e.getMessage());
         }
 
+	}
+	
+	private String getEncodedValue(String filePath) {
+        String base64File = "";
+        File file = new File(filePath);
+        try (FileInputStream imageInFile = new FileInputStream(file)) {
+            // Reading a file from file system
+            byte fileData[] = new byte[(int) file.length()];
+            imageInFile.read(fileData);
+            base64File = Base64.getEncoder().encodeToString(fileData);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found" + e);
+        } catch (IOException ioe) {
+            System.out.println("Exception while reading the file " + ioe);
+        }
+        return base64File;
 	}
 
 }
