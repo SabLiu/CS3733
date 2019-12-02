@@ -5,7 +5,7 @@ import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
 import databases.PlaylistDAO;
-import databases.SegmentsDAO;
+import databases.SegmentDAO;
 import definitions.Playlist;
 import definitions.Response;
 import definitions.Segment;

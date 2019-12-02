@@ -1,5 +1,5 @@
 package databases;
-import java.sql.*;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -7,15 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import definitions.Id;
-import definitions.Segment;
+import definitions.Site;
 
-
-
-
-public class SegmentsDAO extends DAO{
-	
-	public SegmentsDAO() {super();}
-	public SegmentsDAO(java.sql.Connection conn) {super(conn);}
+public class SiteDAO extends DAO{
+	public SiteDAO() {super();}
+	public SiteDAO(java.sql.Connection conn) {super(conn);}
    
     /*
     public boolean updateConstant(Constant constant) throws Exception {
@@ -34,10 +30,10 @@ public class SegmentsDAO extends DAO{
     }
     */
 	
-	public boolean deleteSegment(Id segmentId) throws Exception {
+	public boolean deleteSite(Id siteId) throws Exception {
         try {
-            PreparedStatement ps = conn.prepareStatement("DELETE FROM Library WHERE SegmentID = ?;");
-            ps.setString(1, segmentId.getId());
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM SiteLibrary WHERE SiteID = ?;");
+            ps.setString(1, siteId.getId());
             int numAffected = ps.executeUpdate();
             ps.close();
             
@@ -47,8 +43,8 @@ public class SegmentsDAO extends DAO{
             throw new Exception("Failed to deleat segment: " + e.getMessage());
         }
     }
-	
-    public boolean deleteSegment(Segment segment) throws Exception {
+	/*
+    public boolean deleteSite(Site site) throws Exception {
         try {
             PreparedStatement ps = conn.prepareStatement("DELETE FROM Library WHERE SegmentID = ?;");
             ps.setString(1, segment.getId().getId());
@@ -61,12 +57,12 @@ public class SegmentsDAO extends DAO{
             throw new Exception("Failed to delete segment: " + e.getMessage());
         }
     }
-
-    public boolean addSegment(Segment segment) throws Exception {
+*/
+    public boolean addSite(Site site) throws Exception {
         try {
         	
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Library  WHERE SegmentID = ?;");
-            ps.setString(1, segment.getId().getId());
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM SiteLibrary  WHERE SiteID = ?;");
+            ps.setString(1, site.getId().getId());
             ResultSet resultSet = ps.executeQuery();
            
             // already present?
@@ -75,11 +71,9 @@ public class SegmentsDAO extends DAO{
                 return false;
             }
           
-            ps = conn.prepareStatement("INSERT INTO Library (SegmentID,SegmentWords,SegmentSpeaker,IsSegmentPublic) values(?,?,?,?);");
-            ps.setString(1,  segment.getId().getId());
-            ps.setString(2,  segment.getSentence());
-            ps.setString(3,  segment.getCharacter());
-            ps.setBoolean(4,  segment.isRemotelyAvailable());
+            ps = conn.prepareStatement("INSERT INTO SiteLibrary (SiteID,SiteURL) values(?,?);");
+            ps.setString(1,  site.getId().getId());
+            ps.setString(2,  site.getUrl());
             
             ps.execute();
             return true;
@@ -89,7 +83,7 @@ public class SegmentsDAO extends DAO{
         }
     }
 
-    
+    /*
     public Segment getSegment(Id id) throws Exception {
         //TODO later update to also get remote segments
  
@@ -119,34 +113,32 @@ public class SegmentsDAO extends DAO{
         }
         
     }
-    
-    public List<Segment> getAllLocalSegments() throws Exception {;
-        List<Segment> allSegments = new ArrayList<>();
+    */
+    public List<Site> getAllSites() throws Exception {;
+        List<Site> allSites = new ArrayList<>();
         try {
             Statement statement = conn.createStatement();
-            String query = "SELECT * FROM Library";
+            String query = "SELECT * FROM SiteLibrary";
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
-                Segment c = generateSegment(resultSet);
-                allSegments.add(c);
+                Site s = generateSite(resultSet);
+                allSites.add(s);
             }
             resultSet.close();
             statement.close();
-            return allSegments;
+            return allSites;
 
         } catch (Exception e) {
             throw new Exception("Failed in getting books: " + e.getMessage());
         }
     }
     
-    private Segment generateSegment(ResultSet resultSet) throws Exception {
-        String idStr  = resultSet.getString("SegmentID");
+    private Site generateSite(ResultSet resultSet) throws Exception {
+        String idStr  = resultSet.getString("SiteID");
         Id id = new Id(idStr);
-        String words = resultSet.getString("SegmentWords");
-        String speaker = resultSet.getString("SegmentSpeaker");
-        Boolean p = resultSet.getBoolean("IsSegmentPublic");
-        return new Segment (id, p, words, speaker);
+        String URL = resultSet.getString("SiteURL");
+        return new Site (id, URL);
     }
 
 }

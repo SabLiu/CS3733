@@ -162,7 +162,7 @@ public class PlaylistDAO extends DAO{
 	        ps.setString(1,  playlistId.getId());
 	        
 	        ResultSet resultSet = ps.executeQuery();
-	    	SegmentsDAO segDAO = new SegmentsDAO(conn);
+	    	SegmentDAO segDAO = new SegmentDAO(conn);
 	    	
 	        while (resultSet.next()) {
 	            playlist = generatePlaylist(resultSet, segDAO); //get playlist name, id and segments
@@ -203,7 +203,7 @@ public class PlaylistDAO extends DAO{
 	 * @return
 	 * @throws Exception
 	 */
-	private Playlist generatePlaylist(ResultSet resultSet, SegmentsDAO segDAO) throws Exception {
+	private Playlist generatePlaylist(ResultSet resultSet, SegmentDAO segDAO) throws Exception {
 	    Playlist p = generatePlaylist(resultSet);
 	    
 	    String segmentIDsStr = resultSet.getString("SegmentIDs");

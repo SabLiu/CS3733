@@ -4,7 +4,7 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
-import databases.SegmentsDAO;
+import databases.SegmentDAO;
 import definitions.Response;
 import definitions.Segment;
 
@@ -18,7 +18,7 @@ public class ListLocalSegmentsHandler implements RequestHandler<Object, Response
 	 * 
 	 * @throws Exception 
 	 */
-	static Segment[] getSegments(LambdaLogger logger, SegmentsDAO dao) throws Exception {
+	static Segment[] getSegments(LambdaLogger logger, SegmentDAO dao) throws Exception {
 			logger.log("in getSegments\n");
 			Segment[] s = {};
 			s = dao.getAllLocalSegments().toArray(s);
@@ -35,7 +35,7 @@ public class ListLocalSegmentsHandler implements RequestHandler<Object, Response
 		
 		
 		try {
-			list = getSegments(logger, new SegmentsDAO());	
+			list = getSegments(logger, new SegmentDAO());	
 			response = new Response<Segment[]>(list, 200);
 			logger.log("finished getSegments\n");
 		} catch (Exception e) {
