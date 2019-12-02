@@ -3,32 +3,14 @@
 	  var form = document.createForm;
 	 
 	  var data = {};
-	  //user provides this info
+	  // user provides this info
 	  data["sentence"] = form.sentence.value; 
 	  data["character"] = form.character.value;
 	  
-	  //we generate this info
-//	  data["id"]["id"] = generate UUID 
+	  // we generate this info
+//	  data["id"]["id"] = generate UUID, related to the URL
 //	  data["videoFileAddress"] = whatever its URL is in the bucket
 	  data["remotelyAvailable"] = false; // default set to false
-	  
-	    var segID 			= localSegsJson["id"]["id"];
-	    var isRemAvailable 	= localSegsJson["remotelyAvailable"];
-	    var sent			= localSegsJson["sentence"];
-	    var character 		= localSegsJson["character"];
-	    var segAddr 		= localSegsJson["videoFileAddress"];
-
-	 /*this is what we need to put into the html file 
-	   * 
-<form name="createForm" method="post">
-    
-<input name="character" value="character" />
-   <input name="sentence" value="sentence" />
-   <input name="base64Encoding" hidden value=""/>
-   Select a constant in file: <input type="file" id="constantValue" name="constantValue">
-   <input type="button" id="uploadButton" value="Upload segment" disabled onClick="JavaScript:handleUploadClick(this)">
-</form>
-	   */
 	  
 	  // base64EncodedValue":"data:text/plain;base64,My4xND....."
 	  var segments = document.createForm.base64Encoding.value.split(',');

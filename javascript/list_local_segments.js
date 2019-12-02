@@ -11,6 +11,7 @@ function refreshLocalSegmentsList(isAdmin) {
    xhr.send();
    
    console.log("sent");
+
   // This will process results and update HTML as appropriate. 
    
   xhr.onloadend = function () {
@@ -46,7 +47,6 @@ function processListResponse(result, isAdmin) {
     var isRemAvailable 	= localSegsJson["remotelyAvailable"];
     var sent			= localSegsJson["sentence"];
     var character 		= localSegsJson["character"];
-    var segAddr 		= localSegsJson["videoFileAddress"];
     
     // updates html
     if (isAdmin){
