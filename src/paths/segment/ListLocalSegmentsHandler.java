@@ -18,9 +18,8 @@ public class ListLocalSegmentsHandler implements RequestHandler<Object, Response
 	 * 
 	 * @throws Exception 
 	 */
-	Segment[] getSegments() throws Exception {
+	static Segment[] getSegments(LambdaLogger logger, SegmentsDAO dao) throws Exception {
 			logger.log("in getSegments\n");
-			SegmentsDAO dao = new SegmentsDAO();
 			Segment[] s = {};
 			s = dao.getAllLocalSegments().toArray(s);
 			return s;
@@ -36,7 +35,7 @@ public class ListLocalSegmentsHandler implements RequestHandler<Object, Response
 		
 		
 		try {
-			list = getSegments();	
+			list = getSegments(logger, new SegmentsDAO());	
 			response = new Response<Segment[]>(list, 200);
 			logger.log("finished getSegments\n");
 		} catch (Exception e) {

@@ -92,7 +92,9 @@ public class SegmentsDAOTest {
 			}
 			assertTrue(didTryToSetPass && didSetPass);
 		}catch(Exception e){
-			assertEquals(false, true);
+			System.out.print("Exception: ");
+			System.out.println(e.getMessage());
+			fail();
 		}		
 	}
 	

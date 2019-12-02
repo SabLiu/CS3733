@@ -9,8 +9,13 @@ public class Id {
 		setRandomId();
 	}
 	
-	public Id(String uuid) { 
-		this.id = uuid;
+	public Id(String arg) { 
+		if(arg.charAt(0) == '.'){ //arg is extension
+			setRandomId(arg);
+		}
+		else{ //arg is uuid
+			this.id = arg;
+		}
 	}
 	
 	public String getId() {
@@ -22,7 +27,12 @@ public class Id {
 	}
 	
 	public void setRandomId() {
-		this.id = UUID.randomUUID().toString() + ".ogg";
+		this.id = UUID.randomUUID().toString();
+	}
+	
+	public void setRandomId(String extension) {
+		setRandomId();
+		this.id += extension;
 	}
 
 	@Override
