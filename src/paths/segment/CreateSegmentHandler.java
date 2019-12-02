@@ -20,14 +20,14 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectResult;
 import com.amazonaws.services.s3.model.SetPublicAccessBlockRequest;
 
-import databases.SegmentsDAO;
+import databases.SegmentDAO;
 import definitions.Response;
 import definitions.Segment;
 
 
 public class CreateSegmentHandler implements RequestHandler<Segment,Response<Segment[]>>{
 	LambdaLogger logger;
-	SegmentsDAO dao;
+	SegmentDAO dao;
 	
 	@Override
 	public Response<Segment[]> handleRequest(Segment segment, Context context) {
@@ -35,7 +35,7 @@ public class CreateSegmentHandler implements RequestHandler<Segment,Response<Seg
 		logger.log(segment.toString());
 
 		Response<Segment[]> response;
-		dao = new SegmentsDAO();
+		dao = new SegmentDAO();
 		try {
 			if (addToBucket(segment) &&  addToDatabase(segment)) {
 				//return all local segments

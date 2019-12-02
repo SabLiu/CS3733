@@ -11,7 +11,7 @@ function refreshLocalSegmentsList(isAdmin) {
    xhr.send();
    
    console.log("sent");
-  //yay
+
   // This will process results and update HTML as appropriate. 
    
   xhr.onloadend = function () {

@@ -8,14 +8,14 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 
 
-import databases.SegmentsDAO;
+import databases.SegmentDAO;
 import definitions.Id;
 import definitions.Response;
 import definitions.Segment;
 
  class DeleteSegmentHandler implements RequestHandler<Id, Response<Segment[]>>{
 	 LambdaLogger logger;
-	 SegmentsDAO dao;
+	 SegmentDAO dao;
 		
 	@Override
 	public Response<Segment[]> handleRequest(Id id, Context context) {
@@ -23,7 +23,7 @@ import definitions.Segment;
 		logger.log(id.toString());
 
 		Response<Segment[]> response;
-		dao = new SegmentsDAO();
+		dao = new SegmentDAO();
 		try {
 			if (removeFromDatabase(id)) {
 				//return all local segments

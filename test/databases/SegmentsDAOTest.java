@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import databases.SegmentsDAO;
+import databases.SegmentDAO;
 import definitions.Id;
 import definitions.Segment;
 
@@ -40,7 +40,7 @@ public class SegmentsDAOTest {
 		controllerSegments.add(new Segment(id.get(8), false, "You know, self-pity is a terrible first course", "Chapel", "Three.ogg"));
 		controllerSegments.add(new Segment(id.get(9), false, "I know you would prefer to wallow in a pool of emotion", "Spock", "Four.ogg"));
 		
-		SegmentsDAO getter = new SegmentsDAO();
+		SegmentDAO getter = new SegmentDAO();
 		List<Segment> gottenSegments = new ArrayList<>();
 		try{
 			gottenSegments = getter.getAllLocalSegments();
@@ -66,7 +66,7 @@ public class SegmentsDAOTest {
 		String testID = "c9314e2c-68df-48ec-af09-de17bac46ecd.ogg";
 		Segment controlSegment = new Segment(new Id(testID), false, "", "", "");
 
-		SegmentsDAO getter = new SegmentsDAO();
+		SegmentDAO getter = new SegmentDAO();
 		try {
 			Segment returnedSegment = getter.getSegment(new Id(testID));
 			System.out.println(returnedSegment);
@@ -81,7 +81,7 @@ public class SegmentsDAOTest {
 	public void addSegmentsTest() {
 		Id id = new Id("d92c327e-1615-4869-90c4-13f797ad72f2.ogg");
 		Segment sentSegment = new Segment(id, false, "testing testing 123", "erich", "test.ogg");
-		SegmentsDAO setter = new SegmentsDAO();
+		SegmentDAO setter = new SegmentDAO();
 		try {	
 			setter.addSegment(sentSegment);
 			Segment returnedSegment = setter.getSegment(id);
@@ -102,7 +102,7 @@ public class SegmentsDAOTest {
 	public void deleteSegmentsTest() {
 		Id id = new Id("d92c327e-1615-4869-90c4-13f797ad72f2.ogg");
 		Segment deletedSegment = new Segment(id, false, "testing testing 123", "erich", "test.ogg");
-		SegmentsDAO deleter = new SegmentsDAO();
+		SegmentDAO deleter = new SegmentDAO();
 		List<Segment> gottenSegmentsBeforDelete = new ArrayList<>();
 		List<Segment> gottenSegmentsAfterDelete = new ArrayList<>();
 		int difference  = -1;
@@ -131,7 +131,7 @@ public class SegmentsDAOTest {
 	public void deleteSegmentsTestTwo() {
 		Id id = new Id("d92c327e-1615-4869-90c4-13f797ad72f2.ogg");
 		Segment deletedSegment = new Segment(id, false, "testing testing 123", "erich", "test.ogg");
-		SegmentsDAO deleter = new SegmentsDAO();
+		SegmentDAO deleter = new SegmentDAO();
 		List<Segment> gottenSegmentsBeforDelete = new ArrayList<>();
 		List<Segment> gottenSegmentsAfterDelete = new ArrayList<>();
 		int difference  = -1;
