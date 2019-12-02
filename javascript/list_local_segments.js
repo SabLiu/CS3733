@@ -47,7 +47,6 @@ function processListResponse(result, isAdmin) {
     var isRemAvailable 	= localSegsJson["remotelyAvailable"];
     var sent			= localSegsJson["sentence"];
     var character 		= localSegsJson["character"];
-    var segAddr 		= localSegsJson["videoFileAddress"];
     
     // updates html
     if (isAdmin){
