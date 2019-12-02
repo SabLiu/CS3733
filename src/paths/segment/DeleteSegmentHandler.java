@@ -1,17 +1,12 @@
 package paths.segment;
 
-import java.io.ByteArrayInputStream;
-
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.DeleteObjectRequest;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.services.s3.model.PutObjectResult;
+
 
 import databases.SegmentsDAO;
 import definitions.Id;
@@ -65,7 +60,7 @@ import definitions.Segment;
 		AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_2).build();
 		logger.log("attach to S3 succeed");
 		
-		s3.deleteObject("hotspurproject/segments/", id.getId());
+		s3.deleteObject("hotspurproject", "segments/" +id.getId());
 		
 		// if we ever get here, then whole thing was deleted
 		logger.log("removeFromBucket complete");

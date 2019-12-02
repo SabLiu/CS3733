@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
@@ -68,12 +69,13 @@ public class CreateSegmentHandler implements RequestHandler<Segment,Response<Seg
 		
 		//create s3 object
 		logger.log("attach to S3 request");
+		
 		AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_2).build();
 		logger.log("attach to S3 succeed");
 		
 		//turn video file into byte array
 		//mkyong.com/java/how-to-convert-file-into-an-array-of-bytes/
-		byte[] contents = segment.getContents();
+		byte[] contents = java.util.Base64.getDecoder().decode(segment.getContents());
 		
 		if(contents == null) {
 			return false;
