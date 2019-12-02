@@ -1,19 +1,38 @@
 package definitions;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 public class Segment {
 	Id id;
 	boolean isRemotelyAvailable;
 	String sentence;
 	String character;
-	String videoFileAddress;
+	byte[] contents;
 	
-	public Segment(Id id, boolean isRemotelyAvailable, String sentence, String character, String videoFileAddress) {
+	public Segment(Id id, boolean isRemotelyAvailable, String sentence, String character) {
 		this.id = id;
 		this.isRemotelyAvailable = isRemotelyAvailable;
 		this.sentence = sentence;
 		this.character = character;
-		this.videoFileAddress = videoFileAddress;
 	}
+	
+	public Segment(Id id, boolean isRemotelyAvailable, String sentence, String character, String filePath) {
+		this.id = id;
+		this.isRemotelyAvailable = isRemotelyAvailable;
+		this.sentence = sentence;
+		this.character = character;
+		setContents(filePath);
+	}
+	
+	public Segment() {
+	}
+	
+	public byte[] getContents() {
+		return contents;
+	}
+	
 
 	public Id getId() {
 		return id;
@@ -30,7 +49,6 @@ public class Segment {
 	public String getCharacter() {
 		return character;
 	}
-	
 
 	public void setId(Id id) {
 		this.id = id;
@@ -47,13 +65,17 @@ public class Segment {
 	public void setCharacter(String character) {
 		this.character = character;
 	}
-
-	public void setVideoFileAddress(String videoFileAddress) {
-		this.videoFileAddress = videoFileAddress;
+	
+	public void setContents(byte[] contents) {
+		this.contents = contents;
 	}
-
-	public String getVideoFileAddress() {
-		return videoFileAddress;
+	
+	public void setContents(String filePath) {
+		try {
+			this.contents = Files.readAllBytes(Paths.get(filePath));
+		} catch (IOException e) {
+			this.contents = null;
+		}
 	}
 
 	@Override
@@ -70,7 +92,7 @@ public class Segment {
 	public String toString() {
 		return ("Segment: " + sentence + " " + character + "\n" + 
 				"\t\tRemotelyAvailable: " + isRemotelyAvailable + "\n" +
-				"\t\t" + id + "\n\t\t" + videoFileAddress + "\n");
+				"\t\t" + id + "\n");
 	}
 	
 }

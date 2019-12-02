@@ -58,7 +58,7 @@ public class SegmentsDAO extends DAO{
             return (numAffected == 1);
 
         } catch (Exception e) {
-            throw new Exception("Failed to deleat segment: " + e.getMessage());
+            throw new Exception("Failed to delete segment: " + e.getMessage());
         }
     }
 
@@ -75,12 +75,11 @@ public class SegmentsDAO extends DAO{
                 return false;
             }
           
-            ps = conn.prepareStatement("INSERT INTO Library (SegmentID,SegmentName,SegmentWords,SegmentSpeaker,IsSegmentPublic) values(?,?,?,?,?);");
+            ps = conn.prepareStatement("INSERT INTO Library (SegmentID,SegmentWords,SegmentSpeaker,IsSegmentPublic) values(?,?,?,?);");
             ps.setString(1,  segment.getId().getId());
-            ps.setString(2,  segment.getVideoFileAddress());
-            ps.setString(3,  segment.getSentence());
-            ps.setString(4,  segment.getCharacter());
-            ps.setBoolean(5,  segment.isRemotelyAvailable());
+            ps.setString(2,  segment.getSentence());
+            ps.setString(3,  segment.getCharacter());
+            ps.setBoolean(4,  segment.isRemotelyAvailable());
             
             ps.execute();
             return true;
@@ -146,9 +145,8 @@ public class SegmentsDAO extends DAO{
         Id id = new Id(idStr);
         String words = resultSet.getString("SegmentWords");
         String speaker = resultSet.getString("SegmentSpeaker");
-        String name = resultSet.getString("SegmentName");
         Boolean p = resultSet.getBoolean("IsSegmentPublic");
-        return new Segment (id, p, words, speaker, name);
+        return new Segment (id, p, words, speaker);
     }
 
 }
