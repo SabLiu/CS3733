@@ -9,7 +9,7 @@ public class Segment {
 	boolean isRemotelyAvailable;
 	String sentence;
 	String character;
-	byte[] contents;
+	String contents;
 	
 	public Segment(Id id, boolean isRemotelyAvailable, String sentence, String character) {
 		this.id = id;
@@ -29,7 +29,7 @@ public class Segment {
 	public Segment() {
 	}
 	
-	public byte[] getContents() {
+	public String getContents() {
 		return contents;
 	}
 	
@@ -66,16 +66,8 @@ public class Segment {
 		this.character = character;
 	}
 	
-	public void setContents(byte[] contents) {
+	public void setContents(String contents) {
 		this.contents = contents;
-	}
-	
-	public void setContents(String filePath) {
-		try {
-			this.contents = Files.readAllBytes(Paths.get(filePath));
-		} catch (IOException e) {
-			this.contents = null;
-		}
 	}
 
 	@Override
