@@ -82,6 +82,7 @@ public class Playlist {
 				if(!this.segments[i].equals(((Playlist)obj).segments[i])) {
 					x = false;
 				}
+				i++;
 			}
 		}
 		return x;
