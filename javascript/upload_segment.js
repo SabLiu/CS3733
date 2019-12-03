@@ -9,7 +9,7 @@
 	  
 	  // we generate this info and send it to backend as JSON 
 	  // generate UUID on backend 
-	  data["remotelyAvailable"] = false; // default set to false
+	  data["isRemotelyAvailable"] = false; // default set to false
 	  
 	  // base64EncodedValue":"data:text/plain;base64,My4xND....."
 	  var segments = document.createForm.base64Encoding.value.split(',');
