@@ -1,24 +1,15 @@
 // from heineman create.js
-	function handleUploadClick(e) {
-	  var form = document.createForm;
+	function handleCreatePlaylistClick(e) {
+	  var form = document.playlistForm;
 	 
 	  var data = {};
 	  // user provides this info
-	  data["sentence"] = form.sentence.value; 
-	  data["character"] = form.character.value;
-	  
-	  // we generate this info and send it to backend as JSON 
-	  // generate UUID on backend 
-	  data["remotelyAvailable"] = false; // default set to false
-	  
-	  // base64EncodedValue":"data:text/plain;base64,My4xND....."
-	  var segments = document.createForm.base64Encoding.value.split(',');
-	  data["base64EncodedValue"] = segments[1];  // skip first one 
+	  data["name"] = form.PLname.value; 
 
 	  var js = JSON.stringify(data); // magic to convert data to JSON
 	  console.log("JS:" + js);
 	  var xhr = new XMLHttpRequest();
-	  xhr.open("POST", upload_url, true);
+	  xhr.open("POST", create_playlist_url, true);
 
 	  // send the collected data as JSON
 	  xhr.send(js);
@@ -38,10 +29,6 @@
 	    	 }
 	    } 
 	  };
-	  refreshLocalSegmentsList(false); // isAdmin = false since only participant uploads segments
+	  refreshPlaylistsList(); // isAdmin = false since only participant uploads segments
 	}
-
-	
-	
-	// then getBase64, handleFileSelect, eventListener in html run 
-	// from Professor Heineman's AWSCalculator code: script inside calculator.html
+//edited upload_segment code

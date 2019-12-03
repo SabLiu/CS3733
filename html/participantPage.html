@@ -4,6 +4,7 @@
 <script type='text/javascript' src='../list_playlists.js'></script>
 <script type='text/javascript' src='../api.js'></script>
 <script type='text/javascript' src='../upload_segment.js'></script>
+<script type='text/javascript' src='../create_playlist.js'></script>
 
 <script type="text/javascript">
 
@@ -21,8 +22,11 @@ function initialize(){
 
 <hr />
 <p><b>Playlists</b></p>
-<p><b><input name="newPLname" type = "text" value = "New playlist name"/><input name="addPlaylistBtn" type="button" value="Create a new playlist" /></b></p>
 
+<form name="playlistForm" method="post">  
+ 	<input name="PLname" value="Enter playlist name" />
+ 	<input type="button" id="createPLButton" value="Create Playlist" disabled onClick="JavaScript:handleCreatePlaylistClick(this)">
+</form>
 
 <p>&nbsp;</p>
 
