@@ -1,4 +1,4 @@
-  // from heineman create.js
+// from heineman create.js
 	function handleUploadClick(e) {
 	  var form = document.createForm;
 	 
@@ -13,7 +13,7 @@
 	  
 	  // base64EncodedValue":"data:text/plain;base64,My4xND....."
 	  var segments = document.createForm.base64Encoding.value.split(',');
-	  data["contents"] = segments[1];  // skip first one 
+	  data["base64EncodedValue"] = segments[1];  // skip first one 
 
 	  var js = JSON.stringify(data); // magic to convert data to JSON
 	  console.log("JS:" + js);

@@ -34,17 +34,16 @@ function initialize(){
 <p><b>Current Playlist: Playlist name goes here&nbsp;</b></p>
 
 
-
 <hr />
-<p><b>Local Segments</b></p>
+<p><b>Upload a new local segment </b></p>
 
 <form name="createForm" method="post">
-    
-<input name="character" value="character" />
-   <input name="sentence" value="sentence" />
-   <input name="base64Encoding" hidden value=""/>
-   Select a constant in file: <input type="file" id="videoFile" name="videoFile">
-   <input type="button" id="uploadButton" value="Upload segment" disabled onClick="JavaScript:handleUploadClick(this)">
+   <input name="base64Encoding" hidden value=""/> 
+ 	Select a video file: <input type="file" id="videoFile" name="videoFile">  
+ 	<input type="button" id="uploadButton" value="Upload segment" disabled onClick="JavaScript:handleUploadClick(this)">
+ 	<br />Note: Must upload an ogg file. 
+   <br /><input name="character" value="Character speaking" />
+   <input name="sentence" value="Sentence spoken" />
 </form>
 <script>
 	// from Professor Heineman's calculator.html. 
@@ -77,8 +76,8 @@ function initialize(){
   document.getElementById('videoFile').addEventListener('change', handleFileSelect, false);
 </script>
 
-
-
+<hr />
+<p><b>Local Segments</b></p>
 <p>&nbsp;</p>
 
 <div id="model"></div>
