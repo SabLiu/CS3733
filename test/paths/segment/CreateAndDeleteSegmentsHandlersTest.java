@@ -17,12 +17,12 @@ import definitions.Segment;
 import lamnda.LambdaTest;
 
 public class CreateAndDeleteSegmentsHandlersTest extends LambdaTest{
-	Id testIdPass = new Id(".ogg");
-	Id testIdFail = new Id(".ogg");
+	Id testIdPass;
+	Id testIdFail;
 	
 	@Test
 	public void testShouldPass() {
-		System.out.println(testIdPass);
+		System.out.println(testIdPass);  
 		testCreateSegmentHandler();
 		testDeleteSegmentHandler();
 	}
@@ -36,11 +36,13 @@ public class CreateAndDeleteSegmentsHandlersTest extends LambdaTest{
 	public void testCreateSegmentHandler(){
     	CreateSegmentHandler createHandler = new CreateSegmentHandler();
     	ListLocalSegmentsHandler listHandler = new ListLocalSegmentsHandler();
-        Segment segment = new Segment(testIdPass, false, "Test upload", "test", getEncodedValue("test\\resources\\test_segment.ogg"));
+        Segment segment = new Segment(false, "Test upload", "test", getEncodedValue("test\\resources\\test_segment.ogg"));
         try {
         	Response<Segment[]> response = createHandler.handleRequest(segment, createContext("list"));
 			Response<Segment[]> expectedResponse =  listHandler.handleRequest(null, createContext("list"));
 			
+        	testIdPass = segment.getId();
+        	
 			System.out.println(response);
 			boolean addedToDatabase = false;
 			for(Segment s: response.getModel()){
@@ -69,12 +71,14 @@ public class CreateAndDeleteSegmentsHandlersTest extends LambdaTest{
 	public void testCreateSegmentHandlerShouldFail() {
     	CreateSegmentHandler createHandler = new CreateSegmentHandler();
     	ListLocalSegmentsHandler listHandler = new ListLocalSegmentsHandler();
-        Segment segment = new Segment(testIdFail, false, "Test upload (should fail)", "test"); //no data provided
+        Segment segment = new Segment(new Id(".ogg"), false, "Test upload (should fail)", "test"); //no data provided
         
         try {
 			Response<Segment[]> databaseBefore =  listHandler.handleRequest(null, createContext("list"));
         	Response<Segment[]> response = createHandler.handleRequest(segment, createContext("list"));
         	Response<Segment[]> databaseAfter =  listHandler.handleRequest(null, createContext("list"));
+        	
+        	testIdFail = segment.getId();
         	
 			boolean addedToDatabase = false;
 			for(Segment s: databaseAfter.getModel()){

@@ -18,7 +18,7 @@ import definitions.Segment;
 import lamnda.LambdaTest;
 
 public class CreateAndDeletePlaylistHandlersTest extends LambdaTest{
-	Id testIdPass = new Id();
+	Id testIdPass;
 	Id testIdFail = new Id();
 	
 	@Test
@@ -28,7 +28,7 @@ public class CreateAndDeletePlaylistHandlersTest extends LambdaTest{
 		testDeleteSegmentHandler();
 	}
 	 
-	@Test
+	@Test 
 	public void testShouldFail() {
 		testDeleteSegmentHandlerShouldFail();
 	}
@@ -36,10 +36,12 @@ public class CreateAndDeletePlaylistHandlersTest extends LambdaTest{
 	public void testCreateSegmentHandler(){
     	CreatePlaylistHandler createHandler = new CreatePlaylistHandler();
     	ListPlaylistsHandler listHandler = new ListPlaylistsHandler();
-        Playlist playlist = new Playlist(testIdPass, "test");
+        Playlist playlist = new Playlist("test");
         try {
         	Response<Playlist[]> response = createHandler.handleRequest(playlist, createContext("list"));
 			Response<Playlist[]> expectedResponse =  listHandler.handleRequest(null, createContext("list"));
+			
+			testIdPass = playlist.getId();
 			
 			System.out.println(response);
 			boolean addedToDatabase = false;

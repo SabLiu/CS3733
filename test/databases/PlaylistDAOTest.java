@@ -33,7 +33,7 @@ public class PlaylistDAOTest {
 		PlaylistDAO getter = new PlaylistDAO();
 		List<Playlist> gottenPlaylists = new ArrayList<>();
 		try{
-			gottenPlaylists = getter.getAllPlaylists();
+			gottenPlaylists = getter.getAllPlaylists(); 
 			System.out.println(gottenPlaylists);
 			int i = 0;
 			while(i<controllerPlaylists.size()) {
@@ -83,11 +83,11 @@ public class PlaylistDAOTest {
 		id.add(new Id("d4117ef5-72bf-46c3-be31-d6a1f275194a.ogg"));
 		id.add(new Id("f599c86f-e60b-44d7-a231-7a3d7f9ff6cc.ogg"));
 		
-		controllerSegments.add(new Segment(id.get(0), false, "You had a normal emotion", "McCoy", "Two.ogg"));
-		controllerSegments.add(new Segment(id.get(1), false, "Do you smell something?", "Spock", "Six.ogg"));
-		controllerSegments.add(new Segment(id.get(2), false, "Crazy way to travel, spreading a man's molecules all over the universe.", "McCoy", "Ten.ogg"));
-		controllerSegments.add(new Segment(id.get(3), false, "You know, self-pity is a terrible first course", "Chapel", "Three.ogg"));
-		controllerSegments.add(new Segment(id.get(4), false, "I know you would prefer to wallow in a pool of emotion", "Spock", "Four.ogg"));
+		controllerSegments.add(new Segment(id.get(0), false, "You had a normal emotion", "McCoy"));
+		controllerSegments.add(new Segment(id.get(1), false, "Do you smell something?", "Spock"));
+		controllerSegments.add(new Segment(id.get(2), false, "Crazy way to travel, spreading a man's molecules all over the universe.", "McCoy"));
+		controllerSegments.add(new Segment(id.get(3), false, "You know, self-pity is a terrible first course", "Chapel"));
+		controllerSegments.add(new Segment(id.get(4), false, "I know you would prefer to wallow in a pool of emotion", "Spock"));
 		
 		Segment[] segs = {controllerSegments.get(0), controllerSegments.get(1),
 				controllerSegments.get(2), controllerSegments.get(3), controllerSegments.get(4)};
@@ -187,11 +187,11 @@ public class PlaylistDAOTest {
 		idStart.add(new Id("d4117ef5-72bf-46c3-be31-d6a1f275194a.ogg"));
 		idStart.add(new Id("f599c86f-e60b-44d7-a231-7a3d7f9ff6cc.ogg"));
 		
-		controllerSegmentsStart.add(new Segment(idStart.get(0), false, "You had a normal emotion", "McCoy", "Two.ogg"));
-		controllerSegmentsStart.add(new Segment(idStart.get(1), false, "Do you smell something?", "Spock", "Six.ogg"));
-		controllerSegmentsStart.add(new Segment(idStart.get(2), false, "Crazy way to travel, spreading a man's molecules all over the universe.", "McCoy", "Ten.ogg"));
-		controllerSegmentsStart.add(new Segment(idStart.get(3), false, "You know, self-pity is a terrible first course", "Chapel", "Three.ogg"));
-		controllerSegmentsStart.add(new Segment(idStart.get(4), false, "I know you would prefer to wallow in a pool of emotion", "Spock", "Four.ogg"));
+		controllerSegmentsStart.add(new Segment(idStart.get(0), false, "You had a normal emotion", "McCoy"));
+		controllerSegmentsStart.add(new Segment(idStart.get(1), false, "Do you smell something?", "Spock"));
+		controllerSegmentsStart.add(new Segment(idStart.get(2), false, "Crazy way to travel, spreading a man's molecules all over the universe.", "McCoy"));
+		controllerSegmentsStart.add(new Segment(idStart.get(3), false, "You know, self-pity is a terrible first course", "Chapel"));
+		controllerSegmentsStart.add(new Segment(idStart.get(4), false, "I know you would prefer to wallow in a pool of emotion", "Spock"));
 		
 		Segment[] segsStart = {controllerSegmentsStart.get(0), controllerSegmentsStart.get(1),
 				controllerSegmentsStart.get(2), controllerSegmentsStart.get(3), controllerSegmentsStart.get(4)};
@@ -206,12 +206,12 @@ public class PlaylistDAOTest {
 		idEnd.add(new Id("f599c86f-e60b-44d7-a231-7a3d7f9ff6cc.ogg"));
 		idEnd.add(new Id("d16d709b-5b90-48f8-a3c4-57acb0062a0c.ogg"));
 		
-		controllerSegmentsEnd.add(new Segment(idEnd.get(0), false, "You had a normal emotion", "McCoy", "Two.ogg"));
-		controllerSegmentsEnd.add(new Segment(idEnd.get(1), false, "Do you smell something?", "Spock", "Six.ogg"));
-		controllerSegmentsEnd.add(new Segment(idEnd.get(2), false, "Crazy way to travel, spreading a man's molecules all over the universe.", "McCoy", "Ten.ogg"));
-		controllerSegmentsEnd.add(new Segment(idEnd.get(3), false, "You know, self-pity is a terrible first course", "Chapel", "Three.ogg"));
-		controllerSegmentsEnd.add(new Segment(idEnd.get(4), false, "I know you would prefer to wallow in a pool of emotion", "Spock", "Four.ogg"));
-		controllerSegmentsEnd.add(new Segment(idEnd.get(5), false, "Mr. Spock, why aren’t you dead?", "Kirk", "Seven.ogg"));
+		controllerSegmentsEnd.add(new Segment(idEnd.get(0), false, "You had a normal emotion", "McCoy"));
+		controllerSegmentsEnd.add(new Segment(idEnd.get(1), false, "Do you smell something?", "Spock"));
+		controllerSegmentsEnd.add(new Segment(idEnd.get(2), false, "Crazy way to travel, spreading a man's molecules all over the universe.", "McCoy"));
+		controllerSegmentsEnd.add(new Segment(idEnd.get(3), false, "You know, self-pity is a terrible first course", "Chapel"));
+		controllerSegmentsEnd.add(new Segment(idEnd.get(4), false, "I know you would prefer to wallow in a pool of emotion", "Spock"));
+		controllerSegmentsEnd.add(new Segment(idEnd.get(5), false, "Mr. Spock, why aren’t you dead?", "Kirk"));
 		
 		Segment[] segsEnd = {controllerSegmentsEnd.get(0), controllerSegmentsEnd.get(1),
 				controllerSegmentsEnd.get(2), controllerSegmentsEnd.get(3), controllerSegmentsEnd.get(4), controllerSegmentsEnd.get(5)};
@@ -245,11 +245,11 @@ public class PlaylistDAOTest {
 		idStart.add(new Id("d4117ef5-72bf-46c3-be31-d6a1f275194a.ogg"));
 		idStart.add(new Id("f599c86f-e60b-44d7-a231-7a3d7f9ff6cc.ogg"));
 		
-		controllerSegmentsStart.add(new Segment(idStart.get(0), false, "You had a normal emotion", "McCoy", "Two.ogg"));
-		controllerSegmentsStart.add(new Segment(idStart.get(1), false, "Do you smell something?", "Spock", "Six.ogg"));
-		controllerSegmentsStart.add(new Segment(idStart.get(2), false, "Crazy way to travel, spreading a man's molecules all over the universe.", "McCoy", "Ten.ogg"));
-		controllerSegmentsStart.add(new Segment(idStart.get(3), false, "You know, self-pity is a terrible first course", "Chapel", "Three.ogg"));
-		controllerSegmentsStart.add(new Segment(idStart.get(4), false, "I know you would prefer to wallow in a pool of emotion", "Spock", "Four.ogg"));
+		controllerSegmentsStart.add(new Segment(idStart.get(0), false, "You had a normal emotion", "McCoy"));
+		controllerSegmentsStart.add(new Segment(idStart.get(1), false, "Do you smell something?", "Spock"));
+		controllerSegmentsStart.add(new Segment(idStart.get(2), false, "Crazy way to travel, spreading a man's molecules all over the universe.", "McCoy"));
+		controllerSegmentsStart.add(new Segment(idStart.get(3), false, "You know, self-pity is a terrible first course", "Chapel"));
+		controllerSegmentsStart.add(new Segment(idStart.get(4), false, "I know you would prefer to wallow in a pool of emotion", "Spock"));
 		
 		Segment[] segsStart = {controllerSegmentsStart.get(0), controllerSegmentsStart.get(1),
 				controllerSegmentsStart.get(2), controllerSegmentsStart.get(3), controllerSegmentsStart.get(4)};
@@ -264,12 +264,12 @@ public class PlaylistDAOTest {
 		idEnd.add(new Id("f599c86f-e60b-44d7-a231-7a3d7f9ff6cc.ogg"));
 		idEnd.add(new Id("d16d709b-5b90-48f8-a3c4-57acb0062a0c.ogg"));
 		
-		controllerSegmentsEnd.add(new Segment(idEnd.get(0), false, "You had a normal emotion", "McCoy", "Two.ogg"));
-		controllerSegmentsEnd.add(new Segment(idEnd.get(1), false, "Do you smell something?", "Spock", "Six.ogg"));
-		controllerSegmentsEnd.add(new Segment(idEnd.get(2), false, "Crazy way to travel, spreading a man's molecules all over the universe.", "McCoy", "Ten.ogg"));
-		controllerSegmentsEnd.add(new Segment(idEnd.get(3), false, "You know, self-pity is a terrible first course", "Chapel", "Three.ogg"));
-		controllerSegmentsEnd.add(new Segment(idEnd.get(4), false, "I know you would prefer to wallow in a pool of emotion", "Spock", "Four.ogg"));
-		controllerSegmentsEnd.add(new Segment(idEnd.get(5), false, "Mr. Spock, why aren’t you dead?", "Kirk", "Seven.ogg"));
+		controllerSegmentsEnd.add(new Segment(idEnd.get(0), false, "You had a normal emotion", "McCoy"));
+		controllerSegmentsEnd.add(new Segment(idEnd.get(1), false, "Do you smell something?", "Spock"));
+		controllerSegmentsEnd.add(new Segment(idEnd.get(2), false, "Crazy way to travel, spreading a man's molecules all over the universe.", "McCoy"));
+		controllerSegmentsEnd.add(new Segment(idEnd.get(3), false, "You know, self-pity is a terrible first course", "Chapel"));
+		controllerSegmentsEnd.add(new Segment(idEnd.get(4), false, "I know you would prefer to wallow in a pool of emotion", "Spock"));
+		controllerSegmentsEnd.add(new Segment(idEnd.get(5), false, "Mr. Spock, why aren’t you dead?", "Kirk"));
 		
 		Segment[] segsEnd = {controllerSegmentsEnd.get(0), controllerSegmentsEnd.get(1),
 				controllerSegmentsEnd.get(2), controllerSegmentsEnd.get(3), controllerSegmentsEnd.get(4), controllerSegmentsEnd.get(5)};
@@ -305,12 +305,12 @@ public class PlaylistDAOTest {
 		idEnd.add(new Id("f599c86f-e60b-44d7-a231-7a3d7f9ff6cc.ogg"));
 		idEnd.add(new Id("d16d709b-5b90-48f8-a3c4-57acb0062a0c.ogg"));
 		
-		controllerSegmentsEnd.add(new Segment(idEnd.get(0), false, "You had a normal emotion", "McCoy", "Two.ogg"));
-		controllerSegmentsEnd.add(new Segment(idEnd.get(1), false, "Do you smell something?", "Spock", "Six.ogg"));
-		controllerSegmentsEnd.add(new Segment(idEnd.get(2), false, "Crazy way to travel, spreading a man's molecules all over the universe.", "McCoy", "Ten.ogg"));
-		controllerSegmentsEnd.add(new Segment(idEnd.get(3), false, "You know, self-pity is a terrible first course", "Chapel", "Three.ogg"));
-		controllerSegmentsEnd.add(new Segment(idEnd.get(4), false, "I know you would prefer to wallow in a pool of emotion", "Spock", "Four.ogg"));
-		controllerSegmentsEnd.add(new Segment(idEnd.get(5), false, "Mr. Spock, why aren’t you dead?", "Kirk", "Seven.ogg"));
+		controllerSegmentsEnd.add(new Segment(idEnd.get(0), false, "You had a normal emotion", "McCoy"));
+		controllerSegmentsEnd.add(new Segment(idEnd.get(1), false, "Do you smell something?", "Spock"));
+		controllerSegmentsEnd.add(new Segment(idEnd.get(2), false, "Crazy way to travel, spreading a man's molecules all over the universe.", "McCoy"));
+		controllerSegmentsEnd.add(new Segment(idEnd.get(3), false, "You know, self-pity is a terrible first course", "Chapel"));
+		controllerSegmentsEnd.add(new Segment(idEnd.get(4), false, "I know you would prefer to wallow in a pool of emotion", "Spock"));
+		controllerSegmentsEnd.add(new Segment(idEnd.get(5), false, "Mr. Spock, why aren’t you dead?", "Kirk"));
 		
 		Segment[] segsEnd = {controllerSegmentsEnd.get(0), controllerSegmentsEnd.get(1),
 				controllerSegmentsEnd.get(2), controllerSegmentsEnd.get(3), controllerSegmentsEnd.get(4), controllerSegmentsEnd.get(5)};

@@ -5,6 +5,7 @@ import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
 import databases.PlaylistDAO;
+import definitions.Id;
 import definitions.Playlist;
 import definitions.Response;
 import definitions.Segment;
@@ -20,7 +21,7 @@ public class CreatePlaylistHandler implements RequestHandler<Playlist, Response<
 		logger.log(playlist.toString());
 
 		Response<Playlist[]> response;
-		dao = new PlaylistDAO();
+		dao = new PlaylistDAO(); 
 		try {
 			if (addToDatabase(playlist)) {
 				response = new Response<Playlist[]>(ListPlaylistsHandler.getPlaylists(logger,dao), 200);
@@ -29,6 +30,8 @@ public class CreatePlaylistHandler implements RequestHandler<Playlist, Response<
 			}
 		} catch(Exception e) {
 			response = new Response<Playlist[]>(400, "Unable to complete request: " +  "(" + e.getMessage() + ")");
+			
+			for(StackTraceElement st: e.getStackTrace()){logger.log(st + "\n");}
 		}
 
 		return response;

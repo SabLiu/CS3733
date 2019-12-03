@@ -26,19 +26,19 @@ public class SegmentsDAOTest {
 		id.add(new Id("c9314e2c-68df-48ec-af09-de17bac46ecd.ogg"));
 		id.add(new Id("cf7ccbaa-321f-4365-ab2d-1aabc7354f23.ogg"));
 		id.add(new Id("d16d709b-5b90-48f8-a3c4-57acb0062a0c.ogg"));
-		id.add(new Id("d4117ef5-72bf-46c3-be31-d6a1f275194a.ogg"));
+		id.add(new Id("d4117ef5-72bf-46c3-be31-d6a1f275194a.ogg")); 
 		id.add(new Id("f599c86f-e60b-44d7-a231-7a3d7f9ff6cc.ogg"));
 		
-		controllerSegments.add(new Segment(id.get(0), false, "You had a normal emotion", "McCoy", "Two.ogg"));
-		controllerSegments.add(new Segment(id.get(1), false, "Then I need a drink", "McCoy", "One.ogg"));
-		controllerSegments.add(new Segment(id.get(2), false, "Colloquially expressed, but essentially correct.", "Spock", "Eight.ogg"));
-		controllerSegments.add(new Segment(id.get(3), false, "Engineering to Captain Kirk", "Scotty", "Nine.ogg"));
-		controllerSegments.add(new Segment(id.get(4), false, "Do you smell something?", "Spock", "Six.ogg"));
-		controllerSegments.add(new Segment(id.get(5), false, "Crazy way to travel, spreading a man's molecules all over the universe.", "McCoy", "Ten.ogg"));
-		controllerSegments.add(new Segment(id.get(6), false, "Kindness, Mr. Garrovick, is another human emotion, and I believe we have enough of that.", "Spock", "Five.ogg"));
-		controllerSegments.add(new Segment(id.get(7), false, "Mr. Spock, why aren’t you dead?", "Kirk", "Seven.ogg"));
-		controllerSegments.add(new Segment(id.get(8), false, "You know, self-pity is a terrible first course", "Chapel", "Three.ogg"));
-		controllerSegments.add(new Segment(id.get(9), false, "I know you would prefer to wallow in a pool of emotion", "Spock", "Four.ogg"));
+		controllerSegments.add(new Segment(id.get(0), false, "You had a normal emotion", "McCoy"));
+		controllerSegments.add(new Segment(id.get(1), false, "Then I need a drink", "McCoy"));
+		controllerSegments.add(new Segment(id.get(2), false, "Colloquially expressed, but essentially correct.", "Spock"));
+		controllerSegments.add(new Segment(id.get(3), false, "Engineering to Captain Kirk", "Scotty"));
+		controllerSegments.add(new Segment(id.get(4), false, "Do you smell something?", "Spock"));
+		controllerSegments.add(new Segment(id.get(5), false, "Crazy way to travel, spreading a man's molecules all over the universe.", "McCoy"));
+		controllerSegments.add(new Segment(id.get(6), false, "Kindness, Mr. Garrovick, is another human emotion, and I believe we have enough of that.", "Spock"));
+		controllerSegments.add(new Segment(id.get(7), false, "Mr. Spock, why aren’t you dead?", "Kirk"));
+		controllerSegments.add(new Segment(id.get(8), false, "You know, self-pity is a terrible first course", "Chapel"));
+		controllerSegments.add(new Segment(id.get(9), false, "I know you would prefer to wallow in a pool of emotion", "Spock"));
 		 
 		SegmentDAO getter = new SegmentDAO();
 		List<Segment> gottenSegments = new ArrayList<>();
@@ -64,7 +64,7 @@ public class SegmentsDAOTest {
 	@Test
 	public void getSegmentTestLocal() {
 		String testID = "c9314e2c-68df-48ec-af09-de17bac46ecd.ogg";
-		Segment controlSegment = new Segment(new Id(testID), false, "", "", "");
+		Segment controlSegment = new Segment(new Id(testID), false, "", "");
 
 		SegmentDAO getter = new SegmentDAO();
 		try {
@@ -80,7 +80,7 @@ public class SegmentsDAOTest {
 	@Test
 	public void addSegmentsTest() {
 		Id id = new Id("d92c327e-1615-4869-90c4-13f797ad72f2.ogg");
-		Segment sentSegment = new Segment(id, false, "testing testing 123", "erich", "test.ogg");
+		Segment sentSegment = new Segment(id, false, "testing testing 123", "erich");
 		SegmentDAO setter = new SegmentDAO();
 		try {	
 			setter.addSegment(sentSegment);
@@ -101,7 +101,7 @@ public class SegmentsDAOTest {
 	@Test
 	public void deleteSegmentsTest() {
 		Id id = new Id("d92c327e-1615-4869-90c4-13f797ad72f2.ogg");
-		Segment deletedSegment = new Segment(id, false, "testing testing 123", "erich", "test.ogg");
+		Segment deletedSegment = new Segment(id, false, "testing testing 123", "erich");
 		SegmentDAO deleter = new SegmentDAO();
 		List<Segment> gottenSegmentsBeforDelete = new ArrayList<>();
 		List<Segment> gottenSegmentsAfterDelete = new ArrayList<>();
@@ -130,7 +130,7 @@ public class SegmentsDAOTest {
 	@Test
 	public void deleteSegmentsTestTwo() {
 		Id id = new Id("d92c327e-1615-4869-90c4-13f797ad72f2.ogg");
-		Segment deletedSegment = new Segment(id, false, "testing testing 123", "erich", "test.ogg");
+		Segment deletedSegment = new Segment(id, false, "testing testing 123", "erich");
 		SegmentDAO deleter = new SegmentDAO();
 		List<Segment> gottenSegmentsBeforDelete = new ArrayList<>();
 		List<Segment> gottenSegmentsAfterDelete = new ArrayList<>();
@@ -172,19 +172,19 @@ public class SegmentsDAOTest {
 		id.add(new Id("d4117ef5-72bf-46c3-be31-d6a1f275194a.ogg"));
 		id.add(new Id("f599c86f-e60b-44d7-a231-7a3d7f9ff6cc.ogg"));
 		
-		controllerSegments.add(new Segment(id.get(0), false, "You had a normal emotion", "McCoy", "Two.ogg"));
-		controllerSegments.add(new Segment(id.get(1), false, "Then I need a drink", "McCoy", "One.ogg"));
-		controllerSegments.add(new Segment(id.get(5), false, "Crazy way to travel, spreading a man's molecules all over the universe.", "McCoy", "Ten.ogg"));
+		controllerSegments.add(new Segment(id.get(0), false, "You had a normal emotion", "McCoy"));
+		controllerSegments.add(new Segment(id.get(1), false, "Then I need a drink", "McCoy"));
+		controllerSegments.add(new Segment(id.get(5), false, "Crazy way to travel, spreading a man's molecules all over the universe.", "McCoy"));
 		
-		controllerSegments.add(new Segment(id.get(2), false, "Colloquially expressed, but essentially correct.", "Spock", "Eight.ogg"));
-		controllerSegments.add(new Segment(id.get(4), false, "Do you smell something?", "Spock", "Six.ogg"));
-		controllerSegments.add(new Segment(id.get(6), false, "Kindness, Mr. Garrovick, is another human emotion, and I believe we have enough of that.", "Spock", "Five.ogg"));
-		controllerSegments.add(new Segment(id.get(9), false, "I know you would prefer to wallow in a pool of emotion", "Spock", "Four.ogg"));
+		controllerSegments.add(new Segment(id.get(2), false, "Colloquially expressed, but essentially correct.", "Spock"));
+		controllerSegments.add(new Segment(id.get(4), false, "Do you smell something?", "Spock"));
+		controllerSegments.add(new Segment(id.get(6), false, "Kindness, Mr. Garrovick, is another human emotion, and I believe we have enough of that.", "Spock"));
+		controllerSegments.add(new Segment(id.get(9), false, "I know you would prefer to wallow in a pool of emotion", "Spock"));
 		
-		controllerSegments.add(new Segment(id.get(3), false, "Engineering to Captain Kirk", "Scotty", "Nine.ogg"));
+		controllerSegments.add(new Segment(id.get(3), false, "Engineering to Captain Kirk", "Scotty"));
 		
-		controllerSegments.add(new Segment(id.get(7), false, "Mr. Spock, why aren’t you dead?", "Kirk", "Seven.ogg"));
-		controllerSegments.add(new Segment(id.get(8), false, "You know, self-pity is a terrible first course", "Chapel", "Three.ogg"));
+		controllerSegments.add(new Segment(id.get(7), false, "Mr. Spock, why aren’t you dead?", "Kirk"));
+		controllerSegments.add(new Segment(id.get(8), false, "You know, self-pity is a terrible first course", "Chapel"));
 		SegmentDAO tester = new SegmentDAO();
 		
 		List<Segment> McCoyControllerSegments = new ArrayList<>();

@@ -4,6 +4,10 @@ public class Site {
 	Id id; 
 	String url;
 	
+	public Site() {
+		this.id = new Id();
+	}
+	
 	public Site(Id id, String url) {
 		this.id = id;
 		this.url = url;
@@ -19,7 +23,7 @@ public class Site {
 
 	@Override
 	public int hashCode() {
-		return id.hashCode();
+		return id.hashCode(); 
 	}
 
 	@Override
