@@ -19,7 +19,7 @@ public class ListPlaylistsHandler implements RequestHandler<Object, Response<Pla
 
 	public LambdaLogger logger;
 
-	public ListPlaylistsHandler() {}
+	public ListPlaylistsHandler() {} 
 	
 	/** Load from RDS, if it exists
 	 * 

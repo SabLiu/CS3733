@@ -21,6 +21,7 @@ import com.amazonaws.services.s3.model.PutObjectResult;
 import com.amazonaws.services.s3.model.SetPublicAccessBlockRequest;
 
 import databases.SegmentDAO;
+import definitions.Id;
 import definitions.Response;
 import definitions.Segment;
 
@@ -41,7 +42,7 @@ public class CreateSegmentHandler implements RequestHandler<Segment,Response<Seg
 				//return all local segments
 				response = new Response<Segment[]>(ListLocalSegmentsHandler.getSegments(logger, dao), 200);
 			} else {
-				response = new Response<Segment[]>(400, "Segment not added");
+				response = new Response<Segment[]>(400, "Segment not added"); 
 			}
 		} catch(Exception e) {
 			response = new Response<Segment[]>(400, "Unable to complete request: " +  "(" + e.getMessage() + ")");

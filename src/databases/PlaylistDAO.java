@@ -6,6 +6,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.amazonaws.services.lambda.runtime.LambdaLogger;
+
 import definitions.Id;
 import definitions.Playlist;
 import definitions.Segment;
@@ -32,8 +34,8 @@ public class PlaylistDAO extends DAO{
 	            int numAffected = ps.executeUpdate();
 	            ps.close();
 	            
-	            return (numAffected == 1);
-	        } catch (Exception e) {
+	            return (numAffected == 1); 
+	        } catch (Exception e) { 
 	            throw new Exception("Failed to update Segments: " + e.getMessage());
 	        }
    }
@@ -99,6 +101,7 @@ public class PlaylistDAO extends DAO{
 	            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Playlists  WHERE PlayListID = ?;");
 	            ps.setString(1, playlist.getId().getId());
 	            ResultSet resultSet = ps.executeQuery();
+	            
 	            // already present?
 	            while (resultSet.next()) { 
 	                resultSet.close();
@@ -110,6 +113,7 @@ public class PlaylistDAO extends DAO{
 	            ps.setString(2,  playlist.getName());
 	            String playlistSegments = "";
 	            Segment[] segs =  playlist.getSegments();
+	            
 	            int i = 0;
 	            while(i<segs.length) {
 	            	if(i == 0) {
@@ -119,6 +123,7 @@ public class PlaylistDAO extends DAO{
 	            	}
 	            	i++;
 	            }
+	            
 	            ps.setString(3, playlistSegments);
 	            ps.execute();
 	            return true;

@@ -18,7 +18,7 @@ public class GetPlaylistHandler implements RequestHandler<Id, Response<Playlist>
 
 	public LambdaLogger logger;
 
-	public GetPlaylistHandler() {}
+	public GetPlaylistHandler() {} 
 	
 	/** Load from RDS, if it exists
 	 * 
