@@ -8,7 +8,7 @@ function processDeletePlaylistResponse(result) {
 
 function processDeletePlaylist(val) {
   var data = {};
-  data["name"] = val;
+  data["id"] = val;
 
   var js = JSON.stringify(data);
   console.log("JS:" + js);

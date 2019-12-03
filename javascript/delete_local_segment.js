@@ -2,7 +2,7 @@ function processDeleteResponse(result) {
   // Can grab any DIV or SPAN HTML element and can then manipulate its
   // contents dynamically via javascript
   console.log("deleted :" + result);
-
+/
   var isAdmin = true; 
   refreshLocalSegmentsList(isAdmin);
 }
