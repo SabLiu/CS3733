@@ -20,15 +20,15 @@ public class Segment {
 	}
 	
 	public Segment(boolean isRemotelyAvailable, String sentence, String character, String contents) {
-		this.id = new Id();
+		this.id = new Id(".ogg");
 		this.isRemotelyAvailable = isRemotelyAvailable;
 		this.sentence = sentence;
 		this.character = character;
-		this.contents = contents;
+		this.contents = contents; 
 	}
 	
 	public Segment() {
-		this.id = new Id();
+		this.id = new Id(".ogg");
 		this.isRemotelyAvailable = false;
 	}
 	

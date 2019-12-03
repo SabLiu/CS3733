@@ -18,13 +18,7 @@ import definitions.Segment;
 public class ListPlaylistsHandler implements RequestHandler<Object, Response<Playlist[]>>{
 
 	public LambdaLogger logger;
-
-	public ListPlaylistsHandler() {} 
 	
-	/** Load from RDS, if it exists
-	 * 
-	 * @throws Exception 
-	 */
 	static Playlist[] getPlaylists(LambdaLogger logger, PlaylistDAO dao) throws Exception {
 		logger.log("in getPlaylists\n");
 		Playlist[] p = {};

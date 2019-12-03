@@ -14,6 +14,7 @@ import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PublicAccessBlockConfiguration;
 import com.amazonaws.services.s3.model.PutObjectRequest;
@@ -44,7 +45,7 @@ public class CreateSegmentHandler implements RequestHandler<Segment,Response<Seg
 			} else {
 				response = new Response<Segment[]>(400, "Segment not added"); 
 			}
-		} catch(Exception e) {
+		} catch(Exception e) { 
 			response = new Response<Segment[]>(400, "Unable to complete request: " +  "(" + e.getMessage() + ")");
 		}
 
@@ -87,7 +88,8 @@ public class CreateSegmentHandler implements RequestHandler<Segment,Response<Seg
 		ByteArrayInputStream bais = new ByteArrayInputStream(contents);
 		ObjectMetadata omd = new ObjectMetadata();
 		omd.setContentLength(contents.length);
-		PutObjectRequest p = new PutObjectRequest("hotspurproject", "segments/" + segment.getId().getId(), bais, omd);
+		PutObjectRequest p = new PutObjectRequest("hotspurproject", "segments/" + segment.getId().getId(), bais, omd)
+				.withCannedAcl(CannedAccessControlList.PublicRead);
 		
 		PutObjectResult res = s3.putObject(p);
 		

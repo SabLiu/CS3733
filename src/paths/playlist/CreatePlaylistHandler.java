@@ -28,7 +28,7 @@ public class CreatePlaylistHandler implements RequestHandler<Playlist, Response<
 			} else {
 				response = new Response<Playlist[]>(400, "Segment not added"); 
 			}
-		} catch(Exception e) {
+		} catch(Exception e) { 
 			response = new Response<Playlist[]>(400, "Unable to complete request: " +  "(" + e.getMessage() + ")");
 			
 			for(StackTraceElement st: e.getStackTrace()){logger.log(st + "\n");}
