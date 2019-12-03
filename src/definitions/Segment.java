@@ -80,7 +80,9 @@ public class Segment {
 
 	@Override
 	public boolean equals(Object obj) {
-		return (obj != null) && (obj instanceof Segment) && (this.id.equals(((Segment)obj).id));
+		return (obj != null) && (obj instanceof Segment) && (this.id.equals(((Segment)obj).id)) 
+				&& (this.isRemotelyAvailable == ((Segment)obj).isRemotelyAvailable) && (this.sentence.equals(((Segment)obj).sentence))
+				&& (this.character.equals(((Segment)obj).character));
 	}
 
 	@Override

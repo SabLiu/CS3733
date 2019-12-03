@@ -74,7 +74,17 @@ public class Playlist {
 
 	@Override
 	public boolean equals(Object obj) {
-		return (obj != null) && (obj instanceof Playlist) && (this.id.equals((((Playlist)obj).id)));
+		boolean x = false;
+		if((obj != null) && (obj instanceof Playlist)) {
+			int i = 0;
+			x = (this.id.equals((((Playlist)obj).id)));
+			while(i<this.segments.length && i< ((Playlist)obj).segments.length && x) {
+				if(!this.segments[i].equals(((Playlist)obj).segments[i])) {
+					x = false;
+				}
+			}
+		}
+		return x;
 	}
 	
 	@Override
