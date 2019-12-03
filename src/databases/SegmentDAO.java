@@ -34,6 +34,33 @@ public class SegmentDAO extends DAO{
     }
     */
 	
+	public List<Segment> searchSegmentCharacter(String str) throws Exception {
+        //TODO later update to also get remote segments
+		List<Segment> allSegments = new ArrayList<>();
+        try {
+            Segment segment = null;
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Library WHERE SegmentSpeaker=?;");
+            ps.setString(1,  str);
+            
+            ResultSet resultSet = ps.executeQuery();
+            
+            while (resultSet.next()) {
+                segment = generateSegment(resultSet);
+                allSegments.add(segment);
+            }
+            
+            resultSet.close();
+            ps.close();
+            
+            return allSegments;
+
+        } catch (Exception e) {
+        	e.printStackTrace();
+            throw new Exception("Failed in getting segment: " + e.getMessage());
+        }
+        
+    }
+	
 	public boolean deleteSegment(Id segmentId) throws Exception {
         try {
             PreparedStatement ps = conn.prepareStatement("DELETE FROM Library WHERE SegmentID = ?;");
