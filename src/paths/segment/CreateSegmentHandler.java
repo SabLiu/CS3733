@@ -32,7 +32,7 @@ public class CreateSegmentHandler implements RequestHandler<Segment,Response<Seg
 	@Override
 	public Response<Segment[]> handleRequest(Segment segment, Context context) {
 		logger = context.getLogger();
-		logger.log(segment.toString());
+		//logger.log(segment.toString());
 
 		Response<Segment[]> response;
 		dao = new SegmentDAO();
@@ -55,7 +55,7 @@ public class CreateSegmentHandler implements RequestHandler<Segment,Response<Seg
 	 * @throws Exception 
 	 */
 	boolean addToDatabase(Segment segment) throws Exception {
-		if (logger != null) { logger.log("in addToDatabase"); }
+		if (logger != null) { logger.log("in addToDatabase\n"); }
 		
 		return dao.addSegment(segment);
 	}
@@ -65,17 +65,18 @@ public class CreateSegmentHandler implements RequestHandler<Segment,Response<Seg
 	 * @throws Exception 
 	 */
 	boolean addToBucket(Segment segment) throws Exception {
-		logger.log("in addToBucket");
+		logger.log("in addToBucket\n");
 		
 		//create s3 object
-		logger.log("attach to S3 request");
+		logger.log("attach to S3 request\n");
 		
 		AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_2).build();
-		logger.log("attach to S3 succeed");
+		logger.log("attach to S3 succeed\n");
 		
 		//turn video file into byte array
 		//mkyong.com/java/how-to-convert-file-into-an-array-of-bytes/
 		byte[] contents = java.util.Base64.getDecoder().decode(segment.getContents());
+		//contents = Files.readAllBytes(Paths.get("test\\resources\\test_segment.ogg"));  
 		
 		if(contents == null) {
 			return false;
@@ -91,7 +92,7 @@ public class CreateSegmentHandler implements RequestHandler<Segment,Response<Seg
 		
 		// if we ever get here, then whole thing was stored
 		
-		logger.log("addToBucket complete");
+		logger.log("addToBucket complete\n");
 		return true;
 	}
 

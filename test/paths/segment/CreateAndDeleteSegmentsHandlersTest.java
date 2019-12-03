@@ -2,15 +2,8 @@ package paths.segment;
 
 import static org.junit.Assert.*;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Base64;
-
-import org.junit.Assert;
 import org.junit.Test;
 
 import com.amazonaws.regions.Regions;
@@ -34,7 +27,7 @@ public class CreateAndDeleteSegmentsHandlersTest extends LambdaTest{
 		testDeleteSegmentHandler();
 	}
 	
-	@Test
+	//@Test
 	public void testShouldFail() {
 		testCreateSegmentHandlerShouldFail();
 		testDeleteSegmentHandlerShouldFail();
@@ -156,20 +149,17 @@ public class CreateAndDeleteSegmentsHandlersTest extends LambdaTest{
 
 	}
 	
-	private String getEncodedValue(String filePath) {
-        String base64File = "";
-        File file = new File(filePath);
-        try (FileInputStream imageInFile = new FileInputStream(file)) {
-            // Reading a file from file system
-            byte fileData[] = new byte[(int) file.length()];
-            imageInFile.read(fileData);
-            base64File = Base64.getEncoder().encodeToString(fileData);
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found" + e);
-        } catch (IOException ioe) {
-            System.out.println("Exception while reading the file " + ioe);
+	private String getEncodedValue(String filePath){
+		String encoded = "";
+		try {
+	        byte[] content = Files.readAllBytes(Paths.get(filePath));
+	        encoded =  java.util.Base64.getEncoder().encodeToString(content);
+		}catch(Exception e){
+			System.out.println("EXCPETION: " + e.getMessage());
+			e.printStackTrace();
+			fail("EXCPETION: " + e.getMessage());
         }
-        return base64File;
+        return encoded;
 	}
 
 }
