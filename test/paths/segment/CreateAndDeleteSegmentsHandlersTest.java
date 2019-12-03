@@ -2,15 +2,8 @@ package paths.segment;
 
 import static org.junit.Assert.*;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Base64;
-
-import org.junit.Assert;
 import org.junit.Test;
 
 import com.amazonaws.regions.Regions;
@@ -24,12 +17,12 @@ import definitions.Segment;
 import lamnda.LambdaTest;
 
 public class CreateAndDeleteSegmentsHandlersTest extends LambdaTest{
-	Id testIdPass = new Id(".ogg");
-	Id testIdFail = new Id(".ogg");
+	Id testIdPass;
+	Id testIdFail;
 	
 	@Test
 	public void testShouldPass() {
-		System.out.println(testIdPass);
+		System.out.println(testIdPass);  
 		testCreateSegmentHandler();
 		testDeleteSegmentHandler();
 	}
@@ -43,11 +36,13 @@ public class CreateAndDeleteSegmentsHandlersTest extends LambdaTest{
 	public void testCreateSegmentHandler(){
     	CreateSegmentHandler createHandler = new CreateSegmentHandler();
     	ListLocalSegmentsHandler listHandler = new ListLocalSegmentsHandler();
-        Segment segment = new Segment(testIdPass, false, "Test upload", "test", getEncodedValue("test\\resources\\test_segment.ogg"));
+        Segment segment = new Segment(false, "Test upload", "test", getEncodedValue("test\\resources\\test_segment.ogg"));
         try {
         	Response<Segment[]> response = createHandler.handleRequest(segment, createContext("list"));
 			Response<Segment[]> expectedResponse =  listHandler.handleRequest(null, createContext("list"));
 			
+        	testIdPass = segment.getId();
+        	
 			System.out.println(response);
 			boolean addedToDatabase = false;
 			for(Segment s: response.getModel()){
@@ -76,12 +71,14 @@ public class CreateAndDeleteSegmentsHandlersTest extends LambdaTest{
 	public void testCreateSegmentHandlerShouldFail() {
     	CreateSegmentHandler createHandler = new CreateSegmentHandler();
     	ListLocalSegmentsHandler listHandler = new ListLocalSegmentsHandler();
-        Segment segment = new Segment(testIdFail, false, "Test upload (should fail)", "test"); //no data provided
+        Segment segment = new Segment(new Id(".ogg"), false, "Test upload (should fail)", "test"); //no data provided
         
         try {
 			Response<Segment[]> databaseBefore =  listHandler.handleRequest(null, createContext("list"));
         	Response<Segment[]> response = createHandler.handleRequest(segment, createContext("list"));
         	Response<Segment[]> databaseAfter =  listHandler.handleRequest(null, createContext("list"));
+        	
+        	testIdFail = segment.getId();
         	
 			boolean addedToDatabase = false;
 			for(Segment s: databaseAfter.getModel()){
@@ -156,20 +153,17 @@ public class CreateAndDeleteSegmentsHandlersTest extends LambdaTest{
 
 	}
 	
-	private String getEncodedValue(String filePath) {
-        String base64File = "";
-        File file = new File(filePath);
-        try (FileInputStream imageInFile = new FileInputStream(file)) {
-            // Reading a file from file system
-            byte fileData[] = new byte[(int) file.length()];
-            imageInFile.read(fileData);
-            base64File = Base64.getEncoder().encodeToString(fileData);
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found" + e);
-        } catch (IOException ioe) {
-            System.out.println("Exception while reading the file " + ioe);
+	private String getEncodedValue(String filePath){
+		String encoded = "";
+		try {
+	        byte[] content = Files.readAllBytes(Paths.get(filePath));
+	        encoded =  java.util.Base64.getEncoder().encodeToString(content);
+		}catch(Exception e){
+			System.out.println("EXCPETION: " + e.getMessage());
+			e.printStackTrace();
+			fail("EXCPETION: " + e.getMessage());
         }
-        return base64File;
+        return encoded;
 	}
 
 }

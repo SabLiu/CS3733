@@ -3,38 +3,19 @@
 	  var form = document.createForm;
 	 
 	  var data = {};
-	  //user provides this info
+	  // user provides this info
 	  data["sentence"] = form.sentence.value; 
 	  data["character"] = form.character.value;
 	  
-	  //we generate this info
-//	  data["id"]["id"] = generate UUID 
-//	  data["videoFileAddress"] = whatever its URL is in the bucket
-	  data["remotelyAvailable"] = false; // default set to false
-	  
-	    var segID 			= localSegsJson["id"]["id"];
-	    var isRemAvailable 	= localSegsJson["remotelyAvailable"];
-	    var sent			= localSegsJson["sentence"];
-	    var character 		= localSegsJson["character"];
-	    var segAddr 		= localSegsJson["videoFileAddress"];
-
-	 /*this is what we need to put into the html file 
-	   * 
-<form name="createForm" method="post">
-    
-<input name="character" value="character" />
-   <input name="sentence" value="sentence" />
-   <input name="base64Encoding" hidden value=""/>
-   Select a constant in file: <input type="file" id="constantValue" name="constantValue">
-   <input type="button" id="uploadButton" value="Upload segment" disabled onClick="JavaScript:handleUploadClick(this)">
-</form>
-	   */
+	  // we generate this info and send it to backend as JSON 
+	  // generate UUID on backend 
+	  data["isRemotelyAvailable"] = false; // default set to false
 	  
 	  // base64EncodedValue":"data:text/plain;base64,My4xND....."
 	  var segments = document.createForm.base64Encoding.value.split(',');
-	  data["base64EncodedValue"] = segments[1];  // skip first one 
+	  data["contents"] = segments[1];  // skip first one 
 
-	  var js = JSON.stringify(data);
+	  var js = JSON.stringify(data); // magic to convert data to JSON
 	  console.log("JS:" + js);
 	  var xhr = new XMLHttpRequest();
 	  xhr.open("POST", upload_url, true);
@@ -56,8 +37,8 @@
 				  alert (err);
 	    	 }
 	    } 
+	    processListResponse(xhr.responseText, false); // reload the new list of local segments
 	  };
-	  refreshLocalSegmentsList(false); // isAdmin = false since only participant uploads segments
 	}
 
 	

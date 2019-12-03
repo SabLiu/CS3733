@@ -13,10 +13,11 @@ import definitions.Id;
 import definitions.Response;
 import definitions.Segment;
 
- class DeleteSegmentHandler implements RequestHandler<Id, Response<Segment[]>>{
+public class DeleteSegmentHandler implements RequestHandler<Id, Response<Segment[]>>{
 	 LambdaLogger logger;
 	 SegmentDAO dao;
-		
+	
+	
 	@Override
 	public Response<Segment[]> handleRequest(Id id, Context context) {
 		logger = context.getLogger();

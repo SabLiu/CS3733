@@ -5,6 +5,17 @@ public class Playlist {
 	String name;
 	Segment[] segments;
 	
+	public Playlist() {
+		this.segments = new Segment[0];
+		this.id = new Id();
+	}
+	
+	public Playlist(String name) {
+		this.name = name;
+		this.segments = new Segment[0];
+		this.id = new Id();
+	}
+	
 	public Playlist(Id id, String name) {
 		this.id = id;
 		this.name = name;
@@ -15,7 +26,7 @@ public class Playlist {
 		this.id = id;
 		this.name = name;
 		this.segments = segments;
-	}
+	} 
 	
 	public void addSegments(Segment[] segments) {
 		Segment[] newSegments = new Segment[this.segments.length + segments.length];
@@ -70,6 +81,7 @@ public class Playlist {
 	public String toString() {
 		String str = "Playlist: " + name + "\n\t" + id + "\n";
 		
+		if(segments == null) {return str;}
 		for(Segment segment : segments) {
 			str += "\t" + segment.toString();
 		}

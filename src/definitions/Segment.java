@@ -9,24 +9,27 @@ public class Segment {
 	boolean isRemotelyAvailable;
 	String sentence;
 	String character;
-	String contents;
+	String contents; //base64encoded
+	
 	
 	public Segment(Id id, boolean isRemotelyAvailable, String sentence, String character) {
-		this.id = id;
+		this.id = id; 
 		this.isRemotelyAvailable = isRemotelyAvailable;
 		this.sentence = sentence;
 		this.character = character;
 	}
 	
-	public Segment(Id id, boolean isRemotelyAvailable, String sentence, String character, String filePath) {
-		this.id = id;
+	public Segment(boolean isRemotelyAvailable, String sentence, String character, String contents) {
+		this.id = new Id();
 		this.isRemotelyAvailable = isRemotelyAvailable;
 		this.sentence = sentence;
 		this.character = character;
-		setContents(filePath);
+		this.contents = contents;
 	}
 	
 	public Segment() {
+		this.id = new Id();
+		this.isRemotelyAvailable = false;
 	}
 	
 	public String getContents() {

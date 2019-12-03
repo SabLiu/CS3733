@@ -19,19 +19,18 @@ public class ListPlaylistsHandler implements RequestHandler<Object, Response<Pla
 
 	public LambdaLogger logger;
 
-	public ListPlaylistsHandler() {}
+	public ListPlaylistsHandler() {} 
 	
 	/** Load from RDS, if it exists
 	 * 
 	 * @throws Exception 
 	 */
-	Playlist[] getPlaylists() throws Exception {
-			logger.log("in getPlaylists\n");
-			PlaylistDAO dao = new PlaylistDAO();
-			Playlist[] p = {};
-			p = dao.getAllPlaylists().toArray(p);
-			return p;
-		}
+	static Playlist[] getPlaylists(LambdaLogger logger, PlaylistDAO dao) throws Exception {
+		logger.log("in getPlaylists\n");
+		Playlist[] p = {};
+		p = dao.getAllPlaylists().toArray(p);
+		return p;
+	}
 	
 	@Override
 	public Response<Playlist[]> handleRequest(Object input, Context context) {
@@ -43,7 +42,7 @@ public class ListPlaylistsHandler implements RequestHandler<Object, Response<Pla
 		
 		
 		try {
-			list = getPlaylists();	 
+			list = getPlaylists(logger, new PlaylistDAO());	 
 			response = new Response<Playlist[]>(list, 200);
 			logger.log("finished getSegments\n");
 		} catch (Exception e) {

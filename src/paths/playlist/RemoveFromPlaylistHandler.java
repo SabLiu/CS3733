@@ -6,7 +6,7 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import definitions.Id;
 import definitions.Playlist;
 
- class RemoveFromPlaylistHandler implements RequestHandler<Id, Playlist>{
+public class RemoveFromPlaylistHandler implements RequestHandler<Id, Playlist>{
 
 	@Override
 	public Playlist handleRequest(Id input, Context context) {

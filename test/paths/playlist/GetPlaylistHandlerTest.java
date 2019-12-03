@@ -23,5 +23,5 @@ public class GetPlaylistHandlerTest extends LambdaTest{
         
         assertTrue("the segments in 'Maria's Playlist' were returned from the database", hasMariaSegments);
         Assert.assertEquals(200, resp.statusCode); 
-	}
+	} 
 }
