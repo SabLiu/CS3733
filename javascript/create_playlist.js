@@ -29,6 +29,6 @@
 	    	 }
 	    } 
 	  };
-	  refreshPlaylistsList(); // isAdmin = false since only participant uploads segments
+	  processPlaylistResponse(xhr.responseText);
 	}
 //edited upload_segment code
