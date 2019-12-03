@@ -33,7 +33,7 @@ function processListResponse(result, isAdmin) {
   console.log("res:" + result);
   // Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
   var js = JSON.parse(result);
-//  var constList = document.getElementById('constantList'); this is from get_constantList.js
+  //  var constList = document.getElementById('constantList'); this is from get_constantList.js
   var localSegmentsList = document.getElementById('model');
   // model is a list of segment objects
   
