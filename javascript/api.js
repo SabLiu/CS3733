@@ -3,8 +3,9 @@ var base_url = "https://xkdxootdqe.execute-api.us-east-2.amazonaws.com/HotspurAP
 
 var list_local_segments_url = base_url + "/localSegments"; //GET
 var list_playlists_url = base_url + "/playlists"; //GET
-//var upload_url = base_url + "constant";     // POST
-//var delete_url = base_url + "delete";       // Can't send JSON to DELETE request. This is POST
+var upload_url = base_url + "/segment";     // POST
+var delete_remote_site_url = base_url + "/removeRemoteSite";// Can't send JSON to DELETE request. This is POST
+var add_remote_site_url = base_url + "/remoteSite";
 //var list_url   = base_url + "constants";    // GET
 
 
