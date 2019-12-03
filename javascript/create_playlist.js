@@ -1,4 +1,4 @@
-// from heineman create.js
+ // from heineman create.js
 	function handleCreatePlaylistClick(e) {
 	  var form = document.playlistForm;
 	 
@@ -27,8 +27,9 @@
 				  var err = js["response"];
 				  alert (err);
 	    	 }
-	    } 
+	    }
+	    processPlaylistResponse(xhr.responseText);
 	  };
-	  processPlaylistResponse(xhr.responseText);
+	  
 	}
 //edited upload_segment code

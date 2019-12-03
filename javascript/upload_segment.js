@@ -37,7 +37,8 @@
 				  alert (err);
 	    	 }
 	    } 
-	    processListResponse(xhr.responseText, false); // reload the new list of local segments
+	    processListResponse(xhr.responseText, false); 
+	    // from list segments: reload the new list of local segments
 	  };
 	}
 
