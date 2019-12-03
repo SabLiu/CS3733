@@ -3,7 +3,7 @@ function processDeleteResponse(result) {
   // contents dynamically via javascript
   console.log("deleted :" + result);
   
-  refreshConstantsList();
+  refreshPlaylistsList();
 }
 
 function processDelete(val) {
