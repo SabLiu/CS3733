@@ -7,16 +7,15 @@
 	  data["sentence"] = form.sentence.value; 
 	  data["character"] = form.character.value;
 	  
-	  // we generate this info
-//	  data["id"]["id"] = generate UUID, related to the URL
-//	  data["videoFileAddress"] = whatever its URL is in the bucket
-	  data["remotelyAvailable"] = false; // default set to false
+	  // we generate this info and send it to backend as JSON 
+	  // generate UUID on backend 
+	  data["isRemotelyAvailable"] = false; // default set to false
 	  
 	  // base64EncodedValue":"data:text/plain;base64,My4xND....."
 	  var segments = document.createForm.base64Encoding.value.split(',');
-	  data["base64EncodedValue"] = segments[1];  // skip first one 
+	  data["contents"] = segments[1];  // skip first one 
 
-	  var js = JSON.stringify(data);
+	  var js = JSON.stringify(data); // magic to convert data to JSON
 	  console.log("JS:" + js);
 	  var xhr = new XMLHttpRequest();
 	  xhr.open("POST", upload_url, true);
@@ -38,8 +37,8 @@
 				  alert (err);
 	    	 }
 	    } 
+	    processListResponse(xhr.responseText, false); // reload the new list of local segments
 	  };
-	  refreshLocalSegmentsList(false); // isAdmin = false since only participant uploads segments
 	}
 
 	
