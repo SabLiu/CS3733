@@ -5,8 +5,13 @@ public class Site {
 	String url;
 	
 	public Site() {
-		this.id = new Id();
+		this.id = new Id(); 
 	}
+	
+	public Site(String url) {
+		this.id = new Id();
+		this.url = url;
+	}  
 	
 	public Site(Id id, String url) {
 		this.id = id;
@@ -14,11 +19,19 @@ public class Site {
 	}  
 	
 	public Id getId() {
-		return id;
+		return id; 
 	}
 	
 	public String getUrl() {
 		return url;
+	}
+
+	public void setId(Id id) {
+		this.id = id;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	@Override

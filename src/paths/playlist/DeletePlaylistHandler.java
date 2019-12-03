@@ -30,7 +30,7 @@ public class DeletePlaylistHandler implements RequestHandler<Id, Response<Playli
 				response = new Response<Playlist[]>(400, "Unable to complete request: " +  "(" + e.getMessage() + ")");
 			}
 
-			return response;
+			return response; 
 		}
 			
 		/** Store into RDS.

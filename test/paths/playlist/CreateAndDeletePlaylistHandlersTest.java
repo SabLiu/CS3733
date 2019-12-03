@@ -34,7 +34,7 @@ public class CreateAndDeletePlaylistHandlersTest extends LambdaTest{
 	}
 	
 	public void testCreateSegmentHandler(){
-    	CreatePlaylistHandler createHandler = new CreatePlaylistHandler();
+    	CreatePlaylistHandler createHandler = new CreatePlaylistHandler(); 
     	ListPlaylistsHandler listHandler = new ListPlaylistsHandler();
         Playlist playlist = new Playlist("test");
         try {
