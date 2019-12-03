@@ -27,7 +27,7 @@ import definitions.Segment;
 
 public class CreateSegmentHandler implements RequestHandler<Segment,Response<Segment[]>>{
 	LambdaLogger logger;
-	SegmentDAO dao;
+	SegmentDAO dao; 
 	
 	@Override
 	public Response<Segment[]> handleRequest(Segment segment, Context context) {

@@ -38,7 +38,7 @@ public class PlaylistDAOTest {
 			int i = 0;
 			while(i<controllerPlaylists.size()) {
 				if(!gottenPlaylists.get(i).equals(gottenPlaylists.get(i))) {
-					fail();
+					fail(); 
 				}
 				i++;
 			}

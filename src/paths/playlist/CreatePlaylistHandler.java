@@ -10,7 +10,7 @@ import definitions.Response;
 import definitions.Segment;
 import paths.segment.ListLocalSegmentsHandler;
 
- class CreatePlaylistHandler implements RequestHandler<Playlist, Response<Playlist[]>>{
+public class CreatePlaylistHandler implements RequestHandler<Playlist, Response<Playlist[]>>{
 	LambdaLogger logger;
 	PlaylistDAO dao;
 		
@@ -25,7 +25,7 @@ import paths.segment.ListLocalSegmentsHandler;
 			if (addToDatabase(playlist)) {
 				response = new Response<Playlist[]>(ListPlaylistsHandler.getPlaylists(logger,dao), 200);
 			} else {
-				response = new Response<Playlist[]>(400, "Segment not added");
+				response = new Response<Playlist[]>(400, "Segment not added"); 
 			}
 		} catch(Exception e) {
 			response = new Response<Playlist[]>(400, "Unable to complete request: " +  "(" + e.getMessage() + ")");

@@ -27,7 +27,7 @@ public class CreateAndDeleteSegmentsHandlersTest extends LambdaTest{
 		testDeleteSegmentHandler();
 	}
 	
-	//@Test
+	@Test
 	public void testShouldFail() {
 		testCreateSegmentHandlerShouldFail();
 		testDeleteSegmentHandlerShouldFail();

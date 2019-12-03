@@ -39,7 +39,7 @@ public class SegmentsDAOTest {
 		controllerSegments.add(new Segment(id.get(7), false, "Mr. Spock, why aren’t you dead?", "Kirk", "Seven.ogg"));
 		controllerSegments.add(new Segment(id.get(8), false, "You know, self-pity is a terrible first course", "Chapel", "Three.ogg"));
 		controllerSegments.add(new Segment(id.get(9), false, "I know you would prefer to wallow in a pool of emotion", "Spock", "Four.ogg"));
-		
+		 
 		SegmentDAO getter = new SegmentDAO();
 		List<Segment> gottenSegments = new ArrayList<>();
 		try{

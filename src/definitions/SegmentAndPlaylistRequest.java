@@ -4,11 +4,21 @@ public class SegmentAndPlaylistRequest {
 	Id segmentId;
 	Id playlistId;
 	
+	public SegmentAndPlaylistRequest() {}
+	
 	public SegmentAndPlaylistRequest(Id segmentId, Id playlistId) {
 		this.segmentId = segmentId;
-		this.playlistId = playlistId;
+		this.playlistId = playlistId; 
 	}
 	
+	public void setSegmentId(Id segmentId) {
+		this.segmentId = segmentId;
+	}
+
+	public void setPlaylistId(Id playlistId) {
+		this.playlistId = playlistId;
+	}
+
 	public Id getSegmentId() {
 		return segmentId;
 	}

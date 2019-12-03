@@ -26,5 +26,5 @@ public class ListPlaylistsHandlerTest extends LambdaTest{
         assertTrue("there is a playlist called 'Maria's Playlist' in the database", hasMariaPlaylist);
         Assert.assertEquals(200, resp.statusCode);
 	}
-
+ 
 }

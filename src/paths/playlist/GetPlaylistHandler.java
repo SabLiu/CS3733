@@ -24,10 +24,9 @@ public class GetPlaylistHandler implements RequestHandler<Id, Response<Playlist>
 	 * 
 	 * @throws Exception 
 	 */
-	Playlist getPlaylist(Id PlaylistId) throws Exception {
+	static Playlist getPlaylist(Id PlaylistId, LambdaLogger logger, PlaylistDAO dao) throws Exception {
 			logger.log("in getPlaylist\n");
 			logger.log("Playlist Id:\n" + PlaylistId.toString() +"\n");
-			PlaylistDAO dao = new PlaylistDAO();
 			Playlist p = dao.getFullPlaylist(PlaylistId);
 			return p;
 		}
@@ -42,7 +41,7 @@ public class GetPlaylistHandler implements RequestHandler<Id, Response<Playlist>
 		
 		
 		try {
-			p = getPlaylist(id);
+			p = getPlaylist(id, logger, new PlaylistDAO());
 			logger.log(p.toString());
 			response = new Response<Playlist>(p, 200);
 			logger.log("finished getSegments\n");
@@ -51,7 +50,7 @@ public class GetPlaylistHandler implements RequestHandler<Id, Response<Playlist>
 			logger.log("EXEPCTION: " + e.getMessage());
 		}
 		
-		return response;
+		return response;  
 	}
 
 }
