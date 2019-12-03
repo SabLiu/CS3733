@@ -25,7 +25,7 @@ function initialize(){
 
 <form name="playlistForm" method="post">  
  	<input name="PLname" value="Enter playlist name" />
- 	<input type="button" id="createPLButton" value="Create Playlist" disabled onClick="JavaScript:handleCreatePlaylistClick(this)">
+ 	<input type="button" id="createPLButton" value="Create Playlist" onClick="JavaScript:handleCreatePlaylistClick(this)">
 </form>
 
 <p>&nbsp;</p>
@@ -42,12 +42,13 @@ function initialize(){
 <p><b>Upload a new local segment </b></p>
 
 <form name="createForm" method="post">
+   <input name="character" value="Character speaking" />
+   <input name="sentence" value="Sentence spoken" /><br /> 
    <input name="base64Encoding" hidden value=""/> 
  	Select a video file: <input type="file" id="videoFile" name="videoFile">  
  	<input type="button" id="uploadButton" value="Upload segment" disabled onClick="JavaScript:handleUploadClick(this)">
  	<br />Note: Must upload an ogg file. 
-   <br /><input name="character" value="Character speaking" />
-   <input name="sentence" value="Sentence spoken" />
+
 </form>
 <script>
 	// from Professor Heineman's calculator.html. 

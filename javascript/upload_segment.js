@@ -37,8 +37,8 @@
 				  alert (err);
 	    	 }
 	    } 
+	    processListResponse(xhr.responseText, false); // reload the new list of local segments
 	  };
-	  refreshLocalSegmentsList(false); // isAdmin = false since only participant uploads segments
 	}
 
 	
