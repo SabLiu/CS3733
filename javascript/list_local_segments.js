@@ -1,4 +1,3 @@
-
 /**
  * Refresh list of local segments
  *
@@ -11,6 +10,7 @@ function refreshLocalSegmentsList(isAdmin) {
    xhr.send();
    
    console.log("sent");
+
   // This will process results and update HTML as appropriate. 
    
   xhr.onloadend = function () {
@@ -32,7 +32,7 @@ function processListResponse(result, isAdmin) {
   console.log("res:" + result);
   // Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
   var js = JSON.parse(result);
-//  var constList = document.getElementById('constantList'); this is from get_constantList.js
+  //  var constList = document.getElementById('constantList'); this is from get_constantList.js
   var localSegmentsList = document.getElementById('model');
   // model is a list of segment objects
   
@@ -46,7 +46,6 @@ function processListResponse(result, isAdmin) {
     var isRemAvailable 	= localSegsJson["remotelyAvailable"];
     var sent			= localSegsJson["sentence"];
     var character 		= localSegsJson["character"];
-    var segAddr 		= localSegsJson["videoFileAddress"];
     
     // updates html
     if (isAdmin){
