@@ -55,8 +55,8 @@ function processListResponse(result, isAdmin) {
     	// character : sentence
     	output = output + "<p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
     	// buttons: delete, mark available, mark unavailable 
-    	output = output + "<p>  <input type=\"button\" value=\"Delete segment\" /> <input type=\"button\" value=\"Mark segment remotely available\" /><input type=\"button\" value=\"Mark segment remotely UNavailable\" /></p></br>";
-    	output = output + "<p>  <input type=\"button\" id=\"deleteSeg\" value=\"Try Delete Segment\" disabled onClick=\"JavaScript:processDelete(segID)\">";
+    	output = output + "<p>  <input type=\"button\" value=\"Delete segment\" /> <input type=\"button\" value=\"Mark segment remotely available\" /><input type=\"button\" value=\"Mark segment remotely UNavailable\" /></p>";
+    	output = output + "<p>  <input type=\"button\" id=\"deleteSeg\" value=\"Try Delete Segment\" disabled onClick=\"JavaScript:processDelete(segID)\"></br>";
     }
     else {
     	
