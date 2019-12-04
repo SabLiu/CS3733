@@ -1,8 +1,11 @@
 <html>
 <head>
-<script type='text/javascript' src='../Iteration1(DO NOT TOUCH)/list_local_segments.js'></script>
-<script type='text/javascript' src='../Iteration1(DO NOT TOUCH)/api.js'></script>
+<script type='text/javascript' src='../list_local_segments.js'></script>
+<script type='text/javascript' src='../api.js'></script>
 
+<script type='text/javascript' src='../add_remote_site.js'></script>
+<script type='text/javascript' src='../list_remote_sites.js'></script>
+<script type='text/javascript' src='../unregister_site.js'></script>
 <script type="text/javascript">
 
 function initialize(){
@@ -29,19 +32,15 @@ function initialize(){
 <hr />
 <p><strong>Remote Sites with Access to Library</strong></p>
 
-<p>[URL of site 1]&nbsp;<input name="unreg1" type="button" value="Unregister site" /></p>
-
-<p>[URL of site 2]&nbsp;<input name="unreg2" type="button" value="Unregister site" /></p>
-
-<p>[URL of site 3]&nbsp;<input name="unreg3" type="button" value="Unregister site" /></p>
-
-<p>&nbsp;</p>
+<div id="remoteSites"></div>
 
 <p>
-<input name="URLregister" type="text" value="URL of site to reigster" />
-<input name="regSite" type="button" value="Register site" />
-</p>
 
+<form name="registerURL" method="post">  
+ 	<input name="URLtoRegister" value="URL of site to reigster" />
+ 	<input type="button" id="regSite" value="Register site" onClick="JavaScript:handleAddRemoteSiteClick(this)">
+</form>
+</p>
 
 </body>
 </html>
