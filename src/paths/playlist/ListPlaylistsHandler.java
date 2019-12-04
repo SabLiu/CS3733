@@ -5,10 +5,8 @@ import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
 import databases.PlaylistDAO;
-import databases.SegmentDAO;
 import definitions.Playlist;
 import definitions.Response;
-import definitions.Segment;
 
 /**
  * Gets names and ids (metadata) of all playlists (doesn't get segments in each playlist)

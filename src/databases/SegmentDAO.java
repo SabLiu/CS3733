@@ -1,5 +1,5 @@
 package databases;
-import java.sql.*;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;

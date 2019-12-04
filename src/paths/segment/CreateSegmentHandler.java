@@ -1,13 +1,7 @@
 package paths.segment;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
-import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
@@ -16,13 +10,10 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PublicAccessBlockConfiguration;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectResult;
-import com.amazonaws.services.s3.model.SetPublicAccessBlockRequest;
 
 import databases.SegmentDAO;
-import definitions.Id;
 import definitions.Response;
 import definitions.Segment;
 
@@ -91,6 +82,7 @@ public class CreateSegmentHandler implements RequestHandler<Segment,Response<Seg
 		PutObjectRequest p = new PutObjectRequest("hotspurproject", "segments/" + segment.getId().getId(), bais, omd)
 				.withCannedAcl(CannedAccessControlList.PublicRead);
 		
+		@SuppressWarnings("unused")
 		PutObjectResult res = s3.putObject(p);
 		
 		// if we ever get here, then whole thing was stored

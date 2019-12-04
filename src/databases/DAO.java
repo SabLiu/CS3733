@@ -1,7 +1,5 @@
 package databases;
 
-import java.sql.*;
-
 public abstract class DAO{
 	
 	java.sql.Connection conn; 
