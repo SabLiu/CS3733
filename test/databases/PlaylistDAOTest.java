@@ -89,17 +89,17 @@ public class PlaylistDAOTest {
 		//controle data
 		List<Segment> controllerSegments = new ArrayList<>();
 		List<Id> id = new ArrayList<>();
-		id.add(new Id("1dba4225-9077-450e-9c94-21f2eaba4e7b.ogg"));
-		id.add(new Id("72ba5621-9180-4976-b24d-93cdc98ff6cc.ogg"));
-		id.add(new Id("c9314e2c-68df-48ec-af09-de17bac46ecd.ogg"));
-		id.add(new Id("d4117ef5-72bf-46c3-be31-d6a1f275194a.ogg"));
-		id.add(new Id("f599c86f-e60b-44d7-a231-7a3d7f9ff6cc.ogg"));
+		id.add(new Id("test1234-9077-450e-9c94-21f2eaba4e7b.ogg"));
+		id.add(new Id("test1234-9180-4976-b24d-93cdc98ff6cc.ogg"));
+		id.add(new Id("test1234-68df-48ec-af09-de17bac46ecd.ogg"));
+		id.add(new Id("test1234-72bf-46c3-be31-d6a1f275194a.ogg"));
+		id.add(new Id("test1234-e60b-44d7-a231-7a3d7f9ff6cc.ogg"));
 		
-		controllerSegments.add(new Segment(id.get(0), false, "You had a normal emotion", "McCoy"));
-		controllerSegments.add(new Segment(id.get(1), false, "Do you smell something?", "Spock"));
-		controllerSegments.add(new Segment(id.get(2), false, "Crazy way to travel, spreading a man's molecules all over the universe.", "McCoy"));
-		controllerSegments.add(new Segment(id.get(3), false, "You know, self-pity is a terrible first course", "Chapel"));
-		controllerSegments.add(new Segment(id.get(4), false, "I know you would prefer to wallow in a pool of emotion", "Spock"));
+		controllerSegments.add(new Segment(id.get(0), false, "You  a normal emotion", "Mcoy"));
+		controllerSegments.add(new Segment(id.get(1), false, "Do you  something?", "Spck"));
+		controllerSegments.add(new Segment(id.get(2), false, "Crazy way to , spreading a man's molecules all over the universe.", "MCoy"));
+		controllerSegments.add(new Segment(id.get(3), false, "You know, self- is a terrible first course", "Chael"));
+		controllerSegments.add(new Segment(id.get(4), false, "I know you would  to wallow in a pool of emotion", "Spck"));
 		
 		Segment[] segs = {controllerSegments.get(0), controllerSegments.get(1),
 				controllerSegments.get(2), controllerSegments.get(3), controllerSegments.get(4)};
@@ -115,7 +115,13 @@ public class PlaylistDAOTest {
 		//Segment sentSegment = new Segment(id, false, "testing testing 123", "erich", "test.ogg");
 		//test
 		PlaylistDAO setter = new PlaylistDAO();
+		SegmentDAO helper = new SegmentDAO();
 		try {	
+			helper.addSegment(segs[0]);
+			helper.addSegment(segs[1]);
+			helper.addSegment(segs[2]);
+			helper.addSegment(segs[3]);
+			helper.addSegment(segs[4]);
 			boolean set = setter.addPlaylist(fullPlaylist);
 			Playlist returnedPlaylistEmpty = setter.getFullPlaylist(idFull);
 			boolean didSetPass = returnedPlaylistEmpty.equals(fullPlaylist);
@@ -123,6 +129,11 @@ public class PlaylistDAOTest {
 			if(didSetPass) {
 				didTryToSetPass = !setter.addPlaylist(fullPlaylist); 
 			}
+			helper.deleteSegment(segs[0]);
+			helper.deleteSegment(segs[1]);
+			helper.deleteSegment(segs[2]);
+			helper.deleteSegment(segs[3]);
+			helper.deleteSegment(segs[4]);
 			assertTrue(didTryToSetPass && didSetPass && set);
 		}catch(Exception e){
 			assertEquals(false, true);
@@ -430,6 +441,7 @@ public class PlaylistDAOTest {
 		
 		try {
 			//add
+			
 			helper.addSegment(segsOne[0]);
 			helper.addSegment(segsOne[1]);
 			helper.addSegment(segsOne[2]);
@@ -438,6 +450,7 @@ public class PlaylistDAOTest {
 			tester.addPlaylist(testTwo);
 			tester.addPlaylist(testThree);
 			//test
+			
 			tester.deleteFromPlaylist(i, new Id("1dba4225-9077-450e-9c94-21f2eaba4e7b.ogg"));
 			tester.deleteFromPlaylist(ii, new Id("3c4bdc3a-a3f5-4f39-bf3a-b7f65fa9399b.ogg"));
 			tester.deleteFromPlaylist(iii, new Id("3e3b9c56-1a2d-45ed-b676-29de0f4e4486.ogg"));
@@ -446,6 +459,7 @@ public class PlaylistDAOTest {
 			Playlist gottonTwo = tester.getFullPlaylist(ii);
 			Playlist gottonThree = tester.getFullPlaylist(iii);
 			//clean
+			
 			tester.deletePlaylist(i);
 			tester.deletePlaylist(ii);
 			tester.deletePlaylist(iii);

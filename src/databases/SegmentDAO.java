@@ -115,7 +115,7 @@ public class SegmentDAO extends DAO{
     }
 	
 	/**
-	 * Deletes the specified segment from the database
+	 * Deletes the specified segment from the database(keep, useful for test cases)
 	 * @param segment the segment to delete
 	 * @return true if the delete was successful false otherwise
 	 * @throws Exception

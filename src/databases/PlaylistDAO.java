@@ -30,6 +30,7 @@ public class PlaylistDAO extends DAO{
 	        	Playlist p = this.getFullPlaylist(playlistId);
 	            Segment[] segs =  p.getSegments();
 	            int i = 0;
+	            
 	            //get a list of segments that won'tbe deleted
 	            while(i<segs.length) {
 	            	 if(segs[i] != null) {
@@ -40,14 +41,18 @@ public class PlaylistDAO extends DAO{
 	            	i++;
 	            }
 	             //convert the list to a string to put into the database
+	           
 	            i = 0;
 	            while(i<playlistSegmentsList.size()-1) {
 	            	playlistSegments = playlistSegments + playlistSegmentsList.get(i).getId().getId() + ",";
 	            	i++;
 	            }
+	           
 	            playlistSegments = playlistSegments + playlistSegmentsList.get(i).getId().getId();
+	            
 	            ps.setString(1, playlistSegments);
 	            ps.setString(2, playlistId.getId());
+	          
 	            int numAffected = ps.executeUpdate();
 	            ps.close();
 	            //run = 1; 
@@ -300,15 +305,23 @@ public class PlaylistDAO extends DAO{
 	    //generate the segments and add them to the playlist in order
 	    String segmentIDsStr = resultSet.getString("SegmentIDs");
 	    String[] segmentIDs = segmentIDsStr.split(",");
-	    Segment[] segments = new Segment[segmentIDs.length];
-	    for(int i = 0; i < segments.length; i++) {
-	    	if(segments.length == 1 && segmentIDsStr.length() == 0) {
+	    List<Segment> segmentList = new ArrayList<Segment>();
+	    int si;
+	    for(int i = 0; i < segmentIDs.length; i++) {
+	    	if(segmentList.size() == 1 && segmentIDsStr.length() == 0) {
 	    		//nothing in there
 	    	}else {
-	    		segments[i] = segDAO.getSegment(new Id(segmentIDs[i]));
+	    		try{
+	    			segmentList.add(segDAO.getSegment(new Id(segmentIDs[i])));
+	    		}catch(Exception e) {
+	    			
+	    		}
 	    		
 	    	}
+	    	
 	    }
+	    Segment[] segments = {};
+	    segments = segmentList.toArray(segments);
 	    
 	    p.addSegments(segments);
 	    return p;
