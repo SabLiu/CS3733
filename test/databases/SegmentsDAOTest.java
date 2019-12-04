@@ -13,9 +13,12 @@ import definitions.Segment;
 
 public class SegmentsDAOTest {
    // (Id id, boolean isRemotelyAvailable, String sentence, String character, String videoFileAddress) 	
-	
+	/**
+	 * Tests get all the segments function(doesn't pass now bc the database changed)
+	 */
 	@Test
 	public void getSegmentsTest() {
+		//make the control data
 		List<Segment> controllerSegments = new ArrayList<>();
 		List<Id> id = new ArrayList<>();
 		id.add(new Id("1dba4225-9077-450e-9c94-21f2eaba4e7b.ogg"));
@@ -43,6 +46,7 @@ public class SegmentsDAOTest {
 		SegmentDAO getter = new SegmentDAO();
 		List<Segment> gottenSegments = new ArrayList<>();
 		try{
+			//test
 			gottenSegments = getter.getAllLocalSegments();
 			int i = 0;
 			while(i<10) {
@@ -61,6 +65,9 @@ public class SegmentsDAOTest {
 				
 	}
 	
+	/**
+	 * Test the get segment function
+	 */
 	@Test
 	public void getSegmentTestLocal() {
 		String testID = "c9314e2c-68df-48ec-af09-de17bac46ecd.ogg";
@@ -77,6 +84,9 @@ public class SegmentsDAOTest {
 		}
 	}
 	
+	/**
+	 * Tests the addsegment function
+	 */
 	@Test
 	public void addSegmentsTest() {
 		Id id = new Id("d92c327e-1615-4869-90c4-13f797ad72f2.ogg");
@@ -88,6 +98,7 @@ public class SegmentsDAOTest {
 			boolean didSetPass = returnedSegment.equals(sentSegment);
 			boolean didTryToSetPass = false;
 			if(didSetPass) {
+				//makes sure you cant add it twice
 				didTryToSetPass = !setter.addSegment(sentSegment); 
 			}
 			assertTrue(didTryToSetPass && didSetPass);
@@ -98,6 +109,9 @@ public class SegmentsDAOTest {
 		}		
 	}
 	
+	/**
+	 * Tests the delete segment function that takes in a segment
+	 */
 	@Test
 	public void deleteSegmentsTest() {
 		Id id = new Id("d92c327e-1615-4869-90c4-13f797ad72f2.ogg");
@@ -113,6 +127,7 @@ public class SegmentsDAOTest {
 			oneAffected = deleter.deleteSegment(deletedSegment);
 			gottenSegmentsAfterDelete = deleter.getAllLocalSegments();
 			int lengthAfter = gottenSegmentsAfterDelete.size();
+			//the number of segments deleted
 			difference = lengthBefor - lengthAfter;
 		}catch(Exception e){
 			assertEquals(false, true);
@@ -127,6 +142,9 @@ public class SegmentsDAOTest {
 		}
 	}
 	
+	/**
+	 * Tests the delete segment function that takes in an Id
+	 */
 	@Test
 	public void deleteSegmentsTestTwo() {
 		Id id = new Id("d92c327e-1615-4869-90c4-13f797ad72f2.ogg");
@@ -143,6 +161,7 @@ public class SegmentsDAOTest {
 			oneAffected = deleter.deleteSegment(id);
 			gottenSegmentsAfterDelete = deleter.getAllLocalSegments();
 			int lengthAfter = gottenSegmentsAfterDelete.size();
+			//the number of segments deleted
 			difference = lengthBefor - lengthAfter;
 		}catch(Exception e){
 			assertEquals(false, true);
@@ -157,6 +176,9 @@ public class SegmentsDAOTest {
 		}
 	}
 	
+	/**
+	 * Tests the search by character function
+	 */
 	@Test
 	public void searchCharacterTest() {
 		List<Segment> controllerSegments = new ArrayList<>();
@@ -186,7 +208,7 @@ public class SegmentsDAOTest {
 		controllerSegments.add(new Segment(id.get(7), false, "Mr. Spock, why aren’t you dead?", "Kirk"));
 		controllerSegments.add(new Segment(id.get(8), false, "You know, self-pity is a terrible first course", "Chapel"));
 		SegmentDAO tester = new SegmentDAO();
-		
+		//set the control arrays
 		List<Segment> McCoyControllerSegments = new ArrayList<>();
 		McCoyControllerSegments.add(controllerSegments.get(0));
 		McCoyControllerSegments.add(controllerSegments.get(1));
@@ -204,6 +226,7 @@ public class SegmentsDAOTest {
 		List<Segment> gottenSegments = new ArrayList<>();
 		
 		try {
+			//test on a few characters
 			gottenSegments = tester.searchSegmentCharacter("McCoy");
 			int i = 0;
 			boolean ta = true;

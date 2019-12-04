@@ -13,20 +13,30 @@ import definitions.Playlist;
 import definitions.Segment;
 
 public class PlaylistDAO extends DAO{
+	/**
+	 * Appendes the inputed segment onto the inputed playlist
+	 * @param playlistId the playlistId of the playlist to append to
+	 * @param segmentId the segmentId of the segment to add
+	 * @return true if it was appended correctly false otherwise
+	 * @throws Exception
+	 */
 	public boolean appendToPlaylist(Id playlistId, Id segmentId) throws Exception {
 		 try {
+			 //get the playlist
 	        	String query = "UPDATE Playlists SET SegmentIDs=? WHERE PlayListID=?;";
 	        	PreparedStatement ps = conn.prepareStatement(query);
 	        	String playlistSegments = "";
 	        	Playlist p = this.getFullPlaylist(playlistId);
 	            Segment[] segs =  p.getSegments();
 	            int i = 0;
+	            //get the curent segments string
 	            while(i<segs.length) {
 	            	 if(segs[i] != null) {
 	            		 playlistSegments = playlistSegments + segs[i].getId().getId() + ",";
 	            	 }
 	            	i++;
 	            }
+	            //add the new id and set the new string as the segmentIds string
 	            playlistSegments = playlistSegments + segmentId.getId();      
 	            ps.setString(1, playlistSegments);
 	            ps.setString(2, playlistId.getId());
@@ -39,11 +49,17 @@ public class PlaylistDAO extends DAO{
 	        }
    }
 	
+	/**
+	 * Changes the playlist entry to have the segments from the inputed playlist
+	 * @param playlist the playlist in its final form after the append
+	 * @return true if it was appended false otherwise
+	 * @throws Exception
+	 */
 	public boolean appendToPlaylist(Playlist playlist) throws Exception {
 		 try {
 	        	String query = "UPDATE Playlists SET SegmentIDs=? WHERE PlayListID=?;";
 	        	PreparedStatement ps = conn.prepareStatement(query);
-	        	
+	        	//get the string of segmentIds
 	        	String playlistSegments = "";
 	            Segment[] segs =  playlist.getSegments();
 	            int i = 0;
@@ -55,7 +71,7 @@ public class PlaylistDAO extends DAO{
 	            	}
 	            	i++;
 	            }
-	            
+	            //set the segmentIds string to the new segmentIds string
 	            ps.setString(1, playlistSegments);
 	            ps.setString(2, playlist.getId().getId());
 	            int numAffected = ps.executeUpdate();
@@ -67,27 +83,40 @@ public class PlaylistDAO extends DAO{
 	        }
     }
 	
+	/**
+	 * Deletes the specified playlist from the database
+	 * @param playlistId the playlistId to delete
+	 * @return true if the delete was successful false otherwise
+	 * @throws Exception
+	 */
 	public boolean deletePlaylist(Id playlistId) throws Exception {
         try {
             PreparedStatement ps = conn.prepareStatement("DELETE FROM Playlists WHERE PlayListID = ?;");
+            //set the ? to the playlistId and delete
             ps.setString(1, playlistId.getId());
             int numAffected = ps.executeUpdate();
             ps.close();
-            
+            //make sure only one is deleted
             return (numAffected == 1);
 
         } catch (Exception e) {
             throw new Exception("Failed to deleat segment: " + e.getMessage());
         }
     }
-	
+	/**
+	 * Deletes the specified playlist from the database
+	 * @param playlist the playlist to delete
+	 * @return true if the delete was successful false otherwise
+	 * @throws Exception
+	 */
 	  public boolean deletePlaylist(Playlist playlist) throws Exception {
 	        try {
 	            PreparedStatement ps = conn.prepareStatement("DELETE FROM Playlists WHERE PlayListID = ?;");
+	            //set the ? to the playlistId and delete
 	            ps.setString(1, playlist.getId().getId());
 	            int numAffected = ps.executeUpdate();
 	            ps.close();
-	            
+	            //make sure only one is deleted
 	            return (numAffected == 1);
 
 	        } catch (Exception e) {
@@ -95,6 +124,12 @@ public class PlaylistDAO extends DAO{
 	        }
 	    }
 
+	    /**
+	     * Adds the specified playlist to the database
+	     * @param playlist the playlist to add
+	     * @return true if it was added false otherwise
+	     * @throws Exception
+	     */
 	    public boolean addPlaylist(Playlist playlist) throws Exception {
 	        try {
 	            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Playlists  WHERE PlayListID = ?;");
@@ -106,7 +141,7 @@ public class PlaylistDAO extends DAO{
 	                resultSet.close();
 	                return false;
 	            }
-	          
+	            //set the ?s and execute the add
 	            ps = conn.prepareStatement("INSERT INTO Playlists (PlayListID,PlayListName,SegmentIDs) values(?,?,?);");
 	            ps.setString(1,  playlist.getId().getId());
 	            ps.setString(2,  playlist.getName());
@@ -134,18 +169,19 @@ public class PlaylistDAO extends DAO{
 	
     
 	/**
-	 * get id and name of all playlist
-	 * @return
+	 * get id and name of all playlists
+	 * @return a list of playlists that are in the database
 	 * @throws Exception
 	 */ 
     public List<Playlist> getAllPlaylists() throws Exception {
 	    List<Playlist> allPlaylists = new ArrayList<>();
 	    try {
+	    	//get all the entrys
 	        Statement statement = conn.createStatement();
 	        
 	        String query = "SELECT * FROM Playlists";
 	        ResultSet resultSet = statement.executeQuery(query);
-	
+	        //generate the playlists
 	        while (resultSet.next()) {
 	            Playlist p = generatePlaylist(resultSet); //get playlist name and id (no segments)
 	            allPlaylists.add(p);
@@ -159,14 +195,22 @@ public class PlaylistDAO extends DAO{
 	    }
 	}
     
+    /**
+     * Gets the specified playlist from the database
+     * @param playlistId the playlist ID of the playlist you want to get
+     * @return the playlist
+     * @throws Exception
+     */
     public Playlist getFullPlaylist(Id playlistId) throws Exception{
 	    try {
+	    	//find the playlist entry
 	        Playlist playlist = null;
 	        PreparedStatement ps = conn.prepareStatement("SELECT * FROM Playlists WHERE PlayListID=?;");
 	        ps.setString(1,  playlistId.getId());
 	        
 	        ResultSet resultSet = ps.executeQuery();
 	    	SegmentDAO segDAO = new SegmentDAO(conn);
+	    	//generate the playlist and return it
 	        while (resultSet.next()) {
 	            playlist = generatePlaylist(resultSet, segDAO); //get playlist name, id and segments
 	        }
@@ -208,7 +252,7 @@ public class PlaylistDAO extends DAO{
 	 */
 	private Playlist generatePlaylist(ResultSet resultSet, SegmentDAO segDAO) throws Exception {
 	    Playlist p = generatePlaylist(resultSet);
-	    
+	    //generate the segments and add them to the playlist in order
 	    String segmentIDsStr = resultSet.getString("SegmentIDs");
 	    String[] segmentIDs = segmentIDsStr.split(",");
 	    Segment[] segments = new Segment[segmentIDs.length];
