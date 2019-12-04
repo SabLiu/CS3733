@@ -16,19 +16,31 @@ import definitions.SearchRequest;
 public class SegmentSearchHandler implements RequestHandler<SearchRequest, Response<Segment[]>>{
 	 public LambdaLogger logger;
 	 
+	 public SegmentSearchHandler() {}
+	 
+	 /**
+	  * Searches for segments that match the search request
+	  * @param logger
+	  * @param dao the segment database
+	  * @param input the search request with the character name and the words said
+	  * @return an array of segments that match the search request
+	  * @throws Exception
+	  */
 	 static Segment[] getSegments(LambdaLogger logger, SegmentDAO dao, SearchRequest input) throws Exception {
 			logger.log("in getSegments\n");
 			Segment[] s = {};
 			List<Segment> ls = new ArrayList<Segment>();
+			//check if there is a character specified, in which case use the DAO function to get the starting list of segments
 			if(input.getCharacterKeyphrase() == null) {
 				ls = dao.getAllLocalSegments();
 			}else {
 				ls = dao.searchSegmentCharacter(input.getCharacterKeyphrase());
 			}
+			//check if there is a word specified, in which case filet out all the segments that don't contain that substring
 			if(input.getSentenceKeyphrase() != null) {
 				int i = 0;
 				while(i < ls.size()) {
-					logger.log("in\n");
+					//should this segment be kept
 					if(ls.get(i).getSentence().contains(input.getSentenceKeyphrase())) {
 						i++;
 					}else {
@@ -40,6 +52,11 @@ public class SegmentSearchHandler implements RequestHandler<SearchRequest, Respo
 			return s;
 		}
 	 
+	 /**
+	  * Handels the request
+	  * @param input the search request with the character name and the words said
+	  * @param context
+	  */
 	@Override
 	public Response<Segment[]> handleRequest(SearchRequest input, Context context) {
 		logger = context.getLogger();

@@ -14,9 +14,9 @@ import definitions.Site;
 
 
 public class SiteDAOTest {
-	
-	//Assumes the db is empty
-	
+	/**
+	 * Tests getting all the sites from the database, assumes it is empty
+	 */
 	@Test
 	public void testGetAll() {
 		SiteDAO getter = new SiteDAO();
@@ -29,6 +29,9 @@ public class SiteDAOTest {
 		}
 	}
 	
+	/**
+	 * Tests the set, get, and delete site functions
+	 */
 	@Test
 	public void testSetGetAndDelete() {
 		SiteDAO tester = new SiteDAO();
@@ -48,6 +51,7 @@ public class SiteDAOTest {
 			gottenSites = tester.getAllSites();
 			int i = 0;
 			boolean tc = true;
+			//checking to make sure the controle and returned arrays are the same
 			while(i<gottenSites.size() && i<controleSitesa.size()) {
 				if(!gottenSites.get(i).equals(controleSitesa.get(i))) {
 					tc = false;
@@ -65,6 +69,7 @@ public class SiteDAOTest {
 			boolean tf = true;
 			gottenSites = tester.getAllSites();
 			i = 0;
+			//checking to make sure the controle and returned arrays are the same
 			while(i<gottenSites.size() ) {
 				int j = 0;
 				boolean m = true;
@@ -92,6 +97,7 @@ public class SiteDAOTest {
 			boolean th = true;
 			gottenSites = tester.getAllSites();
 			i = 0;
+			//checking to make sure the controle and returned arrays are the same
 			while(i<gottenSites.size() ) {
 				int j = 0;
 				boolean m = true;
@@ -118,6 +124,7 @@ public class SiteDAOTest {
 			boolean tj = true;
 			gottenSites = tester.getAllSites();
 			i = 0;
+			//checking to make sure the controle and returned arrays are the same
 			while(i<gottenSites.size() ) {
 				int j = 0;
 				boolean m = true;
@@ -143,6 +150,7 @@ public class SiteDAOTest {
 			boolean tl = true;
 			gottenSites = tester.getAllSites();
 			i = 0;
+			//checking to make sure the controle and returned arrays are the same
 			while(i<gottenSites.size() ) {
 				int j = 0;
 				boolean m = true;

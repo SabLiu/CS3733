@@ -34,16 +34,23 @@ public class SegmentDAO extends DAO{
     }
     */
 	
+	/**
+	 * Finds all the segments that were spoken by the specified character that are in the database
+	 * @param str the characters name
+	 * @return a list of segments that were spoken by that character
+	 * @throws Exception
+	 */
 	public List<Segment> searchSegmentCharacter(String str) throws Exception {
         //TODO later update to also get remote segments
 		List<Segment> allSegments = new ArrayList<>();
         try {
             Segment segment = null;
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM Library WHERE SegmentSpeaker=?;");
+            //set the ? to the characters name and get all those segments
             ps.setString(1,  str);
             
             ResultSet resultSet = ps.executeQuery();
-            
+            //add the segments to the list
             while (resultSet.next()) {
                 segment = generateSegment(resultSet);
                 allSegments.add(segment);
@@ -61,13 +68,20 @@ public class SegmentDAO extends DAO{
         
     }
 	
+	/**
+	 * Deletes the specified segment from the database
+	 * @param segmentId the segmentID to delete
+	 * @return true if the delete was successful false otherwise
+	 * @throws Exception
+	 */
 	public boolean deleteSegment(Id segmentId) throws Exception {
         try {
             PreparedStatement ps = conn.prepareStatement("DELETE FROM Library WHERE SegmentID = ?;");
+            //set the ? to the segmentId
             ps.setString(1, segmentId.getId());
             int numAffected = ps.executeUpdate();
             ps.close();
-            
+            //was only one deleted
             return (numAffected == 1);
 
         } catch (Exception e) {
@@ -75,20 +89,33 @@ public class SegmentDAO extends DAO{
         }
     }
 	
+	/**
+	 * Deletes the specified segment from the database
+	 * @param segment the segment to delete
+	 * @return true if the delete was successful false otherwise
+	 * @throws Exception
+	 */
     public boolean deleteSegment(Segment segment) throws Exception {
         try {
             PreparedStatement ps = conn.prepareStatement("DELETE FROM Library WHERE SegmentID = ?;");
+            //set the ? to the segmentId and delete
             ps.setString(1, segment.getId().getId());
             int numAffected = ps.executeUpdate();
             ps.close();
-            
+            //makes sure only one entry is deleted
             return (numAffected == 1);
 
         } catch (Exception e) {
             throw new Exception("Failed to delete segment: " + e.getMessage());
         }
     }
-
+    
+    /**
+     * Adds the inputed segment to the database
+     * @param segment the segment to add
+     * @return true if the segment was successfully added false othewise
+     * @throws Exception
+     */
     public boolean addSegment(Segment segment) throws Exception {
         try {
         	
@@ -101,7 +128,7 @@ public class SegmentDAO extends DAO{
                 resultSet.close();
                 return false;
             }
-          
+            //Set the ?s and execute the command
             ps = conn.prepareStatement("INSERT INTO Library (SegmentID,SegmentWords,SegmentSpeaker,IsSegmentPublic) values(?,?,?,?);");
             ps.setString(1,  segment.getId().getId());
             ps.setString(2,  segment.getSentence());
@@ -116,17 +143,23 @@ public class SegmentDAO extends DAO{
         }
     }
 
-    
+    /**
+     * Get the specified segment that is in the database
+     * @param id the id of the segment to get
+     * @return the segment
+     * @throws Exception
+     */
     public Segment getSegment(Id id) throws Exception {
         //TODO later update to also get remote segments
  
         try {
             Segment segment = null;
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM Library WHERE SegmentID=?;");
+            //set the ? to the segmentId to look for and execute
             ps.setString(1,  id.getId());
             
             ResultSet resultSet = ps.executeQuery();
-            
+            //generate the segment
             while (resultSet.next()) {
                 segment = generateSegment(resultSet);
             }
@@ -147,13 +180,19 @@ public class SegmentDAO extends DAO{
         
     }
     
+    /**
+     * Gets all the segments that are in the database
+     * @return the list of segments that are in the database
+     * @throws Exception
+     */
     public List<Segment> getAllLocalSegments() throws Exception {;
         List<Segment> allSegments = new ArrayList<>();
         try {
+        	//get all the segment entries
             Statement statement = conn.createStatement();
             String query = "SELECT * FROM Library";
             ResultSet resultSet = statement.executeQuery(query);
-
+            //turn them into Segments and add it to the list
             while (resultSet.next()) {
                 Segment c = generateSegment(resultSet);
                 allSegments.add(c);
@@ -167,6 +206,12 @@ public class SegmentDAO extends DAO{
         }
     }
     
+    /**
+     * Generates a segment from the database entry
+     * @param resultSet the database entry
+     * @return the segment
+     * @throws Exception
+     */
     private Segment generateSegment(ResultSet resultSet) throws Exception {
         String idStr  = resultSet.getString("SegmentID");
         Id id = new Id(idStr);

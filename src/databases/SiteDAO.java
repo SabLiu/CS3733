@@ -12,52 +12,34 @@ import definitions.Site;
 public class SiteDAO extends DAO{
 	public SiteDAO() {super();}
 	public SiteDAO(java.sql.Connection conn) {super(conn);}
-   
-    /*
-    public boolean updateConstant(Constant constant) throws Exception {
-        try {
-        	String query = "UPDATE constants SET value=? WHERE name=?;";
-        	PreparedStatement ps = conn.prepareStatement(query);
-            ps.setDouble(1, constant.value);
-            ps.setString(2, constant.name);
-            int numAffected = ps.executeUpdate();
-            ps.close();
-            
-            return (numAffected == 1);
-        } catch (Exception e) {
-            throw new Exception("Failed to update report: " + e.getMessage());
-        }
-    }
-    */
 	
+	/**
+	 * Deleats the site from the database
+	 * @param siteId the id of the site to be deleted
+	 * @return true if the delete was successful
+	 * @throws Exception
+	 */
 	public boolean deleteSite(Id siteId) throws Exception {
         try {
             PreparedStatement ps = conn.prepareStatement("DELETE FROM SiteLibrary WHERE SiteID = ?;");
+            //set the ? to the site id
             ps.setString(1, siteId.getId());
             int numAffected = ps.executeUpdate();
             ps.close();
-            
+            //make sure only one was deleted
             return (numAffected == 1);
 
         } catch (Exception e) {
             throw new Exception("Failed to deleat segment: " + e.getMessage());
         }
     }
-	/*
-    public boolean deleteSite(Site site) throws Exception {
-        try {
-            PreparedStatement ps = conn.prepareStatement("DELETE FROM Library WHERE SegmentID = ?;");
-            ps.setString(1, segment.getId().getId());
-            int numAffected = ps.executeUpdate();
-            ps.close();
-            
-            return (numAffected == 1);
-
-        } catch (Exception e) {
-            throw new Exception("Failed to delete segment: " + e.getMessage());
-        }
-    }
-*/
+	
+	/**
+	 * Adds a site to the database
+	 * @param site the site to add
+	 * @return true if it is sucessful false otherwise
+	 * @throws Exception
+	 */
     public boolean addSite(Site site) throws Exception {
         try {
         	
@@ -70,7 +52,7 @@ public class SiteDAO extends DAO{
                 resultSet.close();
                 return false;
             }
-          
+            //set the ?s to the correct values and execute
             ps = conn.prepareStatement("INSERT INTO SiteLibrary (SiteID,SiteURL) values(?,?);");
             ps.setString(1,  site.getId().getId());
             ps.setString(2,  site.getUrl());
@@ -83,44 +65,19 @@ public class SiteDAO extends DAO{
         }
     }
 
-    /*
-    public Segment getSegment(Id id) throws Exception {
-        //TODO later update to also get remote segments
- 
-        try {
-            Segment segment = null;
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Library WHERE SegmentID=?;");
-            ps.setString(1,  id.getId());
-            
-            ResultSet resultSet = ps.executeQuery();
-            
-            while (resultSet.next()) {
-                segment = generateSegment(resultSet);
-            }
-            
-            resultSet.close();
-            ps.close();
-            
-            if(segment == null) {
-				throw new NullPointerException("segment not found");
-			}
-            
-            return segment;
-
-        } catch (Exception e) {
-        	e.printStackTrace();
-            throw new Exception("Failed in getting segment: " + e.getMessage());
-        }
-        
-    }
-    */
+    /**
+     * Returns all the sites in the data base
+     * @return a list of sites that are in the database
+     * @throws Exception
+     */
     public List<Site> getAllSites() throws Exception {;
         List<Site> allSites = new ArrayList<>();
         try {
             Statement statement = conn.createStatement();
             String query = "SELECT * FROM SiteLibrary";
+            //get everything from the database
             ResultSet resultSet = statement.executeQuery(query);
-
+            //make them and add them to the array
             while (resultSet.next()) {
                 Site s = generateSite(resultSet);
                 allSites.add(s);
@@ -134,6 +91,12 @@ public class SiteDAO extends DAO{
         }
     }
     
+    /**
+     * Generates a site from a database entry
+     * @param resultSet the database entry
+     * @return the site
+     * @throws Exception
+     */
     private Site generateSite(ResultSet resultSet) throws Exception {
         String idStr  = resultSet.getString("SiteID");
         Id id = new Id(idStr);

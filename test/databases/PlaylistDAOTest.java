@@ -15,9 +15,13 @@ import definitions.Segment;
 import definitions.Id;
 
 public class PlaylistDAOTest {
-
+	
+	/**
+	 * Tests the function that gets all the playlists
+	 */
 	@Test
 	public void getPlaylistsTest() {
+		//Controle data
 		List<Playlist> controllerPlaylists = new ArrayList<>();
 		List<Id> id = new ArrayList<>();
 		id.add(new Id("339cee8c-fdc5-4e72-8aaa-a23969877969"));
@@ -29,7 +33,7 @@ public class PlaylistDAOTest {
 		controllerPlaylists.add(new Playlist(id.get(2), ""));
 		controllerPlaylists.add(new Playlist(id.get(3), ""));
 		
-		
+		//test
 		PlaylistDAO getter = new PlaylistDAO();
 		List<Playlist> gottenPlaylists = new ArrayList<>();
 		try{
@@ -51,13 +55,17 @@ public class PlaylistDAOTest {
 	}
 	
 	
-	
+	/**
+	 * Tests adding an empty playlist to the database
+	 */
 	@Test
 	public void addEmptyPlaylistTest() {
+		//playlist construction
 		Id idEmpty = new Id("d53f987e-1615-4948-90c4-13f630ad72f2");
 		String nameEmpty = "testEmptyPL";
 		Playlist emptyPlaylist = new Playlist(idEmpty, nameEmpty);
 		//Segment sentSegment = new Segment(id, false, "testing testing 123", "erich", "test.ogg");
+		//test
 		PlaylistDAO setter = new PlaylistDAO();
 		try {	
 			boolean set = setter.addPlaylist(emptyPlaylist);
@@ -73,9 +81,12 @@ public class PlaylistDAOTest {
 		}		
 	}
 	
+	/**
+	 * Tests adding a full playlist to the database
+	 */
 	@Test
 	public void addFilledPlaylistTest() {
-		
+		//controle data
 		List<Segment> controllerSegments = new ArrayList<>();
 		List<Id> id = new ArrayList<>();
 		id.add(new Id("1dba4225-9077-450e-9c94-21f2eaba4e7b.ogg"));
@@ -102,6 +113,7 @@ public class PlaylistDAOTest {
 
 		Playlist fullPlaylist = new Playlist(idFull, nameFull, segs);
 		//Segment sentSegment = new Segment(id, false, "testing testing 123", "erich", "test.ogg");
+		//test
 		PlaylistDAO setter = new PlaylistDAO();
 		try {	
 			boolean set = setter.addPlaylist(fullPlaylist);
@@ -117,7 +129,9 @@ public class PlaylistDAOTest {
 		}		
 	}
 	
-		
+	/**
+	 * Tests the delete playlist function that takes in a playlist also deletes the playlist from the earlier test
+	 */	
 	@Test
 	public void deletePlaylistTestOne() {
 		Id idEmpty = new Id("d53f987e-1615-4948-90c4-13f630ad72f2");
@@ -134,6 +148,7 @@ public class PlaylistDAOTest {
 			oneAffected = deleter.deletePlaylist(emptyPlaylist);
 			gottenPlaylistsAfterDelete = deleter.getAllPlaylists();
 			int lengthAfter = gottenPlaylistsAfterDelete.size();
+			//makes sure only one is deleted
 			difference = lengthBefor - lengthAfter;
 		}catch(Exception e){
 			assertEquals(false, true);
@@ -148,7 +163,9 @@ public class PlaylistDAOTest {
 			assertTrue(difference == 1 && oneAffected);
 		}
 	}
-	
+	/**
+	 * Tests the delete playlist function that takes in a playlistId also deletes the playlist from the earlier test
+	 */
 	@Test
 	public void deletePlaylistTestTwo() {
 		Id idFull = new Id("h12f987e-4209-6969-90c4-13f630ad72f2");
@@ -163,13 +180,13 @@ public class PlaylistDAOTest {
 			oneAffected = deleter.deletePlaylist(idFull);
 			gottenPlaylistsAfterDelete = deleter.getAllPlaylists();
 			int lengthAfter = gottenPlaylistsAfterDelete.size();
+			//makes sure only 1 is deleted
 			difference = lengthBefor - lengthAfter;
 		}catch(Exception e){
 			assertEquals(false, true);
 		}
 		
 		try {
-
 			Playlist returnedPlaylist = deleter.getFullPlaylist(idFull);
 			assertTrue(false);
 		}catch(Exception e) {
@@ -178,8 +195,12 @@ public class PlaylistDAOTest {
 		}
 	}
 	
+	/**
+	 * Tests appending a segment to a playlist with segments already in there, this tests the function that takes in an appended playlist
+	 */
 	@Test
 	public void appendToPlaylistTestOne() {
+		//controle data
 		List<Segment> controllerSegmentsStart = new ArrayList<>();
 		List<Id> idStart = new ArrayList<>();
 		idStart.add(new Id("1dba4225-9077-450e-9c94-21f2eaba4e7b.ogg"));
@@ -225,6 +246,7 @@ public class PlaylistDAOTest {
 		Playlist appendedPlaylist = new Playlist(id, nameAppendTo, segsEnd);
 		
 		PlaylistDAO appender = new PlaylistDAO();
+		//test
 		try {
 			appender.addPlaylist(startedPlaylist);
 			boolean appendedOne = appender.appendToPlaylist(appendedPlaylist);
@@ -236,8 +258,12 @@ public class PlaylistDAOTest {
 		}
 	}
 	
+	/**
+	 * Tests appending a segment to a playlist with segments already in there, this tests the function that takes in a playlistId and a segmentId
+	 */
 	@Test
 	public void appendToPlaylistTestTwo() {
+		//controle data
 		List<Segment> controllerSegmentsStart = new ArrayList<>();
 		List<Id> idStart = new ArrayList<>();
 		idStart.add(new Id("1dba4225-9077-450e-9c94-21f2eaba4e7b.ogg"));
@@ -283,6 +309,7 @@ public class PlaylistDAOTest {
 		Playlist appendedPlaylist = new Playlist(id, nameAppendTo, segsEnd);
 		
 		PlaylistDAO appender = new PlaylistDAO();
+		//test
 		try {
 			appender.addPlaylist(startedPlaylist);
 			boolean appendedOne = appender.appendToPlaylist(id, new Id("d16d709b-5b90-48f8-a3c4-57acb0062a0c.ogg"));
@@ -294,9 +321,13 @@ public class PlaylistDAOTest {
 		}
 	}
 	
+	
+	/**
+	 * Tests the append to playlist function, by appending 5 segments to an empty playlist
+	 */
 	@Test
 	public void appendToPlaylistTestThree() {
-				
+		//control data
 		List<Segment> controllerSegmentsEnd = new ArrayList<>();
 		List<Id> idEnd = new ArrayList<>();
 		idEnd.add(new Id("1dba4225-9077-450e-9c94-21f2eaba4e7b.ogg"));
@@ -321,7 +352,7 @@ public class PlaylistDAOTest {
 		String nameAppendTo = "testAppendPL";
 		Playlist startPlaylist = new Playlist(id, nameAppendTo);
 		Playlist appendedPlaylist = new Playlist(id, nameAppendTo, segsEnd);
-		
+		//test
 		PlaylistDAO appender = new PlaylistDAO();
 		try {
 			appender.addPlaylist(startPlaylist);
@@ -342,9 +373,12 @@ public class PlaylistDAOTest {
 		assertTrue(true);
 	}
 	
-	
+	/**
+	 * Tests the get full playlist function
+	 */
 	@Test
 	public void getFullPlaylistTest() {
+		//make the controlle data
 		Id i = new Id("fc11d60f-c6f1-4138-a0b1-cb7fc2010e9d");
 		List<Segment> controllerSegments = new ArrayList<>();
 		controllerSegments.add(new Segment(new Id("1dba4225-9077-450e-9c94-21f2eaba4e7b.ogg"), false, "You had a normal emotion", "McCoy"));
@@ -353,6 +387,7 @@ public class PlaylistDAOTest {
 		Segment segs[] = {controllerSegments.get(0), controllerSegments.get(1), controllerSegments.get(2)};
 		Playlist control = new Playlist(i, "Erich's PLaylist", segs);
 		PlaylistDAO getter = new PlaylistDAO();
+		//test
 		try {
 			Playlist gotten = getter.getFullPlaylist(i);
 			assertTrue(control.equals(gotten));
