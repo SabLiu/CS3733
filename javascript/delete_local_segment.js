@@ -35,6 +35,7 @@ function processDeleteSegment(val, isAdmin) {
 		  processDeleteSegmentResponse("N/A");
 	  }
 	  console.log("isAdmin when refreshing segments after delete: " + isAdmin);
-	  processListResponse(xhr.responseText, isAdmin); 
+	  processListResponse(xhr.responseText, true); //replace w/ isAdmin
+	  
   };
 }
