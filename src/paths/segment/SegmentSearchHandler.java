@@ -16,7 +16,6 @@ import definitions.SearchRequest;
 public class SegmentSearchHandler implements RequestHandler<SearchRequest, Response<Segment[]>>{
 	 public LambdaLogger logger;
 	 
-<<<<<<< HEAD
 	 public SegmentSearchHandler() {}
 	 
 	 /**
@@ -27,8 +26,6 @@ public class SegmentSearchHandler implements RequestHandler<SearchRequest, Respo
 	  * @return an array of segments that match the search request
 	  * @throws Exception
 	  */
-=======
->>>>>>> branch 'master' of https://github.com/mariasharman137/CS3733-B19-Hotspur
 	 static Segment[] getSegments(LambdaLogger logger, SegmentDAO dao, SearchRequest input) throws Exception {
 			logger.log("in getSegments\n");
 			Segment[] s = {};
