@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import definitions.Id;
+import definitions.Playlist;
 import definitions.Segment;
 
 
@@ -34,9 +35,20 @@ public class SegmentDAO extends DAO{
     }
     */
 	
-	public boolean markSegment(Id segmentId, boolean mark) {
-		
-		return true;
+	public boolean markSegment(Id segmentId, boolean mark) throws Exception {
+		 try {
+			 //get the segment
+	        	String query = "UPDATE Library SET isSegmentPublic=? WHERE SegmentID=?;";
+	        	PreparedStatement ps = conn.prepareStatement(query);  
+	            ps.setBoolean(1, mark);
+	            ps.setString(2, segmentId.getId());
+	            int numAffected = ps.executeUpdate();
+	            ps.close();
+	            //run = 1; 
+	            return (numAffected == 1); 
+	        } catch (Exception e) { 
+	            throw new Exception("Failed to update Segments: " + e.getMessage());
+	        }
 	}
 	
 	
