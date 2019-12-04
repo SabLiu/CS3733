@@ -31,8 +31,6 @@ function refreshLocalSegmentsList(isAdmin) {
  * Replace the contents of 'localSegmentsList' with a <br>-separated list of name,value pairs.
  */
 function processListResponse(result, isAdmin) {
-  console.log("ISADMIN THAT IS PASSED INTO PROCESS LIST RESPONSE " + isAdmin);
-  console.log("res:" + result);
   var localIsAdmin = isAdmin; 
   console.log("localISADMIN  = " + localIsAdmin);
   // Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
@@ -53,7 +51,6 @@ function processListResponse(result, isAdmin) {
     var character 		= localSegsJson["character"];
     
     // updates html
-    console.log("pre-button printing: "+ isAdmin);
     if (isAdmin > 1){
     	// video
     	output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + s3_segments_url  + segID + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
