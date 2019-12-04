@@ -35,16 +35,23 @@ public class SegmentDAO extends DAO{
     }
     */
 	
+	/**
+	 * Marks the segment public or private based on input
+	 * @param segmentId the segment to make public or private
+	 * @param mark true if it wants to be public false if it wants to be private
+	 * @return true if it was successful false otherwise
+	 * @throws Exception
+	 */
 	public boolean markSegment(Id segmentId, boolean mark) throws Exception {
 		 try {
-			 //get the segment
+			 //get the segment and update the isSegmentPublic colum
 	        	String query = "UPDATE Library SET isSegmentPublic=? WHERE SegmentID=?;";
 	        	PreparedStatement ps = conn.prepareStatement(query);  
 	            ps.setBoolean(1, mark);
 	            ps.setString(2, segmentId.getId());
 	            int numAffected = ps.executeUpdate();
 	            ps.close();
-	            //run = 1; 
+	            //make sure only one is changed 
 	            return (numAffected == 1); 
 	        } catch (Exception e) { 
 	            throw new Exception("Failed to update Segments: " + e.getMessage());
