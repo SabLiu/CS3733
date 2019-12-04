@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.amazonaws.services.s3.model.Encryption;
+
 import databases.SegmentDAO;
 import definitions.Id;
 import definitions.Segment;
@@ -257,6 +259,39 @@ public class SegmentsDAOTest {
 			gottenSegments = tester.searchSegmentCharacter("bill");
 			boolean td = gottenSegments.size() == 0;
 			assertTrue(ta && tb && tc && td);
+		}catch(Exception e) {
+			fail("exception");
+		}
+	}
+	
+	/**
+	 * Tests the MarkSegment function
+	 */
+	@Test
+	public void testMarkSegment() {
+		//control data
+		Id i = new Id("f45j87yt-6666-6666-6666-2lolwaba4uwu.ogg");
+		Segment test = new Segment(i, false, "that's what", "she");
+		SegmentDAO tester = new SegmentDAO();
+		Segment ret;
+		try {
+			//add the segment
+			tester.addSegment(test);
+			ret = tester.getSegment(i);
+			if(!test.equals(ret)) {
+				fail("couldn't add");
+			}else {
+				//it was uploaded
+				//mark it true, mark it false chek that they worked delete to clean out the database
+				tester.markSegment(i, true);
+				ret = tester.getSegment(i);
+				boolean testOne = ret.isRemotelyAvailable();
+				tester.markSegment(i, false);
+				ret = tester.getSegment(i);
+				boolean testTwo = !ret.isRemotelyAvailable();
+				tester.deleteSegment(i);
+				assertTrue(testOne && testTwo);
+			}
 		}catch(Exception e) {
 			fail("exception");
 		}
