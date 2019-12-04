@@ -17,7 +17,7 @@ public class CreatePlaylistHandler implements RequestHandler<Playlist, Response<
 		
 	@Override
 	public Response<Playlist[]> handleRequest(Playlist playlist, Context context) {
-		logger = context.getLogger();
+		logger = context.getLogger(); 
 		logger.log(playlist.toString());
 
 		Response<Playlist[]> response;

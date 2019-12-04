@@ -13,10 +13,8 @@ import definitions.Segment;
 import definitions.SearchRequest;
 
 
- class SegmentSearchHandler implements RequestHandler<SearchRequest, Response<Segment[]>>{
+public class SegmentSearchHandler implements RequestHandler<SearchRequest, Response<Segment[]>>{
 	 public LambdaLogger logger;
-	 
-	 public SegmentSearchHandler() {}
 	 
 	 static Segment[] getSegments(LambdaLogger logger, SegmentDAO dao, SearchRequest input) throws Exception {
 			logger.log("in getSegments\n");

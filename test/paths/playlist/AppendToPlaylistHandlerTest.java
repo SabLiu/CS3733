@@ -23,7 +23,7 @@ public class AppendToPlaylistHandlerTest extends LambdaTest{
 	public void testAppendHandler(){
     	AppendToPlaylistHandler appendHandler = new AppendToPlaylistHandler();
     	GetPlaylistHandler getHandler = new GetPlaylistHandler();
-    	SegmentAndPlaylistRequest request = new SegmentAndPlaylistRequest(new Id(".ogg"), new Id("339cee8c-fdc5-4e72-8aaa-a23969877969"));
+    	SegmentAndPlaylistRequest request = new SegmentAndPlaylistRequest(new Id("525b2e69-5140-47d9-b2d5-ff7bb9f67d5e.ogg"), new Id("c136cdf2-5877-4e86-b6c7-e72b3f05ea9b"));
         try {
         	Response<Playlist> beforeResponse = getHandler.handleRequest(request.getPlaylistId(), createContext("list"));
         	Response<Playlist> response = appendHandler.handleRequest(request,createContext("list"));
