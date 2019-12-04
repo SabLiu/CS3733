@@ -34,7 +34,6 @@ public class PlaylistDAOTest {
 		List<Playlist> gottenPlaylists = new ArrayList<>();
 		try{
 			gottenPlaylists = getter.getAllPlaylists(); 
-			System.out.println(gottenPlaylists);
 			int i = 0;
 			while(i<controllerPlaylists.size()) {
 				if(!gottenPlaylists.get(i).equals(gottenPlaylists.get(i))) {
@@ -50,6 +49,8 @@ public class PlaylistDAOTest {
 		}
 				
 	}
+	
+	
 	
 	@Test
 	public void addEmptyPlaylistTest() {
@@ -330,7 +331,6 @@ public class PlaylistDAOTest {
 			boolean appendedFour = appender.appendToPlaylist(id, idEnd.get(3));
 			boolean appendedFive = appender.appendToPlaylist(id, idEnd.get(4));
 			boolean appendedSix = appender.appendToPlaylist(id, idEnd.get(5));
-			
 			boolean allAppended = appendedOne && appendedTwo && appendedThree && appendedFour && appendedFive && appendedSix;
 			
 			Playlist returnedPlaylist = appender.getFullPlaylist(id);
@@ -340,6 +340,25 @@ public class PlaylistDAOTest {
 			assertTrue(false);
 		}
 		assertTrue(true);
+	}
+	
+	
+	@Test
+	public void getFullPlaylistTest() {
+		Id i = new Id("fc11d60f-c6f1-4138-a0b1-cb7fc2010e9d");
+		List<Segment> controllerSegments = new ArrayList<>();
+		controllerSegments.add(new Segment(new Id("1dba4225-9077-450e-9c94-21f2eaba4e7b.ogg"), false, "You had a normal emotion", "McCoy"));
+		controllerSegments.add(new Segment(new Id("3c4bdc3a-a3f5-4f39-bf3a-b7f65fa9399b.ogg"), false, "Then I need a drink", "McCoy"));
+		controllerSegments.add(new Segment(new Id("3e3b9c56-1a2d-45ed-b676-29de0f4e4486.ogg"), false, "Colloquially expressed, but essentially correct.", "Spock"));
+		Segment segs[] = {controllerSegments.get(0), controllerSegments.get(1), controllerSegments.get(2)};
+		Playlist control = new Playlist(i, "Erich's PLaylist", segs);
+		PlaylistDAO getter = new PlaylistDAO();
+		try {
+			Playlist gotten = getter.getFullPlaylist(i);
+			assertTrue(control.equals(gotten));
+		}catch(Exception e) {
+			fail("exception");
+		}
 	}
 	
 }

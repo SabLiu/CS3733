@@ -13,13 +13,13 @@ import definitions.Playlist;
 import definitions.Segment;
 
 public class PlaylistDAO extends DAO{
-	
 	public boolean appendToPlaylist(Id playlistId, Id segmentId) throws Exception {
 		 try {
 	        	String query = "UPDATE Playlists SET SegmentIDs=? WHERE PlayListID=?;";
 	        	PreparedStatement ps = conn.prepareStatement(query);
 	        	String playlistSegments = "";
-	            Segment[] segs =  this.getFullPlaylist(playlistId).getSegments();
+	        	Playlist p = this.getFullPlaylist(playlistId);
+	            Segment[] segs =  p.getSegments();
 	            int i = 0;
 	            while(i<segs.length) {
 	            	 if(segs[i] != null) {
@@ -27,13 +27,12 @@ public class PlaylistDAO extends DAO{
 	            	 }
 	            	i++;
 	            }
-	            playlistSegments = playlistSegments + segmentId.getId();
-	            
+	            playlistSegments = playlistSegments + segmentId.getId();      
 	            ps.setString(1, playlistSegments);
 	            ps.setString(2, playlistId.getId());
 	            int numAffected = ps.executeUpdate();
 	            ps.close();
-	            
+	            //run = 1; 
 	            return (numAffected == 1); 
 	        } catch (Exception e) { 
 	            throw new Exception("Failed to update Segments: " + e.getMessage());
@@ -168,7 +167,6 @@ public class PlaylistDAO extends DAO{
 	        
 	        ResultSet resultSet = ps.executeQuery();
 	    	SegmentDAO segDAO = new SegmentDAO(conn);
-	    	
 	        while (resultSet.next()) {
 	            playlist = generatePlaylist(resultSet, segDAO); //get playlist name, id and segments
 	        }
@@ -215,15 +213,15 @@ public class PlaylistDAO extends DAO{
 	    String[] segmentIDs = segmentIDsStr.split(",");
 	    Segment[] segments = new Segment[segmentIDs.length];
 	    for(int i = 0; i < segments.length; i++) {
-	    	if(segments.length == 1 && segments[0] == null) {
-	    		
+	    	if(segments.length == 1 && segmentIDsStr.length() == 0) {
+	    		//nothing in there
 	    	}else {
 	    		segments[i] = segDAO.getSegment(new Id(segmentIDs[i]));
+	    		
 	    	}
 	    }
 	    
 	    p.addSegments(segments);
-	    	
 	    return p;
 	}
 	
