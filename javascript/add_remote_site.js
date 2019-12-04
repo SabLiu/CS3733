@@ -1,15 +1,14 @@
- // from heineman create.js
-	function handleCreatePlaylistClick(e) {
-	  var form = document.playlistForm;
+	function handleAddRemoteSiteClick(e) {
+	  var form = document.registerURL;
 	 
 	  var data = {};
 	  // user provides this info
-	  data["name"] = form.PLname.value; 
+	  data["url"] = form.URLtoRegister.value; 
 
 	  var js = JSON.stringify(data); // magic to convert data to JSON
 	  console.log("JS:" + js);
 	  var xhr = new XMLHttpRequest();
-	  xhr.open("POST", create_playlist_url, true);
+	  xhr.open("POST", remote_site_url, true);
 
 	  // send the collected data as JSON
 	  xhr.send(js);
@@ -28,8 +27,8 @@
 				  alert (err);
 	    	 }
 	    }
-	    // takes JSON and refreshes the list with the response of API call
-	    processPlaylistResponse(xhr.responseText);
+	    // refresh list of sites based on JSON response to API call 
+	    processViewSitesResponse(xhr.responseText);
 	  };
 	  
 	}

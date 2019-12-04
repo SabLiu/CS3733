@@ -18,7 +18,8 @@ var append_url = base_url + "/appendToPlaylist";
 
 // admin mark/unmark remote sites
 var delete_remote_site_url = base_url + "/removeRemoteSite";// Can't send JSON to DELETE request. This is POST
-var add_remote_site_url = base_url + "/remoteSite"; //	POST
+var remote_site_url = base_url + "/remoteSite"; //	POST: add remote site
+												// 	GET: list remote sites
 
 // S3 bucket: 
 var s3_segments_url = "https://hotspurproject.s3.us-east-2.amazonaws.com/segments/"; 
