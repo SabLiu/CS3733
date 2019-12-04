@@ -1,11 +1,12 @@
 function processDeleteSegmentResponse(result, isAdmin) {
   console.log("deleted :" + result);
 
-  refreshLocalSegmentsList(isAdmin);
+//  refreshLocalSegmentsList(isAdmin);
 }
 
 
 function processDeleteSegment(val, isAdmin) {
+	console.log("this is the isAdmin that is passed in " + isAdmin);
   var data = {};
   data["id"] = val;
 
@@ -34,8 +35,9 @@ function processDeleteSegment(val, isAdmin) {
 	  } else {
 		  processDeleteSegmentResponse("N/A");
 	  }
-	  console.log("isAdmin when refreshing segments after delete: " + isAdmin);
-	  processListResponse(xhr.responseText, true); //replace w/ isAdmin
+	  var passMeThrough = isAdmin;
+	  console.log("pass me through: " + passMeThrough);
+	  processListResponse(xhr.responseText, passMeThrough); //replace w/ isAdmin
 	  
   };
 }
