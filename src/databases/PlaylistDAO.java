@@ -11,6 +11,49 @@ import definitions.Playlist;
 import definitions.Segment;
 
 public class PlaylistDAO extends DAO{
+	
+	
+	/**
+	 * deletes the inputed segment out of the inputed playlist
+	 * @param playlistId the playlistId of the playlist to delete from
+	 * @param segmentId the segmentId of the segment to delete
+	 * @return true if it was deleted correctly false otherwise
+	 * @throws Exception
+	 */
+	public boolean deleteFromPlaylist(Id playlistId, Id segmentId) throws Exception {
+		/*
+		 try {
+			 //get the playlist
+	        	String query = "UPDATE Playlists SET SegmentIDs=? WHERE PlayListID=?;";
+	        	PreparedStatement ps = conn.prepareStatement(query);
+	        	String playlistSegments = "";
+	        	Playlist p = this.getFullPlaylist(playlistId);
+	            Segment[] segs =  p.getSegments();
+	            int i = 0;
+	            //get the curent segments string
+	            while(i<segs.length) {
+	            	 if(segs[i] != null) {
+	            		 playlistSegments = playlistSegments + segs[i].getId().getId() + ",";
+	            	 }
+	            	i++;
+	            }
+	            //add the new id and set the new string as the segmentIds string
+	            playlistSegments = playlistSegments + segmentId.getId();      
+	            ps.setString(1, playlistSegments);
+	            ps.setString(2, playlistId.getId());
+	            int numAffected = ps.executeUpdate();
+	            ps.close();
+	            //run = 1; 
+	            return (numAffected == 1); 
+	        } catch (Exception e) { 
+	            throw new Exception("Failed to update Segments: " + e.getMessage());
+	        }
+	        */
+		return true;
+   }
+	
+	
+	
 	/**
 	 * Appendes the inputed segment onto the inputed playlist
 	 * @param playlistId the playlistId of the playlist to append to
