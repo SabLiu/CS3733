@@ -34,6 +34,12 @@ public class SegmentDAO extends DAO{
     }
     */
 	
+	public boolean markSegment(Id segmentId, boolean mark) {
+		
+		return true;
+	}
+	
+	
 	/**
 	 * Finds all the segments that were spoken by the specified character that are in the database
 	 * @param str the characters name
