@@ -11,6 +11,7 @@ function refreshLocalSegmentsList(isAdmin) {
    xhr.send();
    
    console.log("sent");
+   console.log("REFRESHING SEGMENTS : " + isAdmin);
 
   // This will process results and update HTML as appropriate. 
    
@@ -30,7 +31,7 @@ function refreshLocalSegmentsList(isAdmin) {
  * Replace the contents of 'localSegmentsList' with a <br>-separated list of name,value pairs.
  */
 function processListResponse(result, isAdmin) {
-	console.log("ISADMIN THAT IS PASSED INTO PROCESS LIST RESPONSE" + isAdmin);
+  console.log("ISADMIN THAT IS PASSED INTO PROCESS LIST RESPONSE " + isAdmin);
   console.log("res:" + result);
   var localIsAdmin = isAdmin; 
   console.log("localISADMIN  = " + localIsAdmin);
@@ -52,7 +53,8 @@ function processListResponse(result, isAdmin) {
     var character 		= localSegsJson["character"];
     
     // updates html
-    if (isAdmin){
+    console.log("pre-button printing: "+ isAdmin);
+    if (isAdmin === true){
     	// video
     	output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + s3_segments_url  + segID + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
     	// character : sentence
@@ -62,12 +64,12 @@ function processListResponse(result, isAdmin) {
 
     	//output = output + "<p>   <input type=\"button\" id=\"deleteSeg\" value=\"Try Delete Segment\" onClick=\"JavaScript:processDeleteSegment('" + segID + "')\"> <input type=\"button\" value=\"Mark segment remotely available\" /><input type=\"button\" value=\"Mark segment remotely UNavailable\" /></p></br>";
     }
-    else if (!isAdmin){
+    else if (isAdmin === false){
     	// character : sentence
     	output = output + "</br><p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
     	output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + s3_segments_url  + segID + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
     	output = output + "<p><input type=\"button\" value=\"Append to current playlist\" /><input type=\"button\" id=\"deleteSeg\" value=\"Delete Local Segment\" onClick=\"JavaScript:processDeleteSegment('" + segID + "', '" + localIsAdmin + "')\"></p></br>";
-    }else {
+    } else {
     	console.log ("I don't know what isAdmin is"); 
     }
   
