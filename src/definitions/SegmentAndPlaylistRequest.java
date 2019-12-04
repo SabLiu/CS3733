@@ -4,7 +4,9 @@ public class SegmentAndPlaylistRequest {
 	Id segmentId;
 	Id playlistId;
 	
-	public SegmentAndPlaylistRequest() {}
+	public SegmentAndPlaylistRequest() {
+		
+	}
 	
 	public SegmentAndPlaylistRequest(Id segmentId, Id playlistId) {
 		this.segmentId = segmentId;

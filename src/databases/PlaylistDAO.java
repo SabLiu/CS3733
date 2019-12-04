@@ -6,8 +6,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.amazonaws.services.lambda.runtime.LambdaLogger;
-
 import definitions.Id;
 import definitions.Playlist;
 import definitions.Segment;

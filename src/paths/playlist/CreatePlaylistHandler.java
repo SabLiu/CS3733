@@ -5,11 +5,8 @@ import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
 import databases.PlaylistDAO;
-import definitions.Id;
 import definitions.Playlist;
 import definitions.Response;
-import definitions.Segment;
-import paths.segment.ListLocalSegmentsHandler;
 
 public class CreatePlaylistHandler implements RequestHandler<Playlist, Response<Playlist[]>>{
 	LambdaLogger logger;
@@ -17,7 +14,7 @@ public class CreatePlaylistHandler implements RequestHandler<Playlist, Response<
 		
 	@Override
 	public Response<Playlist[]> handleRequest(Playlist playlist, Context context) {
-		logger = context.getLogger();
+		logger = context.getLogger(); 
 		logger.log(playlist.toString());
 
 		Response<Playlist[]> response;
