@@ -314,7 +314,7 @@ public class PlaylistDAO extends DAO{
 	    		try{
 	    			segmentList.add(segDAO.getSegment(new Id(segmentIDs[i])));
 	    		}catch(Exception e) {
-	    			
+	    			System.out.println("segment not avaliable " + e.getMessage());
 	    		}
 	    		
 	    	}

@@ -559,11 +559,13 @@ public class PlaylistDAOTest {
 			
 			Playlist result = tester.getFullPlaylist(testPlaylist.getId());
 			
+			System.out.println(result);
+			
 			assertTrue("no segments returned", result.getSegments().length == 0);
 			
 		}catch(Exception e){
 			fail("exception" + e.getMessage());
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		
 		try {
