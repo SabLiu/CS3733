@@ -58,8 +58,6 @@ function processListResponse(result, isAdmin) {
     	output = output + "<p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
     	// buttons: delete, mark available, mark unavailable 
     	output = output + "<p>   <input type=\"button\" id=\"deleteSeg\" value=\"Delete Local Segment\" onClick=\"JavaScript:processDeleteSegment('" + segID + "', '" + localIsAdmin + "')\"> <input type=\"button\" value=\"Mark segment remotely available\" /><input type=\"button\" value=\"Mark segment remotely UNavailable\" /></p></br>";
-
-    	//output = output + "<p>   <input type=\"button\" id=\"deleteSeg\" value=\"Try Delete Segment\" onClick=\"JavaScript:processDeleteSegment('" + segID + "')\"> <input type=\"button\" value=\"Mark segment remotely available\" /><input type=\"button\" value=\"Mark segment remotely UNavailable\" /></p></br>";
     }
     else if (isAdmin < 1){
     	// character : sentence
