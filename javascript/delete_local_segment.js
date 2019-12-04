@@ -1,19 +1,18 @@
-function processDeleteResponse(result) {
-  // Can grab any DIV or SPAN HTML element and can then manipulate its
-  // contents dynamically via javascript
+function processDeleteSegmentResponse(result, isAdmin) {
   console.log("deleted :" + result);
 
   refreshLocalSegmentsList(isAdmin);
 }
 
 
-function processDelete(val) {
+function processDeleteSegment(val, isAdmin) {
   var data = {};
-  data["name"] = val;
+  data["id"] = val;
 
   var js = JSON.stringify(data);
   console.log("JS:" + js);
   var xhr = new XMLHttpRequest();
+  xhr.open("POST", delete_segment_url, true);  // Can't be DELETE since then no data sent via JSON
 
   // send the collected data as JSON
   xhr.send(js);
@@ -25,7 +24,7 @@ function processDelete(val) {
 	  if (xhr.readyState == XMLHttpRequest.DONE) {
 		  if (xhr.status == 200) {
 			  console.log ("XHR:" + xhr.responseText);
-			  processDeleteResponse(xhr.responseText);
+			  processDeleteSegmentResponse(xhr.responseText);
 		  } else {
 			  console.log("actual:" + xhr.responseText)
 			  var js = JSON.parse(xhr.responseText);
@@ -33,7 +32,7 @@ function processDelete(val) {
 			  alert (err);
 		  }
 	  } else {
-		  processDeleteResponse("N/A");
+		  processDeleteSegmentResponse("N/A");
 	  }
 	  processListResponse(xhr.responseText, isAdmin); 
   };
