@@ -58,7 +58,7 @@ public class PlaylistDAO extends DAO{
 	            //run = 1; 
 	            return (numAffected == 1); 
 	        } catch (Exception e) { 
-	            throw new Exception("Failed to update Segments: " + e.getMessage());
+	            throw new Exception("Failed to update Segments: " + e.getMessage()); //remove segments throws this with e.getMessage() = Index: 0, Size: 0
 	        }
    }
 	
