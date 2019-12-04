@@ -2,8 +2,8 @@ function processDeletePlaylistResponse(result) {
   // Can grab any DIV or SPAN HTML element and can then manipulate its
   // contents dynamically via javascript
   console.log("deleted :" + result);
-  
-  refreshPlaylistsList();
+  processPlaylistResponse(result); // refresh list of playlists 
+//  refreshPlaylistsList();
 }
 
 function processDeletePlaylist(val) {
@@ -35,7 +35,7 @@ function processDeletePlaylist(val) {
 	  } else {
 		  processDeletePlaylistResponse("N/A");
 	  }
-	  processPlaylistResponse(xhr.responseText); // refresh list of playlists 
+//	  processPlaylistResponse(xhr.responseText); // refresh list of playlists 
   };
 }
 
