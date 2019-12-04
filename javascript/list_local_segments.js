@@ -54,7 +54,7 @@ function processListResponse(result, isAdmin) {
     
     // updates html
     console.log("pre-button printing: "+ isAdmin);
-    if (isAdmin === true){
+    if (isAdmin > 1){
     	// video
     	output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + s3_segments_url  + segID + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
     	// character : sentence
@@ -64,13 +64,13 @@ function processListResponse(result, isAdmin) {
 
     	//output = output + "<p>   <input type=\"button\" id=\"deleteSeg\" value=\"Try Delete Segment\" onClick=\"JavaScript:processDeleteSegment('" + segID + "')\"> <input type=\"button\" value=\"Mark segment remotely available\" /><input type=\"button\" value=\"Mark segment remotely UNavailable\" /></p></br>";
     }
-    else if (isAdmin === false){
+    else if (isAdmin < 1){
     	// character : sentence
     	output = output + "</br><p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
     	output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + s3_segments_url  + segID + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
     	output = output + "<p><input type=\"button\" value=\"Append to current playlist\" /><input type=\"button\" id=\"deleteSeg\" value=\"Delete Local Segment\" onClick=\"JavaScript:processDeleteSegment('" + segID + "', '" + localIsAdmin + "')\"></p></br>";
     } else {
-    	console.log ("I don't know what isAdmin is"); 
+    	console.log ("I don't know what isAdmin is");
     }
   
   }
