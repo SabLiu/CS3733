@@ -36,6 +36,7 @@ public class MarkAndUnmarkSegmentHandlersTest extends LambdaTest{
 		}
 		assertTrue("Segment is marked", isMarked);
 	}
+
 	
 	
 	

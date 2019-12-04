@@ -153,17 +153,6 @@ public class CreateAndDeleteSegmentsHandlersTest extends LambdaTest{
 
 	}
 	
-	private String getEncodedValue(String filePath){
-		String encoded = "";
-		try {
-	        byte[] content = Files.readAllBytes(Paths.get(filePath));
-	        encoded =  java.util.Base64.getEncoder().encodeToString(content);
-		}catch(Exception e){
-			System.out.println("EXCPETION: " + e.getMessage());
-			e.printStackTrace();
-			fail("EXCPETION: " + e.getMessage());
-        }
-        return encoded;
-	}
+
 
 }

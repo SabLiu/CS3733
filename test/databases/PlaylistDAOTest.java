@@ -477,5 +477,54 @@ public class PlaylistDAOTest {
 		}
 	}
 	
+	@Test
+	public void getFilledPlaylistWithNonexistentSegmentsTest(){
+		Playlist testPlaylist = new Playlist("DAO test");
+		Id nonExistentSegId = new Id();
+		PlaylistDAO tester = new PlaylistDAO();
+		
+		try {
+			tester.addPlaylist(testPlaylist);
+			tester.appendToPlaylist(testPlaylist.getId(), nonExistentSegId);
+			Playlist result = tester.getFullPlaylist(testPlaylist.getId());
+			
+			assertTrue("no segments returned", result.getSegments().length == 0);
+			
+		}catch(Exception e){
+			fail("exception: " + e.getMessage());
+		}
+		try {
+			tester.deletePlaylist(testPlaylist.getId());
+		}catch(Exception e){
+			fail("exception" + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void getFilledPlaylistWithNoSegmentsTest(){
+		Playlist testPlaylist = new Playlist("DAO test");
+		PlaylistDAO tester = new PlaylistDAO();
+		
+		try {
+			tester.addPlaylist(testPlaylist);
+			
+			Playlist result = tester.getFullPlaylist(testPlaylist.getId());
+			
+			assertTrue("no segments returned", result.getSegments().length == 0);
+			
+		}catch(Exception e){
+			fail("exception" + e.getMessage());
+			e.printStackTrace();
+		}
+		
+		try {
+			tester.deletePlaylist(testPlaylist.getId());
+		}catch(Exception e){
+			fail("exception" + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
 }
 
