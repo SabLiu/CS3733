@@ -54,8 +54,7 @@ public class PlaylistDAO extends DAO{
 	            ps.setString(2, playlistId.getId());
 	          
 	            int numAffected = ps.executeUpdate();
-	            ps.close();
-	            //run = 1; 
+	            ps.close(); 
 	            return (numAffected == 1); 
 	        } catch (Exception e) { 
 	            throw new Exception("Failed to update Segments: " + e.getMessage());

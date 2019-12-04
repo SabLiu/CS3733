@@ -14,7 +14,6 @@ import definitions.Id;
 import definitions.Segment;
 
 public class SegmentsDAOTest {
-   // (Id id, boolean isRemotelyAvailable, String sentence, String character, String videoFileAddress) 	
 	/**
 	 * Tests get all the segments function(doesn't pass now bc the database changed)
 	 */
