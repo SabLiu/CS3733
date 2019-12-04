@@ -396,5 +396,72 @@ public class PlaylistDAOTest {
 		}
 	}
 	
+	/**
+	 * Tests the delete from playlist function
+	 */
+	@Test
+	public void deletFromPlaylistTest() {
+		//make the control data
+		Id i = new Id("one6h8uh-3344-uwu9-owo6-cb7fc2010e9d");
+		Id ii = new Id("two6h8uh-3344-uwu9-owo6-cb7fc2010e9d");
+		Id iii = new Id("three8uh-3344-uwu9-owo6-cb7fc2010e9d");
+		List<Segment> controllerSegments = new ArrayList<>();
+		controllerSegments.add(new Segment(new Id("1dba4225-9077-450e-9c94-21f2eaba4e7b.ogg"), false, ">:~(", "Erich"));
+		controllerSegments.add(new Segment(new Id("3c4bdc3a-a3f5-4f39-bf3a-b7f65fa9399b.ogg"), false, "delete delete delete", "sabrina"));
+		controllerSegments.add(new Segment(new Id("3e3b9c56-1a2d-45ed-b676-29de0f4e4486.ogg"), false, "Its yoour own fault erich", "maria"));
+		
+		Segment segsOne[] = {controllerSegments.get(0), controllerSegments.get(1), controllerSegments.get(2)};
+		Playlist testOne = new Playlist(i, "Test PLaylist one", segsOne);
+		Segment conSegsOne[] = {controllerSegments.get(1), controllerSegments.get(2)};
+		Playlist conOne = new Playlist(i, "Test PLaylist one", conSegsOne);
+		
+		Segment segsTwo[] = {controllerSegments.get(0), controllerSegments.get(1), controllerSegments.get(2), controllerSegments.get(1)};
+		Playlist testTwo = new Playlist(ii, "Test PLaylist two", segsTwo);
+		Segment conSegsTwo[] = {controllerSegments.get(0), controllerSegments.get(2)};
+		Playlist conTwo = new Playlist(ii, "Test PLaylist two", conSegsTwo);
+		
+		Segment segsThree[] = {controllerSegments.get(0), controllerSegments.get(1), controllerSegments.get(2)};
+		Playlist testThree = new Playlist(iii, "Test PLaylist three", segsThree);
+		Segment conSegsThree[] = {controllerSegments.get(0), controllerSegments.get(1)};
+		Playlist conThree = new Playlist(iii, "Test PLaylist three", conSegsThree);
+		
+		PlaylistDAO tester = new PlaylistDAO();
+		SegmentDAO helper = new SegmentDAO();
+		
+		try {
+			//add
+			helper.addSegment(segsOne[0]);
+			helper.addSegment(segsOne[1]);
+			helper.addSegment(segsOne[2]);
+			
+			tester.addPlaylist(testOne);
+			tester.addPlaylist(testTwo);
+			tester.addPlaylist(testThree);
+			//test
+			tester.deleteFromPlaylist(i, new Id("1dba4225-9077-450e-9c94-21f2eaba4e7b.ogg"));
+			tester.deleteFromPlaylist(ii, new Id("3c4bdc3a-a3f5-4f39-bf3a-b7f65fa9399b.ogg"));
+			tester.deleteFromPlaylist(iii, new Id("3e3b9c56-1a2d-45ed-b676-29de0f4e4486.ogg"));
+			
+			Playlist gottonOne = tester.getFullPlaylist(i);
+			Playlist gottonTwo = tester.getFullPlaylist(ii);
+			Playlist gottonThree = tester.getFullPlaylist(iii);
+			//clean
+			tester.deletePlaylist(i);
+			tester.deletePlaylist(ii);
+			tester.deletePlaylist(iii);
+			helper.deleteSegment(segsOne[0]);
+			helper.deleteSegment(segsOne[1]);
+			helper.deleteSegment(segsOne[2]);
+			
+			boolean testOnePassed = conOne.equals(gottonOne);
+			boolean testTwoPassed = conTwo.equals(gottonTwo);
+			boolean testThreePassed = conThree.equals(gottonThree);
+			
+			assertTrue(testOnePassed && testTwoPassed && testThreePassed);
+		}catch(Exception e) {
+			fail("exception");
+		}
+	}
+	
 }
 
