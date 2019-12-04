@@ -33,9 +33,9 @@ function processPlaylistResponse(result) {
   var localPlaylistsList = document.getElementById('playlists');
   
   var output = "";
-  for (var i = 0; i < js.model.length; i++) {
+  for (var i = 0; i < js.playlists.length; i++) {//this was model.length
 	//grabs stuff out of json
-	var playlistJson = js.model[i];
+	var playlistJson = js.playlists[i];//this was model[i]
     console.log(playlistJson);
     
     var name = playlistJson["name"];
