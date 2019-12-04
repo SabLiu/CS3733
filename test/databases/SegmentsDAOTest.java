@@ -14,7 +14,6 @@ import definitions.Id;
 import definitions.Segment;
 
 public class SegmentsDAOTest {
-   // (Id id, boolean isRemotelyAvailable, String sentence, String character, String videoFileAddress) 	
 	/**
 	 * Tests get all the segments function(doesn't pass now bc the database changed)
 	 */
@@ -185,30 +184,30 @@ public class SegmentsDAOTest {
 	public void searchCharacterTest() {
 		List<Segment> controllerSegments = new ArrayList<>();
 		List<Id> id = new ArrayList<>();
-		id.add(new Id("1dba4225-9077-450e-9c94-21f2eaba4e7b.ogg"));
-		id.add(new Id("3c4bdc3a-a3f5-4f39-bf3a-b7f65fa9399b.ogg"));
-		id.add(new Id("3e3b9c56-1a2d-45ed-b676-29de0f4e4486.ogg"));
-		id.add(new Id("525b2e69-5140-47d9-b2d5-ff7bb9f67d5e.ogg"));
-		id.add(new Id("72ba5621-9180-4976-b24d-93cdc98ff6cc.ogg"));
-		id.add(new Id("c9314e2c-68df-48ec-af09-de17bac46ecd.ogg"));
-		id.add(new Id("cf7ccbaa-321f-4365-ab2d-1aabc7354f23.ogg"));
-		id.add(new Id("d16d709b-5b90-48f8-a3c4-57acb0062a0c.ogg"));
-		id.add(new Id("d4117ef5-72bf-46c3-be31-d6a1f275194a.ogg"));
-		id.add(new Id("f599c86f-e60b-44d7-a231-7a3d7f9ff6cc.ogg"));
+		id.add(new Id("testabcd-9077-450e-9c94-21f2eaba4e7b.ogg"));
+		id.add(new Id("testabcd-a3f5-4f39-bf3a-b7f65fa9399b.ogg"));
+		id.add(new Id("testabcd-1a2d-45ed-b676-29de0f4e4486.ogg"));
+		id.add(new Id("testabcd-5140-47d9-b2d5-ff7bb9f67d5e.ogg"));
+		id.add(new Id("testabcd-9180-4976-b24d-93cdc98ff6cc.ogg"));
+		id.add(new Id("testabcd-68df-48ec-af09-de17bac46ecd.ogg"));
+		id.add(new Id("testabcd-321f-4365-ab2d-1aabc7354f23.ogg"));
+		id.add(new Id("testabcd-5b90-48f8-a3c4-57acb0062a0c.ogg"));
+		id.add(new Id("testabcd-72bf-46c3-be31-d6a1f275194a.ogg"));
+		id.add(new Id("testabcd-e60b-44d7-a231-7a3d7f9ff6cc.ogg"));
 		
-		controllerSegments.add(new Segment(id.get(0), false, "You had a normal emotion", "McCoy"));
-		controllerSegments.add(new Segment(id.get(1), false, "Then I need a drink", "McCoy"));
-		controllerSegments.add(new Segment(id.get(5), false, "Crazy way to travel, spreading a man's molecules all over the universe.", "McCoy"));
+		controllerSegments.add(new Segment(id.get(0), false, "You had a normal emotion", "cCoy"));
+		controllerSegments.add(new Segment(id.get(1), false, "Then I need a drink", "cCoy"));
+		controllerSegments.add(new Segment(id.get(5), false, "Crazy way to travel, spreading a man's molecules all over the universe.", "cCoy"));
 		
-		controllerSegments.add(new Segment(id.get(2), false, "Colloquially expressed, but essentially correct.", "Spock"));
-		controllerSegments.add(new Segment(id.get(4), false, "Do you smell something?", "Spock"));
-		controllerSegments.add(new Segment(id.get(6), false, "Kindness, Mr. Garrovick, is another human emotion, and I believe we have enough of that.", "Spock"));
-		controllerSegments.add(new Segment(id.get(9), false, "I know you would prefer to wallow in a pool of emotion", "Spock"));
+		controllerSegments.add(new Segment(id.get(2), false, "Colloquially expressed, but essentially correct.", "pock"));
+		controllerSegments.add(new Segment(id.get(4), false, "Do you smell something?", "pock"));
+		controllerSegments.add(new Segment(id.get(6), false, "Kindness, Mr. Garrovick, is another human emotion, and I believe we have enough of that.", "pock"));
+		controllerSegments.add(new Segment(id.get(9), false, "I know you would prefer to wallow in a pool of emotion", "pock"));
 		
-		controllerSegments.add(new Segment(id.get(3), false, "Engineering to Captain Kirk", "Scotty"));
+		controllerSegments.add(new Segment(id.get(3), false, "Engineering to Captain Kirk", "cotty"));
 		
-		controllerSegments.add(new Segment(id.get(7), false, "Mr. Spock, why aren’t you dead?", "Kirk"));
-		controllerSegments.add(new Segment(id.get(8), false, "You know, self-pity is a terrible first course", "Chapel"));
+		controllerSegments.add(new Segment(id.get(7), false, "Mr. Spock, why aren’t you dead?", "irk"));
+		controllerSegments.add(new Segment(id.get(8), false, "You know, self-pity is a terrible first course", "hapel"));
 		SegmentDAO tester = new SegmentDAO();
 		//set the control arrays
 		List<Segment> McCoyControllerSegments = new ArrayList<>();
@@ -228,8 +227,19 @@ public class SegmentsDAOTest {
 		List<Segment> gottenSegments = new ArrayList<>();
 		
 		try {
+			tester.addSegment(controllerSegments.get(0));
+			tester.addSegment(controllerSegments.get(1));
+			tester.addSegment(controllerSegments.get(2));
+			tester.addSegment(controllerSegments.get(3));
+			tester.addSegment(controllerSegments.get(4));
+			tester.addSegment(controllerSegments.get(5));
+			tester.addSegment(controllerSegments.get(6));
+			tester.addSegment(controllerSegments.get(7));
+			tester.addSegment(controllerSegments.get(8));
+			tester.addSegment(controllerSegments.get(9));
+			
 			//test on a few characters
-			gottenSegments = tester.searchSegmentCharacter("McCoy");
+			gottenSegments = tester.searchSegmentCharacter("cCoy");
 			int i = 0;
 			boolean ta = true;
 			while(i<gottenSegments.size()) {
@@ -238,7 +248,7 @@ public class SegmentsDAOTest {
 				}
 				i++;
 			}
-			gottenSegments = tester.searchSegmentCharacter("Spock");
+			gottenSegments = tester.searchSegmentCharacter("pock");
 			i = 0;
 			boolean tb = true;
 			while(i<gottenSegments.size()) {
@@ -247,7 +257,7 @@ public class SegmentsDAOTest {
 				}
 				i++;
 			}
-			gottenSegments = tester.searchSegmentCharacter("Scotty");
+			gottenSegments = tester.searchSegmentCharacter("cotty");
 			i = 0;
 			boolean tc = true;
 			while(i<gottenSegments.size()) {
@@ -258,6 +268,17 @@ public class SegmentsDAOTest {
 			}
 			gottenSegments = tester.searchSegmentCharacter("bill");
 			boolean td = gottenSegments.size() == 0;
+			tester.deleteSegment(controllerSegments.get(0));
+			tester.deleteSegment(controllerSegments.get(1));
+			tester.deleteSegment(controllerSegments.get(2));
+			tester.deleteSegment(controllerSegments.get(3));
+			tester.deleteSegment(controllerSegments.get(4));
+			tester.deleteSegment(controllerSegments.get(5));
+			tester.deleteSegment(controllerSegments.get(6));
+			tester.deleteSegment(controllerSegments.get(7));
+			tester.deleteSegment(controllerSegments.get(8));
+			tester.deleteSegment(controllerSegments.get(9));
+
 			assertTrue(ta && tb && tc && td);
 		}catch(Exception e) {
 			fail("exception");

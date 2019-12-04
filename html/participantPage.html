@@ -12,7 +12,7 @@
 
 function initialize(){
 	//get all segments
-	var isAdmin = false; 
+	var isAdmin = 0; 
 	refreshLocalSegmentsList(isAdmin);
 	refreshPlaylistsList();
 }
@@ -98,8 +98,10 @@ function initialize(){
 <hr />
 <p><b>Search for a Segment</b></p>
 
-<p>Search by character speaking or spoken sentence</p>
+<p>Search by character speaking and/or spoken word(s)</p>
 
-<p><input name="searchBarCharacter" type = "text" value = "Search by character"/><input name="searchBarWords" type = "text" value = "Search by keyphrase(s)"/> &nbsp;<input name="searchbtn" type="button" value="Search" /></p>
+<p>Character:       <input name="searchBarCharacter" type = "text" value = ""/></br>
+Spoken word(s): <input name="searchBarWords" type = "text" value = ""/> </br>
+<input name="searchbtn" type="button" value="Search" /></p>
 
 <p><strong>Search Results</strong></p>
