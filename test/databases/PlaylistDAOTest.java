@@ -17,7 +17,7 @@ import definitions.Id;
 public class PlaylistDAOTest {
 	
 	/**
-	 * Tests the function that gets all the playlists
+	 * Tests the function that gets all the playlists(will break in the futer as more adds to the database)
 	 */
 	@Test
 	public void getPlaylistsTest() {
@@ -40,7 +40,7 @@ public class PlaylistDAOTest {
 			gottenPlaylists = getter.getAllPlaylists(); 
 			int i = 0;
 			while(i<controllerPlaylists.size()) {
-				if(!gottenPlaylists.get(i).equals(gottenPlaylists.get(i))) {
+				if(!gottenPlaylists.get(i).equals(controllerPlaylists.get(i))) {
 					fail(); 
 				}
 				i++;
@@ -129,11 +129,6 @@ public class PlaylistDAOTest {
 			if(didSetPass) {
 				didTryToSetPass = !setter.addPlaylist(fullPlaylist); 
 			}
-			helper.deleteSegment(segs[0]);
-			helper.deleteSegment(segs[1]);
-			helper.deleteSegment(segs[2]);
-			helper.deleteSegment(segs[3]);
-			helper.deleteSegment(segs[4]);
 			assertTrue(didTryToSetPass && didSetPass && set);
 		}catch(Exception e){
 			assertEquals(false, true);
@@ -185,6 +180,7 @@ public class PlaylistDAOTest {
 		List<Playlist> gottenPlaylistsAfterDelete = new ArrayList<>();
 		int difference = 0;
 		boolean oneAffected = false;
+		SegmentDAO helper = new SegmentDAO();
 		try {	
 			gottenPlaylistsBeforDelete = deleter.getAllPlaylists();
 			int lengthBefor = gottenPlaylistsBeforDelete.size();
@@ -193,6 +189,12 @@ public class PlaylistDAOTest {
 			int lengthAfter = gottenPlaylistsAfterDelete.size();
 			//makes sure only 1 is deleted
 			difference = lengthBefor - lengthAfter;
+			
+			helper.deleteSegment(new Id("test1234-9077-450e-9c94-21f2eaba4e7b.ogg"));
+			helper.deleteSegment(new Id("test1234-9180-4976-b24d-93cdc98ff6cc.ogg"));
+			helper.deleteSegment(new Id("test1234-68df-48ec-af09-de17bac46ecd.ogg"));
+			helper.deleteSegment(new Id("test1234-72bf-46c3-be31-d6a1f275194a.ogg"));
+			helper.deleteSegment(new Id("test1234-e60b-44d7-a231-7a3d7f9ff6cc.ogg"));
 		}catch(Exception e){
 			assertEquals(false, true);
 		}
@@ -214,17 +216,17 @@ public class PlaylistDAOTest {
 		//controle data
 		List<Segment> controllerSegmentsStart = new ArrayList<>();
 		List<Id> idStart = new ArrayList<>();
-		idStart.add(new Id("1dba4225-9077-450e-9c94-21f2eaba4e7b.ogg"));
-		idStart.add(new Id("72ba5621-9180-4976-b24d-93cdc98ff6cc.ogg"));
-		idStart.add(new Id("c9314e2c-68df-48ec-af09-de17bac46ecd.ogg"));
-		idStart.add(new Id("d4117ef5-72bf-46c3-be31-d6a1f275194a.ogg"));
-		idStart.add(new Id("f599c86f-e60b-44d7-a231-7a3d7f9ff6cc.ogg"));
+		idStart.add(new Id("test4225-9077-450e-9c94-21f2eaba4e7b.ogg"));
+		idStart.add(new Id("test5621-9180-4976-b24d-93cdc98ff6cc.ogg"));
+		idStart.add(new Id("test4e2c-68df-48ec-af09-de17bac46ecd.ogg"));
+		idStart.add(new Id("test7ef5-72bf-46c3-be31-d6a1f275194a.ogg"));
+		idStart.add(new Id("testc86f-e60b-44d7-a231-7a3d7f9ff6cc.ogg"));
 		
-		controllerSegmentsStart.add(new Segment(idStart.get(0), false, "You had a normal emotion", "McCoy"));
-		controllerSegmentsStart.add(new Segment(idStart.get(1), false, "Do you smell something?", "Spock"));
-		controllerSegmentsStart.add(new Segment(idStart.get(2), false, "Crazy way to travel, spreading a man's molecules all over the universe.", "McCoy"));
-		controllerSegmentsStart.add(new Segment(idStart.get(3), false, "You know, self-pity is a terrible first course", "Chapel"));
-		controllerSegmentsStart.add(new Segment(idStart.get(4), false, "I know you would prefer to wallow in a pool of emotion", "Spock"));
+		controllerSegmentsStart.add(new Segment(idStart.get(0), false, "You  a normal emotion", "McCy"));
+		controllerSegmentsStart.add(new Segment(idStart.get(1), false, "Do  smell something?", "Spok"));
+		controllerSegmentsStart.add(new Segment(idStart.get(2), false, "Crazy  to travel, spreading a man's molecules all over the universe.", "McCy"));
+		controllerSegmentsStart.add(new Segment(idStart.get(3), false, "You , self-pity is a terrible first course", "Chapl"));
+		controllerSegmentsStart.add(new Segment(idStart.get(4), false, "I  you would prefer to wallow in a pool of emotion", "Spoc"));
 		
 		Segment[] segsStart = {controllerSegmentsStart.get(0), controllerSegmentsStart.get(1),
 				controllerSegmentsStart.get(2), controllerSegmentsStart.get(3), controllerSegmentsStart.get(4)};
@@ -232,19 +234,19 @@ public class PlaylistDAOTest {
 		
 		List<Segment> controllerSegmentsEnd = new ArrayList<>();
 		List<Id> idEnd = new ArrayList<>();
-		idEnd.add(new Id("1dba4225-9077-450e-9c94-21f2eaba4e7b.ogg"));
-		idEnd.add(new Id("72ba5621-9180-4976-b24d-93cdc98ff6cc.ogg"));
-		idEnd.add(new Id("c9314e2c-68df-48ec-af09-de17bac46ecd.ogg"));
-		idEnd.add(new Id("d4117ef5-72bf-46c3-be31-d6a1f275194a.ogg"));
-		idEnd.add(new Id("f599c86f-e60b-44d7-a231-7a3d7f9ff6cc.ogg"));
-		idEnd.add(new Id("d16d709b-5b90-48f8-a3c4-57acb0062a0c.ogg"));
+		idEnd.add(new Id("test4225-9077-450e-9c94-21f2eaba4e7b.ogg"));
+		idEnd.add(new Id("test5621-9180-4976-b24d-93cdc98ff6cc.ogg"));
+		idEnd.add(new Id("test4e2c-68df-48ec-af09-de17bac46ecd.ogg"));
+		idEnd.add(new Id("test7ef5-72bf-46c3-be31-d6a1f275194a.ogg"));
+		idEnd.add(new Id("testc86f-e60b-44d7-a231-7a3d7f9ff6cc.ogg"));
+		idEnd.add(new Id("test709b-5b90-48f8-a3c4-57acb0062a0c.ogg"));
 		
-		controllerSegmentsEnd.add(new Segment(idEnd.get(0), false, "You had a normal emotion", "McCoy"));
-		controllerSegmentsEnd.add(new Segment(idEnd.get(1), false, "Do you smell something?", "Spock"));
-		controllerSegmentsEnd.add(new Segment(idEnd.get(2), false, "Crazy way to travel, spreading a man's molecules all over the universe.", "McCoy"));
-		controllerSegmentsEnd.add(new Segment(idEnd.get(3), false, "You know, self-pity is a terrible first course", "Chapel"));
-		controllerSegmentsEnd.add(new Segment(idEnd.get(4), false, "I know you would prefer to wallow in a pool of emotion", "Spock"));
-		controllerSegmentsEnd.add(new Segment(idEnd.get(5), false, "Mr. Spock, why aren’t you dead?", "Kirk"));
+		controllerSegmentsEnd.add(new Segment(idEnd.get(0), false, "You  a normal emotion", "McCy"));
+		controllerSegmentsEnd.add(new Segment(idEnd.get(1), false, "Do  smell something?", "Spok"));
+		controllerSegmentsEnd.add(new Segment(idEnd.get(2), false, "Crazy  to travel, spreading a man's molecules all over the universe.", "McCy"));
+		controllerSegmentsEnd.add(new Segment(idEnd.get(3), false, "You , self-pity is a terrible first course", "Chapl"));
+		controllerSegmentsEnd.add(new Segment(idEnd.get(4), false, "I  you would prefer to wallow in a pool of emotion", "Spoc"));
+		controllerSegmentsEnd.add(new Segment(idEnd.get(5), false, "Mrs. Spock, why aren’t you dead?", "Kik"));
 		
 		Segment[] segsEnd = {controllerSegmentsEnd.get(0), controllerSegmentsEnd.get(1),
 				controllerSegmentsEnd.get(2), controllerSegmentsEnd.get(3), controllerSegmentsEnd.get(4), controllerSegmentsEnd.get(5)};
@@ -257,12 +259,25 @@ public class PlaylistDAOTest {
 		Playlist appendedPlaylist = new Playlist(id, nameAppendTo, segsEnd);
 		
 		PlaylistDAO appender = new PlaylistDAO();
+		SegmentDAO helper = new SegmentDAO();
 		//test
 		try {
+			helper.addSegment(segsEnd[0]);
+			helper.addSegment(segsEnd[1]);
+			helper.addSegment(segsEnd[2]);
+			helper.addSegment(segsEnd[3]);
+			helper.addSegment(segsEnd[4]);
+			helper.addSegment(segsEnd[5]);
 			appender.addPlaylist(startedPlaylist);
 			boolean appendedOne = appender.appendToPlaylist(appendedPlaylist);
 			Playlist returnedPlaylist = appender.getFullPlaylist(id);
 			appender.deletePlaylist(id);
+			helper.deleteSegment(segsEnd[0]);
+			helper.deleteSegment(segsEnd[1]);
+			helper.deleteSegment(segsEnd[2]);
+			helper.deleteSegment(segsEnd[3]);
+			helper.deleteSegment(segsEnd[4]);
+			helper.deleteSegment(segsEnd[5]);
 			assertTrue(appendedOne && appendedPlaylist.equals(returnedPlaylist));
 		}catch(Exception e) {
 			assertTrue(false);
@@ -277,11 +292,11 @@ public class PlaylistDAOTest {
 		//controle data
 		List<Segment> controllerSegmentsStart = new ArrayList<>();
 		List<Id> idStart = new ArrayList<>();
-		idStart.add(new Id("1dba4225-9077-450e-9c94-21f2eaba4e7b.ogg"));
-		idStart.add(new Id("72ba5621-9180-4976-b24d-93cdc98ff6cc.ogg"));
-		idStart.add(new Id("c9314e2c-68df-48ec-af09-de17bac46ecd.ogg"));
-		idStart.add(new Id("d4117ef5-72bf-46c3-be31-d6a1f275194a.ogg"));
-		idStart.add(new Id("f599c86f-e60b-44d7-a231-7a3d7f9ff6cc.ogg"));
+		idStart.add(new Id("test4225-9077-450e-9c94-21f2eaba4e7b.ogg"));
+		idStart.add(new Id("test5621-9180-4976-b24d-93cdc98ff6cc.ogg"));
+		idStart.add(new Id("test4e2c-68df-48ec-af09-de17bac46ecd.ogg"));
+		idStart.add(new Id("test7ef5-72bf-46c3-be31-d6a1f275194a.ogg"));
+		idStart.add(new Id("testc86f-e60b-44d7-a231-7a3d7f9ff6cc.ogg"));
 		
 		controllerSegmentsStart.add(new Segment(idStart.get(0), false, "You had a normal emotion", "McCoy"));
 		controllerSegmentsStart.add(new Segment(idStart.get(1), false, "Do you smell something?", "Spock"));
@@ -295,12 +310,12 @@ public class PlaylistDAOTest {
 		
 		List<Segment> controllerSegmentsEnd = new ArrayList<>();
 		List<Id> idEnd = new ArrayList<>();
-		idEnd.add(new Id("1dba4225-9077-450e-9c94-21f2eaba4e7b.ogg"));
-		idEnd.add(new Id("72ba5621-9180-4976-b24d-93cdc98ff6cc.ogg"));
-		idEnd.add(new Id("c9314e2c-68df-48ec-af09-de17bac46ecd.ogg"));
-		idEnd.add(new Id("d4117ef5-72bf-46c3-be31-d6a1f275194a.ogg"));
-		idEnd.add(new Id("f599c86f-e60b-44d7-a231-7a3d7f9ff6cc.ogg"));
-		idEnd.add(new Id("d16d709b-5b90-48f8-a3c4-57acb0062a0c.ogg"));
+		idEnd.add(new Id("test4225-9077-450e-9c94-21f2eaba4e7b.ogg"));
+		idEnd.add(new Id("test5621-9180-4976-b24d-93cdc98ff6cc.ogg"));
+		idEnd.add(new Id("test4e2c-68df-48ec-af09-de17bac46ecd.ogg"));
+		idEnd.add(new Id("test7ef5-72bf-46c3-be31-d6a1f275194a.ogg"));
+		idEnd.add(new Id("testc86f-e60b-44d7-a231-7a3d7f9ff6cc.ogg"));
+		idEnd.add(new Id("test709b-5b90-48f8-a3c4-57acb0062a0c.ogg"));
 		
 		controllerSegmentsEnd.add(new Segment(idEnd.get(0), false, "You had a normal emotion", "McCoy"));
 		controllerSegmentsEnd.add(new Segment(idEnd.get(1), false, "Do you smell something?", "Spock"));
@@ -320,12 +335,25 @@ public class PlaylistDAOTest {
 		Playlist appendedPlaylist = new Playlist(id, nameAppendTo, segsEnd);
 		
 		PlaylistDAO appender = new PlaylistDAO();
+		SegmentDAO helper = new SegmentDAO();
 		//test
 		try {
+			helper.addSegment(segsEnd[0]);
+			helper.addSegment(segsEnd[1]);
+			helper.addSegment(segsEnd[2]);
+			helper.addSegment(segsEnd[3]);
+			helper.addSegment(segsEnd[4]);
+			helper.addSegment(segsEnd[5]);
 			appender.addPlaylist(startedPlaylist);
-			boolean appendedOne = appender.appendToPlaylist(id, new Id("d16d709b-5b90-48f8-a3c4-57acb0062a0c.ogg"));
+			boolean appendedOne = appender.appendToPlaylist(id, new Id("test709b-5b90-48f8-a3c4-57acb0062a0c.ogg"));
 			Playlist returnedPlaylist = appender.getFullPlaylist(id);
 			appender.deletePlaylist(id);
+			helper.deleteSegment(segsEnd[0]);
+			helper.deleteSegment(segsEnd[1]);
+			helper.deleteSegment(segsEnd[2]);
+			helper.deleteSegment(segsEnd[3]);
+			helper.deleteSegment(segsEnd[4]);
+			helper.deleteSegment(segsEnd[5]);
 			assertTrue(appendedOne && appendedPlaylist.equals(returnedPlaylist));
 		}catch(Exception e) {
 			assertTrue(false);
@@ -341,12 +369,12 @@ public class PlaylistDAOTest {
 		//control data
 		List<Segment> controllerSegmentsEnd = new ArrayList<>();
 		List<Id> idEnd = new ArrayList<>();
-		idEnd.add(new Id("1dba4225-9077-450e-9c94-21f2eaba4e7b.ogg"));
-		idEnd.add(new Id("72ba5621-9180-4976-b24d-93cdc98ff6cc.ogg"));
-		idEnd.add(new Id("c9314e2c-68df-48ec-af09-de17bac46ecd.ogg"));
-		idEnd.add(new Id("d4117ef5-72bf-46c3-be31-d6a1f275194a.ogg"));
-		idEnd.add(new Id("f599c86f-e60b-44d7-a231-7a3d7f9ff6cc.ogg"));
-		idEnd.add(new Id("d16d709b-5b90-48f8-a3c4-57acb0062a0c.ogg"));
+		idEnd.add(new Id("test4225-9077-450e-9c94-21f2eaba4e7b.ogg"));
+		idEnd.add(new Id("test5621-9180-4976-b24d-93cdc98ff6cc.ogg"));
+		idEnd.add(new Id("test4e2c-68df-48ec-af09-de17bac46ecd.ogg"));
+		idEnd.add(new Id("test7ef5-72bf-46c3-be31-d6a1f275194a.ogg"));
+		idEnd.add(new Id("testc86f-e60b-44d7-a231-7a3d7f9ff6cc.ogg"));
+		idEnd.add(new Id("test709b-5b90-48f8-a3c4-57acb0062a0c.ogg"));
 		
 		controllerSegmentsEnd.add(new Segment(idEnd.get(0), false, "You had a normal emotion", "McCoy"));
 		controllerSegmentsEnd.add(new Segment(idEnd.get(1), false, "Do you smell something?", "Spock"));
@@ -365,7 +393,14 @@ public class PlaylistDAOTest {
 		Playlist appendedPlaylist = new Playlist(id, nameAppendTo, segsEnd);
 		//test
 		PlaylistDAO appender = new PlaylistDAO();
+		SegmentDAO helper = new SegmentDAO();
 		try {
+			helper.addSegment(segsEnd[0]);
+			helper.addSegment(segsEnd[1]);
+			helper.addSegment(segsEnd[2]);
+			helper.addSegment(segsEnd[3]);
+			helper.addSegment(segsEnd[4]);
+			helper.addSegment(segsEnd[5]);
 			appender.addPlaylist(startPlaylist);
 			boolean appendedOne = appender.appendToPlaylist(id, idEnd.get(0));
 			boolean appendedTwo = appender.appendToPlaylist(id, idEnd.get(1));
@@ -376,6 +411,12 @@ public class PlaylistDAOTest {
 			boolean allAppended = appendedOne && appendedTwo && appendedThree && appendedFour && appendedFive && appendedSix;
 			
 			Playlist returnedPlaylist = appender.getFullPlaylist(id);
+			helper.deleteSegment(segsEnd[0]);
+			helper.deleteSegment(segsEnd[1]);
+			helper.deleteSegment(segsEnd[2]);
+			helper.deleteSegment(segsEnd[3]);
+			helper.deleteSegment(segsEnd[4]);
+			helper.deleteSegment(segsEnd[5]);
 			appender.deletePlaylist(id);
 			assertTrue(allAppended && appendedPlaylist.equals(returnedPlaylist));
 		}catch(Exception e) {
@@ -392,15 +433,22 @@ public class PlaylistDAOTest {
 		//make the controlle data
 		Id i = new Id("fc11d60f-c6f1-4138-a0b1-cb7fc2010e9d");
 		List<Segment> controllerSegments = new ArrayList<>();
-		controllerSegments.add(new Segment(new Id("1dba4225-9077-450e-9c94-21f2eaba4e7b.ogg"), false, "You had a normal emotion", "McCoy"));
-		controllerSegments.add(new Segment(new Id("3c4bdc3a-a3f5-4f39-bf3a-b7f65fa9399b.ogg"), false, "Then I need a drink", "McCoy"));
-		controllerSegments.add(new Segment(new Id("3e3b9c56-1a2d-45ed-b676-29de0f4e4486.ogg"), false, "Colloquially expressed, but essentially correct.", "Spock"));
+		controllerSegments.add(new Segment(new Id("test4225-9077-450e-9c94-21f2eaba4e7b.ogg"), false, "You had a normal emotion", "McCoy"));
+		controllerSegments.add(new Segment(new Id("testdc3a-a3f5-4f39-bf3a-b7f65fa9399b.ogg"), false, "Then I need a drink", "McCoy"));
+		controllerSegments.add(new Segment(new Id("test9c56-1a2d-45ed-b676-29de0f4e4486.ogg"), false, "Colloquially expressed, but essentially correct.", "Spock"));
 		Segment segs[] = {controllerSegments.get(0), controllerSegments.get(1), controllerSegments.get(2)};
 		Playlist control = new Playlist(i, "Erich's PLaylist", segs);
 		PlaylistDAO getter = new PlaylistDAO();
+		SegmentDAO helper = new SegmentDAO();
 		//test
 		try {
+			helper.addSegment(segs[0]);
+			helper.addSegment(segs[1]);
+			helper.addSegment(segs[2]);
 			Playlist gotten = getter.getFullPlaylist(i);
+			helper.deleteSegment(segs[0]);
+			helper.deleteSegment(segs[1]);
+			helper.deleteSegment(segs[2]);
 			assertTrue(control.equals(gotten));
 		}catch(Exception e) {
 			fail("exception");
