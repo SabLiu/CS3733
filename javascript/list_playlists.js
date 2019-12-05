@@ -41,7 +41,7 @@ function processPlaylistResponse(result) {
     var name = playlistJson["name"];
     var id = playlistJson["id"]["id"];
     console.log("playlistID: " + id); 
-    output = output + "<p>" + name + "&nbsp;&nbsp;<input type=\"button\" value=\"View\" /><input type=\"button\" value=\"Play\" /><input type=\"button\" value=\"Delete\" onClick=\"JavaScript:processDeletePlaylist('" + id + "')\" /></p>";    
+    output = output + "<p>" + name + "&nbsp;&nbsp;<input type=\"button\" value=\"View\" onClick=\"JavaScript:processViewPlaylist('" + id + "')\" /><input type=\"button\" value=\"Play\" /><input type=\"button\" value=\"Delete\" onClick=\"JavaScript:processDeletePlaylist('" + id + "')\" /></p>";    
   }
 
   // Update computation result
