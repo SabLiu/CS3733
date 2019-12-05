@@ -37,7 +37,9 @@ function processViewPlaylistResponse(result) {
   // Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
   var js = JSON.parse(result);
   var playlistSegmentsList = document.getElementById('currentPlaylist');
-  var output = "<input type=\"button\" value=\"Play\" onClick=\"JavaScript:playPlaylist('" + js.model.segments + "')\" />";
+  //when need to implement playing the playlist, add below line
+//  var output = "<input type=\"button\" value=\"Play\" onClick=\"JavaScript:playPlaylist('" + js.model.segments + "')\" />";
+  var output = ""; 
   for (var i = 0; i < js.model.segments.length; i++) {
 	//grabs stuff out of json
 	var playlistSegsJson = js.model.segments[i]; // is a segment 
@@ -54,7 +56,6 @@ function processViewPlaylistResponse(result) {
     	output = output + "</br><p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
     	output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + s3_segments_url  + segID + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
     	output = output + "<p><input type=\"button\" value=\"Delete From Playlist\" /></p></br>";
-//    console.log("Printed a segment: " + id); 
   
   }
   // Update computation result
