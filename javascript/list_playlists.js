@@ -33,15 +33,15 @@ function processPlaylistResponse(result) {
   var localPlaylistsList = document.getElementById('playlists');
   
   var output = "";
-  for (var i = 0; i < js.playlists.length; i++) {//this was model.length
+  for (var i = 0; i < js.model.length; i++) {//this was model.length
 	//grabs stuff out of json
-	var playlistJson = js.playlists[i];//this was model[i]
+	var playlistJson = js.model[i];//this was model[i]
     console.log(playlistJson);
     
     var name = playlistJson["name"];
     var id = playlistJson["id"]["id"];
-    console.log("playlistID: " + id); 
-    output = output + "<p>" + name + "&nbsp;&nbsp;<input type=\"button\" value=\"View\" onClick=\"JavaScript:processViewPlaylist('" + id + "')\" /><input type=\"button\" value=\"Play\" /><input type=\"button\" value=\"Delete\" onClick=\"JavaScript:processDeletePlaylist('" + id + "')\" /></p>";    
+     
+    output = output + "<p>" + name + "&nbsp;&nbsp;<input type=\"button\" value=\"View\" onClick=\"JavaScript:processViewPlaylist('" + id + "')\" /><input type=\"button\" value=\"Delete\" onClick=\"JavaScript:processDeletePlaylist('" + id + "')\" /></p>";    
   }
 
   // Update computation result
