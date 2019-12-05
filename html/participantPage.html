@@ -8,6 +8,7 @@
 <script type='text/javascript' src='../delete_playlist.js'></script>
 <script type='text/javascript' src='../delete_local_segment.js'></script>
 <script type='text/javascript' src='../view_playlist.js'></script>
+<script type='text/javascript' src='../search_segments.js'></script>
 
 <script type="text/javascript">
 
@@ -101,9 +102,13 @@ function initialize(){
 
 <p>Search by character speaking and/or spoken word(s)</p>
 
-<p>Character:       <input name="searchBarCharacter" type = "text" value = ""/></br>
+<form name="searchForm" method="post">
+   <p>Character:       <input name="searchBarCharacter" type = "text" value = ""/></br>
 Spoken word(s): <input name="searchBarWords" type = "text" value = ""/> </br>
-<input name="searchbtn" type="button" value="Search" /></p>
+<input name="searchbtn" type="button" value="Search" onClick = "JavaScript:processSearch()"/></p>
+
+
+</form>
 
 <p><strong>Search Results</strong></p>
 <p>&nbsp;</p>

@@ -1,9 +1,12 @@
+function processSearch() {
+	  var form = document.searchForm;
+	  var character = form.searchBarCharacter.value;
+	  var sentence = form.searchBarWords.value;
 
-
-function processSearch(characterSpeaking, sentenceSpoken) {
   var data = {};
-  data["characterKeyphrase"] = characterSpeaking;
-  data["sentenceKeyphrase"] = sentenceSpoken;
+  data["characterKeyphrase"] = character;
+  data["sentenceKeyphrase"] = sentence;
+  
   var js = JSON.stringify(data);
   console.log("JS:" + js);
   var xhr = new XMLHttpRequest();
@@ -34,12 +37,12 @@ function processSearch(characterSpeaking, sentenceSpoken) {
 function processSearchResponse(result) {
 	var js = JSON.parse(result);
 	var searchResultsList = document.getElementById('searchResultsList');
-
+	// returns list of segments in model 
+	
 	var output = "";
-	for (var i = 0; i < js.searchResultsList.length; i++) {
+	for (var i = 0; i < js.model.length; i++) {
 		//grabs stuff out of json
-		var localSRJson = js.searchResultsList[i];
-	    console.log(localSRJson);
+		var localSRJson = js.model[i];
 	    
 	    var segID 			= localSRJson["id"]["id"];
 //	    var isRemAvailable 	= localSRJson["remotelyAvailable"];
