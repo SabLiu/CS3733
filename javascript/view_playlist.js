@@ -40,6 +40,8 @@ function processViewPlaylistResponse(result) {
   //when need to implement playing the playlist, add below line
 //  var output = "<input type=\"button\" value=\"Play\" onClick=\"JavaScript:playPlaylist('" + js.model.segments + "')\" />";
   var output = ""; 
+//  playAllVideos(js.model.segments.length); // tells the playing script 
+  currentPlaylistLength = js.model.segments.length; // change global variable in Participant Page, used by play_playlist
   for (var i = 0; i < js.model.segments.length; i++) {
 	//grabs stuff out of json
 	var playlistSegsJson = js.model.segments[i]; // is a segment 
@@ -51,15 +53,14 @@ function processViewPlaylistResponse(result) {
     var character 		= playlistSegsJson["character"];
     
     // updates html
-    
+    var uniqueIDofThisSeg = "" + i; 
     	// character : sentence
     	output = output + "</br><p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
-    	output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + s3_segments_url  + segID + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
+    	output = output + "<p><video controls=\"\" height=\"240\" id=\""+ uniqueIDofThisSeg + "\" width=\"320\"><source src=" + "\"" + s3_segments_url  + segID + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
     	output = output + "<p><input type=\"button\" value=\"Delete From Playlist\" /></p></br>";
   
   }
   // Update computation result
   playlistSegmentsList.innerHTML = output;
-//}
-//  console.log(output);
+  
 }

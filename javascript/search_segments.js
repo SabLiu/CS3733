@@ -4,7 +4,8 @@ function processSearch() {
 	  var sentence = form.searchBarWords.value;
 
   var data = {};
-  data["characterKeyphrase"] = character;
+  if (character != ""){data["characterKeyphrase"] = character;}
+  console.log("character: " + character); 
   data["sentenceKeyphrase"] = sentence;
   
   var js = JSON.stringify(data);

@@ -15,6 +15,7 @@
 function initialize(){
 	//get all segments
 	var isAdmin = 0; 
+	var currentPlaylistLength = 0; 
 	refreshLocalSegmentsList(isAdmin);
 	refreshPlaylistsList();
 }
@@ -42,6 +43,10 @@ function initialize(){
 <p><b>Current Playlist: Playlist name goes here&nbsp;</b></p>
 
 <div id="currentPlaylist"></div>
+
+
+
+
 <hr />
 <p><b>Upload a new local segment </b></p>
 
