@@ -10,12 +10,16 @@
 <script type='text/javascript' src='../view_playlist.js'></script>
 <script type='text/javascript' src='../search_segments.js'></script>
 
+
 <script type="text/javascript">
+// these are intentionally global (Sorry, Professor!)
+var currentPlaylistLength = 0;
+var currentPlaylistID = ""; 
 
 function initialize(){
 	//get all segments
 	var isAdmin = 0; 
-	var currentPlaylistLength = 0; 
+	//var currentPlaylistLength = 0; 
 	refreshLocalSegmentsList(isAdmin);
 	refreshPlaylistsList();
 }
@@ -43,8 +47,6 @@ function initialize(){
 <p><b>Current Playlist: Playlist name goes here&nbsp;</b></p>
 
 <div id="currentPlaylist"></div>
-
-
 
 
 <hr />

@@ -33,6 +33,7 @@ function refreshLocalSegmentsList(isAdmin) {
 function processListResponse(result, isAdmin) {
   var localIsAdmin = isAdmin; 
   console.log("localISADMIN  = " + localIsAdmin);
+  console.log("this segment " + 5);
   // Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
   var js = JSON.parse(result);
   //  var constList = document.getElementById('constantList'); this is from get_constantList.js
