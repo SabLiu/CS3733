@@ -1,8 +1,5 @@
 
-/**
- * Refresh list of remote sites
- * 
- */
+// gets list of remote sites
 function refreshRemoteSitesList() {
    var xhr = new XMLHttpRequest();
    xhr.open("GET", remote_site_url, true);

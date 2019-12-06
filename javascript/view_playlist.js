@@ -1,10 +1,5 @@
-
-/**
- * Refresh list of playlist segments
- *
- *    GET list_url
- *    RESPONSE  list of [name, value] constants 
- */
+// called when participant clicks "view" button next to a playlist
+// pass in ID of playlist they want to view
 function processViewPlaylist(val) {
 	
 	var data = {};
@@ -17,8 +12,6 @@ function processViewPlaylist(val) {
 	xhr.open("POST", get_playlist_url, true);
 	
 	xhr.send(js);
-   
-	console.log("playlist retrieved");
 
   // This will process results and update HTML as appropriate. 
    
@@ -32,9 +25,10 @@ function processViewPlaylist(val) {
   };
 }
 
-
+// generate information of segments 
+// later: generate list of segments in the playlist and print to html 
+// script is to play the playlist 
 function processViewPlaylistResponse(result) {
-  console.log("Process view playlist"); 
   // Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
   var js = JSON.parse(result);
   var playlistSegmentsList = document.getElementById('currentPlaylist');

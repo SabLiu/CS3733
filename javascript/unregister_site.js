@@ -8,7 +8,7 @@ function processUnregisterSite(val) {
   var js = JSON.stringify(data);
   console.log("JS:" + js);
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", delete_remote_site_url, true);  // Can't be DELETE since then no data sent via JSON
+  xhr.open("POST", delete_remote_site_url, true);  
 
   // send the collected data as JSON
   xhr.send(js);
@@ -32,7 +32,6 @@ function processUnregisterSite(val) {
 	  } else {
 		  processViewSitesResponse("N/A");
 	  }
-//	  processViewSitesResponse(xhr.responseText); // refresh list of remote sites to reflect changes 
   };
 }
 
