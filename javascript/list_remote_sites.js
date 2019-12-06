@@ -1,7 +1,7 @@
 
 /**
  * Refresh list of remote sites
- *
+ * 
  */
 function refreshRemoteSitesList() {
    var xhr = new XMLHttpRequest();
@@ -24,7 +24,7 @@ function refreshRemoteSitesList() {
 
 /**
  * Respond to server JSON object.
- *
+ * Generates "unregister" button next to each remote site
  */
 function processViewSitesResponse(result) {
   console.log("res:" + result);

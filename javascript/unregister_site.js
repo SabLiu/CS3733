@@ -1,11 +1,6 @@
-function processUnregisterSiteResponse(result) {
-  // Can grab any DIV or SPAN HTML element and can then manipulate its
-  // contents dynamically via javascript
-  console.log("unregistered :" + result);
-  
-  refreshRemoteSitesList();
-}
 
+// called when admin clicks "unregister" button next to a site 
+// pass in id of remote site to unregister
 function processUnregisterSite(val) {
   var data = {};
   data["id"] = val;
@@ -25,7 +20,9 @@ function processUnregisterSite(val) {
 	  if (xhr.readyState == XMLHttpRequest.DONE) {
 		  if (xhr.status == 200) {
 			  console.log ("XHR:" + xhr.responseText);
-			  processUnregisterSiteResponse(xhr.responseText);
+			  // calls function in list_remote_sites
+			  // pass in new list of remote sites
+			  processViewSitesResponse(xhr.responseText);
 		  } else {
 			  console.log("actual:" + xhr.responseText)
 			  var js = JSON.parse(xhr.responseText);
@@ -33,9 +30,9 @@ function processUnregisterSite(val) {
 			  alert (err);
 		  }
 	  } else {
-		  processUnregisterSiteResponse("N/A");
+		  processViewSitesResponse("N/A");
 	  }
-	  processViewSitesResponse(xhr.responseText); // refresh list of remote sites to reflect changes 
+//	  processViewSitesResponse(xhr.responseText); // refresh list of remote sites to reflect changes 
   };
 }
 

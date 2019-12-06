@@ -2,8 +2,6 @@
 /**
  * Refresh list of local segments
  *
- *    GET list_url
- *    RESPONSE  list of [name, value] constants 
  */
 function refreshLocalSegmentsList(isAdmin) {
    var xhr = new XMLHttpRequest();
@@ -28,7 +26,6 @@ function refreshLocalSegmentsList(isAdmin) {
 /**
  * Respond to server JSON object.
  *
- * Replace the contents of 'localSegmentsList' with a <br>-separated list of name,value pairs.
  */
 function processListResponse(result, isAdmin) {
   var localIsAdmin = isAdmin; 
@@ -52,6 +49,7 @@ function processListResponse(result, isAdmin) {
     var character 		= localSegsJson["character"];
     
     // updates html
+    // if it is the admin
     if (isAdmin > 1){
     	// video
     	output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + s3_segments_url  + segID + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
@@ -60,12 +58,15 @@ function processListResponse(result, isAdmin) {
     	// buttons: delete, mark available, mark unavailable 
     	output = output + "<p>   <input type=\"button\" id=\"deleteSeg\" value=\"Delete Local Segment\" onClick=\"JavaScript:processDeleteSegment('" + segID + "', '" + localIsAdmin + "')\"> <input type=\"button\" value=\"Mark segment remotely available\" /><input type=\"button\" value=\"Mark segment remotely UNavailable\" /></p></br>";
     }
+    // if it's not the admin
     else if (isAdmin < 1){
     	// character : sentence
     	output = output + "</br><p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
     	output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + s3_segments_url  + segID + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
     	output = output + "<p><input type=\"button\" value=\"Append to current playlist\" /><input type=\"button\" id=\"deleteSeg\" value=\"Delete Local Segment\" onClick=\"JavaScript:processDeleteSegment('" + segID + "', '" + localIsAdmin + "')\"></p></br>";
-    } else {
+    } 
+    // catch weird errors/troubleshooting
+    else {
     	console.log ("I don't know what isAdmin is");
     }
   

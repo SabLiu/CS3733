@@ -1,7 +1,6 @@
 
 /**
  * Refresh list of playlists
- *  
  */
 function refreshPlaylistsList() {
    var xhr = new XMLHttpRequest();
@@ -24,7 +23,7 @@ function refreshPlaylistsList() {
 
 /**
  * Respond to server JSON object.
- *
+ *	Takes playlists returned in JSON and generates appropriate buttons 
  */
 function processPlaylistResponse(result) {
   console.log("res:" + result);
@@ -33,9 +32,9 @@ function processPlaylistResponse(result) {
   var localPlaylistsList = document.getElementById('playlists');
   
   var output = "";
-  for (var i = 0; i < js.model.length; i++) {//this was model.length
+  for (var i = 0; i < js.model.length; i++) {
 	//grabs stuff out of json
-	var playlistJson = js.model[i];//this was model[i]
+	var playlistJson = js.model[i]; // this is a single playlist 
     console.log(playlistJson);
     
     var name = playlistJson["name"];

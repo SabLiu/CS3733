@@ -1,8 +1,6 @@
-function processDeleteSegmentResponse(result, isAdmin) {
-  console.log("deleted :" + result);
-  processListResponse(xhr.responseText, isAdmin); //replace w/ isAdmin
-}
 
+// called when delete button is pressed corresponding to a segment
+// pass in whether current user is an admin and the ID of the segment they want to delete
 
 function processDeleteSegment(val, isAdmin) {
 	console.log("this is the isAdmin that is passed in " + isAdmin);
@@ -37,3 +35,10 @@ function processDeleteSegment(val, isAdmin) {
 	  
   };
 }
+
+// refresh list of segments by calling function in list local segments 
+function processDeleteSegmentResponse(result, isAdmin) {
+	  console.log("deleted :" + result);
+	  processListResponse(xhr.responseText, isAdmin); 
+	}
+

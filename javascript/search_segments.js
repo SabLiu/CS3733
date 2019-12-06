@@ -1,24 +1,30 @@
+
+// called when "search" button is pressed 
+
 function processSearch() {
-	  var form = document.searchForm;
-	  var character = form.searchBarCharacter.value;
-	  var sentence = form.searchBarWords.value;
+	// grab user-entered data from form
+	var form = document.searchForm;
+	var character = form.searchBarCharacter.value;
+	var sentence = form.searchBarWords.value;
 
-  var data = {};
-  if (character != ""){data["characterKeyphrase"] = character;}
-  console.log("character: " + character); 
-  data["sentenceKeyphrase"] = sentence;
+	var data = {};
+	// make sure not to pass in "character" field if it's empty
+	// (this makes the JSON :( )
+	if (character != ""){data["characterKeyphrase"] = character;}
+	console.log("character: " + character); 
+	data["sentenceKeyphrase"] = sentence;
   
-  var js = JSON.stringify(data);
-  console.log("JS:" + js);
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", search_url, true);  
-  // send the collected data as JSON
-  xhr.send(js);
+	var js = JSON.stringify(data);
+	console.log("JS:" + js);
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", search_url, true);  
+	// send the collected data as JSON
+	xhr.send(js);
 
-  // This will process results and update HTML as appropriate. 
-  xhr.onloadend = function () {
-	  console.log(xhr);
-	  console.log(xhr.request);
+	// This will process results and update HTML as appropriate. 
+	xhr.onloadend = function () {
+	console.log(xhr);
+	console.log(xhr.request);
 	  if (xhr.readyState == XMLHttpRequest.DONE) {
 		  if (xhr.status == 200) {
 			  console.log ("XHR:" + xhr.responseText);
@@ -34,6 +40,9 @@ function processSearch() {
 	  }
   };
 }
+
+// analyze search results 
+// can't just reuse function in list_local_segments because need to generate different buttons 
 
 function processSearchResponse(result) {
 	var js = JSON.parse(result);
