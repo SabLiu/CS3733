@@ -16,11 +16,11 @@
 // these are intentionally global (Sorry, Professor!)
 var currentPlaylistLength = 0;
 var currentPlaylistID = ""; 
+var isAdmin = 2; 
 
 function initialize(){
 	//get all segments
-	var isAdmin = 2; 
-	refreshLocalSegmentsList(isAdmin);
+	refreshLocalSegmentsList();
 	refreshPlaylistsList();
 }
 </script>

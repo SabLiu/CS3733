@@ -8,11 +8,11 @@
 <script type='text/javascript' src='../unregister_site.js'></script>
 <script type='text/javascript' src='../delete_local_segment.js'></script>
 <script type="text/javascript">
-
+var isAdmin = 4; 
 function initialize(){
 	//get all segments
-  	var isAdmin = 4; 
-	refreshLocalSegmentsList(isAdmin);
+  	
+	refreshLocalSegmentsList();
 	refreshRemoteSitesList();
 	
 }
