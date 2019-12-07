@@ -5,6 +5,8 @@ function processViewPlaylist(val) {
 	var data = {};
 	data["id"] = val;  
 	currentPlaylistID = val; // update global variable in ParticipantPage.html
+	
+	console.log("currentPlaylistID: " + currentPlaylistID);
 	  
 	var js = JSON.stringify(data);
 	console.log("JS:" + js);

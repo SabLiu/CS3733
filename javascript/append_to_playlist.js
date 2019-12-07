@@ -1,12 +1,12 @@
-function processAppendToPlaylist(seg, currentPlaylist) {
+function processAppendToPlaylist(seg) {
 	
 	var data = {};
 	data["id"] = seg;  
-	currentPlaylistID = currentPlaylist; // update global variable in ParticipantPage.html
+	console.log("currentPlaylistID in append: " + currentPlaylistID);
 	  
 	var js = JSON.stringify(data);
 	
-	data["id"] = currentPlaylist;
+	data["id"] = currentPlaylistID;
 	
 	js = js + JSON.stringify(data);
 	  
