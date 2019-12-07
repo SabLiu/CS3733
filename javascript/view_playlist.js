@@ -87,8 +87,6 @@ function processViewPlaylistResponse(result) {
     		scriptOutput1 = scriptOutput1 + " var vidNum" + i + " = document.getElementById(\"vidNum" + i + "\"); ";
     	}
     	
-    	// make a button for each segment in the playlist
-    	output = output + "<p><input type=\"button\" value=\"Delete From Playlist\" /></p></br>";
     	console.log("ScriptOut1: " + scriptOutput1);
     	console.log("ScriptOut2: " + scriptOutput2);
   }
