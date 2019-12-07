@@ -63,7 +63,7 @@ function processListResponse(result, isAdmin) {
     	// character : sentence
     	output = output + "</br><p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
     	output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + s3_segments_url  + segID + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
-    	output = output + "<p><input type=\"button\" value=\"Append to current playlist\" /><input type=\"button\" id=\"deleteSeg\" value=\"Delete Local Segment\" onClick=\"JavaScript:processDeleteSegment('" + segID + "', '" + localIsAdmin + "')\"></p></br>";
+    	output = output + "<p><input type=\"button\" value=\"Append to current playlist\" onClick=\"JavaScript:processDeleteSegment('" + segID + "', '" + currentPlaylistID + "')\">/><input type=\"button\" id=\"deleteSeg\" value=\"Delete Local Segment\" onClick=\"JavaScript:processDeleteSegment('" + segID + "', '" + localIsAdmin + "')\"></p></br>";
     } 
     // catch weird errors/troubleshooting
     else {
