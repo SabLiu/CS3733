@@ -6,6 +6,8 @@ function processViewPlaylist(val) {
 	data["id"] = val;  
 	currentPlaylistID = val; // update global variable in ParticipantPage.html
 	
+	
+	
 	console.log("currentPlaylistID: " + currentPlaylistID);
 	  
 	var js = JSON.stringify(data);
@@ -34,6 +36,10 @@ function processViewPlaylistResponse(result) {
   // Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
   var js = JSON.parse(result);
   var playlistSegmentsList = document.getElementById('currentPlaylist');
+
+  // change label on current playlist
+  var playlistName = document.getElementById('currentPlaylistName');
+  playlistName.innerHTML = "" + js.model.name; // get playlist name 
   
   var output = ""; 
   
