@@ -3,7 +3,7 @@
 // pass in whether current user is an admin and the ID of the segment they want to delete
 
 function processDeleteSegment(val, isAdmin) {
-	console.log("this is the isAdmin that is passed in " + isAdmin);
+	console.log("this is the isAdmin that is passed into processDeleteSegment: " + isAdmin);
   var data = {};
   data["id"] = val;
 
@@ -22,7 +22,7 @@ function processDeleteSegment(val, isAdmin) {
 	  if (xhr.readyState == XMLHttpRequest.DONE) {
 		  if (xhr.status == 200) {
 			  console.log ("XHR:" + xhr.responseText);
-			  processDeleteSegmentResponse(xhr.responseText);
+			  processListResponse(xhr.responseText, isAdmin);
 		  } else {
 			  console.log("actual:" + xhr.responseText)
 			  var js = JSON.parse(xhr.responseText);
@@ -30,7 +30,7 @@ function processDeleteSegment(val, isAdmin) {
 			  alert (err);
 		  }
 	  } else {
-		  processDeleteSegmentResponse("N/A");
+		  processListResponse("N/A", isAdmin);
 	  }
 	  
   };

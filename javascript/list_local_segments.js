@@ -28,9 +28,8 @@ function refreshLocalSegmentsList(isAdmin) {
  *
  */
 function processListResponse(result, isAdmin) {
-  var localIsAdmin = isAdmin; 
-  console.log("localISADMIN  = " + localIsAdmin);
-  console.log("this segment " + 5);
+//  var localIsAdmin = isAdmin; 
+  console.log("ISADMIN to list segments = " + isAdmin);
   // Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
   var js = JSON.parse(result);
   //  var constList = document.getElementById('constantList'); this is from get_constantList.js
@@ -50,20 +49,20 @@ function processListResponse(result, isAdmin) {
     
     // updates html
     // if it is the admin
-    if (isAdmin > 1){
+    if (isAdmin > 3){
     	// video
     	output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + s3_segments_url  + segID + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
     	// character : sentence
     	output = output + "<p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
     	// buttons: delete, mark available, mark unavailable 
-    	output = output + "<p>   <input type=\"button\" id=\"deleteSeg\" value=\"Delete Local Segment\" onClick=\"JavaScript:processDeleteSegment('" + segID + "', '" + localIsAdmin + "')\"> <input type=\"button\" value=\"Mark segment remotely available\" /><input type=\"button\" value=\"Mark segment remotely UNavailable\" /></p></br>";
+    	output = output + "<p>   <input type=\"button\" id=\"deleteSeg\" value=\"Delete Local Segment\" onClick=\"JavaScript:processDeleteSegment('" + segID + "', '" + isAdmin + "')\"> <input type=\"button\" value=\"Mark segment remotely available\" /><input type=\"button\" value=\"Mark segment remotely UNavailable\" /></p></br>";
     }
     // if it's not the admin
-    else if (isAdmin < 1){
+    else if (isAdmin < 3){
     	// character : sentence
     	output = output + "</br><p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
     	output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + s3_segments_url  + segID + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
-    	output = output + "<p><input type=\"button\" value=\"Append to current playlist\" onClick=\"JavaScript:processAppendToPlaylist('" + segID + "')\"><input type=\"button\" id=\"deleteSeg\" value=\"Delete Local Segment\" onClick=\"JavaScript:processDeleteSegment('" + segID + "', '" + localIsAdmin + "')\"></p></br>";
+    	output = output + "<p><input type=\"button\" value=\"Append to current playlist\" onClick=\"JavaScript:processAppendToPlaylist('" + segID + "')\"><input type=\"button\" id=\"deleteSeg\" value=\"Delete Local Segment\" onClick=\"JavaScript:processDeleteSegment('" + segID + "', '" + isAdmin + "')\"></p></br>";
     } 
     // catch weird errors/troubleshooting
     else {

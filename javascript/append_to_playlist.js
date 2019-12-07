@@ -1,12 +1,15 @@
-function processAppendToPlaylist(seg) {
+
+function processAppendToPlaylist(segID) {
 	
 	var data = {};
-	data["segmentId"] = seg;  
-	data["playlistId"] = currentPlaylistID + ""; // global variable
+	// need to make ID objects for segment and playlist
+	data["segmentId"] = {id: segID}; 
+	data["playlistId"]= {id: currentPlaylistID}; 
+	
 	console.log("currentPlaylistID in append: " + currentPlaylistID);
 	  
 	var js = JSON.stringify(data);
-	  
+	
 	console.log("JS:" + js);
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", append_playlist_url, true);
@@ -21,8 +24,7 @@ function processAppendToPlaylist(seg) {
 		  if (xhr.readyState == XMLHttpRequest.DONE) {
 			  if (xhr.status == 200) {
 				  console.log ("XHR:" + xhr.responseText);
-//				  processViewPlaylistResponse(xhr.responseText);
-				  // might need to reach into JSON differently than View playlist does
+				  processViewPlaylistResponse(xhr.responseText);
 				  // depending on JSON response. 
 			  } else {
 				  console.log("actual:" + xhr.responseText)
