@@ -47,18 +47,13 @@ function processViewPlaylistResponse(result) {
   var scriptOutput2 = ""; // this adds eventListeners
   
   
-  currentPlaylistLength = js.model.segments.length; // change global variable in Participant Page, used by play_playlist
+  currentPlaylistLength = js.model.segmentUrls.length; // change global variable in Participant Page, used by play_playlist
   console.log("currentPlaylist length: " + currentPlaylistLength); 
 
-  for (var i = 0; i < js.model.segments.length; i++) {
+  for (var i = 0; i < js.model.segmentUrls.length; i++) {// segmentUrls is a string that is a URL 
 	//grabs stuff out of json
-	var playlistSegsJson = js.model.segments[i]; // is a segment 
-    console.log(playlistSegsJson);
-    
-    var segID 			= playlistSegsJson["id"]["id"];
-    var isRemAvailable 	= playlistSegsJson["remotelyAvailable"];
-    var sent			= playlistSegsJson["sentence"];
-    var character 		= playlistSegsJson["character"];
+	var segURL = js.model.segmentUrls[i]; // is a segment URL
+    console.log(segURL);
     
     // updates html
     var nextSegNum = i + 1; 
@@ -69,7 +64,7 @@ function processViewPlaylistResponse(result) {
     	// first: open script, this video needs controls
     	// display video, define var and add event listener
     	if (i == 0){ 
-    		output = output + "<p><video controls=\"\" id= vidNum"+ i + " width=\"320\" height=\"240\" controls><source src=" + "\"" + s3_segments_url  + segID + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p> <input type=\"button\" value=\"Remove from playlist\" onClick=\"JavaScript:processDeleteFromPlaylist('" + segID + "')\">" ;
+    		output = output + "<p><video controls=\"\" id= vidNum"+ i + " width=\"320\" height=\"240\" controls><source src=" + segURL +  " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p> <input type=\"button\" value=\"Remove from playlist\" onClick=\"JavaScript:processDeleteFromPlaylist('" + segID + "')\">" ;
     		scriptOutput1 = scriptOutput1 + "<script> var vidNum" + i + " = document.getElementById(\"vidNum" + i + "\"); ";
     		scriptOutput2 = scriptOutput2 + "vidNum" + i + ".addEventListener(\"ended\", function() {vidNum" + nextSegNum + ".play(); }); " ; 
         	
@@ -77,13 +72,13 @@ function processViewPlaylistResponse(result) {
     	// all the ones in the middle up to before second to last 
     	// display video, define var and add event listener
     	else if (i < (js.model.segments.length - 1) ){ 
-    		output = output + "<p><video controls=\"\"  id= vidNum"+ i + " width=\"320\" height=\"240\"><source src=" + "\"" + s3_segments_url  + segID + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p><input type=\"button\" value=\"Remove from playlist\" onClick=\"JavaScript:processDeleteFromPlaylist('" + segID + "')\">" ;
+    		output = output + "<p><video controls=\"\"  id= vidNum"+ i + " width=\"320\" height=\"240\"><source src=" + segURL + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p><input type=\"button\" value=\"Remove from playlist\" onClick=\"JavaScript:processDeleteFromPlaylist('" + segID + "')\">" ;
     		scriptOutput1 = scriptOutput1 + " var vidNum" + i + " = document.getElementById(\"vidNum" + i + "\"); "
     		scriptOutput2 = "vidNum" + i + ".addEventListener(\"ended\", function() {vidNum" + nextSegNum + ".play(); }); "; 
     	}
     	// 2nd to last one. Shouldn't an event listener to this one
     	else if (i == (js.model.segments.length - 1)){ 
-    		output = output + "<p><video controls=\"\" id= vidNum"+ i + " width=\"320\" height=\"240\"><source src=" + "\"" + s3_segments_url  + segID + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p><input type=\"button\" value=\"Remove from playlist\" onClick=\"JavaScript:processDeleteFromPlaylist('" + segID + "')\">";
+    		output = output + "<p><video controls=\"\" id= vidNum"+ i + " width=\"320\" height=\"240\"><source src=" + segURL + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p><input type=\"button\" value=\"Remove from playlist\" onClick=\"JavaScript:processDeleteFromPlaylist('" + segID + "')\">";
     		scriptOutput1 = scriptOutput1 + " var vidNum" + i + " = document.getElementById(\"vidNum" + i + "\"); ";
     	}
     	

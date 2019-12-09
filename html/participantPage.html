@@ -34,7 +34,7 @@ function initialize(){
 <p>To append a segment to a playlist, view the playlist first.  &nbsp;</p>
 
 <form name="playlistForm" method="post">  
- 	<input name="PLname" value="Enter playlist name" />
+ 	<input name="PLname" placeHolder="Enter playlist name" />
  	<input type="button" id="createPLButton" value="Create Playlist" onClick="JavaScript:handleCreatePlaylistClick(this)">
 </form>
 
@@ -58,8 +58,8 @@ function initialize(){
 <p><b>Upload a new local segment </b></p>
 
 <form name="createForm" method="post">
-   <input name="character" value="Character speaking" />
-   <input name="sentence" value="Sentence spoken" /><br /> 
+   <input name="character" placeholder="Character speaking" />
+   <input name="sentence" placeholder="Sentence spoken" /><br /> 
    <input name="base64Encoding" hidden value=""/> 
  	Select a video file: <input type="file" id="videoFile" name="videoFile">  
  	<input type="button" id="uploadButton" value="Upload segment" disabled onClick="JavaScript:handleUploadClick(this)">
