@@ -22,7 +22,7 @@ public class RemoveFromPlaylistHandler implements RequestHandler<SegmentAndPlayl
 		Response<Playlist> response;
 		dao = new PlaylistDAO();
 		try {
-			if (removeSegment(ids.getSegmentId(), ids.getPlaylistId())) {
+			if (removeSegment(ids.getSegmentUrl(), ids.getPlaylistId())) {
 				response = new Response<Playlist>(GetPlaylistHandler.getPlaylist(ids.getPlaylistId(), logger, dao), 200);
 			}  else {
 				response = new Response<Playlist>(400, "Segment not removed");
@@ -38,9 +38,9 @@ public class RemoveFromPlaylistHandler implements RequestHandler<SegmentAndPlayl
 	 * 
 	 * @throws Exception 
 	 */
-	boolean removeSegment(Id segmentId, Id playlistId) throws Exception {
+	boolean removeSegment(String segmentUrl, Id playlistId) throws Exception {
 		if (logger != null) { logger.log("in removeSegment (Database)\n"); }
 		
-		return dao.deleteFromPlaylist(playlistId, segmentId);
+		return dao.deleteFromPlaylist(playlistId, segmentUrl);
 	}
 }

@@ -25,9 +25,9 @@ public class GetPlaylistHandlerTest extends LambdaTest{
 	public void setup() {
 		(new CreatePlaylistHandler()).handleRequest(playlist, createContext("list"));
 		(new CreateSegmentHandler()).handleRequest(segment1, createContext("list"));
-		(new AppendToPlaylistHandler()).handleRequest(new SegmentAndPlaylistRequest(segment1.getId(), playlist.getId()), createContext("list"));
+		(new AppendToPlaylistHandler()).handleRequest(new SegmentAndPlaylistRequest(segment1.getUrl(), playlist.getId()), createContext("list"));
 		(new CreateSegmentHandler()).handleRequest(segment2, createContext("list"));
-		(new AppendToPlaylistHandler()).handleRequest(new SegmentAndPlaylistRequest(segment2.getId(), playlist.getId()), createContext("list"));
+		(new AppendToPlaylistHandler()).handleRequest(new SegmentAndPlaylistRequest(segment2.getUrl(), playlist.getId()), createContext("list"));
 	}
 	
 	@Test

@@ -25,8 +25,8 @@ import paths.segment.DeleteSegmentHandler;
 public class AppendToandRemoveFromHandlersTest extends LambdaTest{
 	Segment seg1 = new Segment(false, "Test upload1", "test", getEncodedValue("test\\resources\\test_segment.ogg"));
 	Segment seg2 = new Segment(false, "Test upload2", "test", getEncodedValue("test\\resources\\test_segment.ogg"));
-	SegmentAndPlaylistRequest request1 = new SegmentAndPlaylistRequest(seg1.getId(), new Id("c136cdf2-5877-4e86-b6c7-e72b3f05ea9b"));
-	SegmentAndPlaylistRequest request2 = new SegmentAndPlaylistRequest(seg2.getId(), new Id("c136cdf2-5877-4e86-b6c7-e72b3f05ea9b"));
+	SegmentAndPlaylistRequest request1 = new SegmentAndPlaylistRequest(seg1.getUrl(), new Id("c136cdf2-5877-4e86-b6c7-e72b3f05ea9b"));
+	SegmentAndPlaylistRequest request2 = new SegmentAndPlaylistRequest(seg2.getUrl(), new Id("c136cdf2-5877-4e86-b6c7-e72b3f05ea9b"));
 	AppendToPlaylistHandler appendHandler = new AppendToPlaylistHandler();
 	GetPlaylistHandler getHandler = new GetPlaylistHandler();
 	RemoveFromPlaylistHandler removeHandler = new RemoveFromPlaylistHandler();
@@ -47,7 +47,7 @@ public class AppendToandRemoveFromHandlersTest extends LambdaTest{
 
 			
 			String[] responseSegments = response.getModel().getSegmentUrls();
-			boolean addedToPlaylist = responseSegments[responseSegments.length-1].equals(request1.getSegmentId().getId());
+			boolean addedToPlaylist = responseSegments[responseSegments.length-1].equals(request1.getSegmentUrl());
 		
 			boolean segmentsArrayIncreased;
 			if(beforeResponse.getModel() != null) {
@@ -85,7 +85,7 @@ public class AppendToandRemoveFromHandlersTest extends LambdaTest{
 			
 			boolean removedFromPlaylist = true;
 			for(String s : response.model.getSegmentUrls()) {
-				if(s.equals(request1.getSegmentId().getId())) {
+				if(s.equals(request1.getSegmentUrl())) {
 					removedFromPlaylist = false;
 				}
 			}
