@@ -15,6 +15,7 @@ var delete_playlist_url = base_url + "/deletePlaylist"; 	// POST
 var list_playlists_url = base_url + "/playlists"; //GET
 var append_playlist_url = base_url + "/appendToPlaylist"; 
 var get_playlist_url = base_url + "/getPlaylist";
+var delete_from_playlist_url = base_url + "/removeFromPlaylist";
 
 
 // admin mark/unmark remote sites

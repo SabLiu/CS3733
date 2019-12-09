@@ -69,7 +69,7 @@ function processViewPlaylistResponse(result) {
     	// first: open script, this video needs controls
     	// display video, define var and add event listener
     	if (i == 0){ 
-    		output = output + "<p><video controls=\"\" id= vidNum"+ i + " width=\"320\" height=\"240\" controls><source src=" + "\"" + s3_segments_url  + segID + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
+    		output = output + "<p><video controls=\"\" id= vidNum"+ i + " width=\"320\" height=\"240\" controls><source src=" + "\"" + s3_segments_url  + segID + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p> <input type=\"button\" value=\"Remove from playlist\" onClick=\"JavaScript:processDeleteFromPlaylist('" + segID + "')\">" ;
     		scriptOutput1 = scriptOutput1 + "<script> var vidNum" + i + " = document.getElementById(\"vidNum" + i + "\"); ";
     		scriptOutput2 = scriptOutput2 + "vidNum" + i + ".addEventListener(\"ended\", function() {vidNum" + nextSegNum + ".play(); }); " ; 
         	
@@ -77,13 +77,13 @@ function processViewPlaylistResponse(result) {
     	// all the ones in the middle up to before second to last 
     	// display video, define var and add event listener
     	else if (i < (js.model.segments.length - 1) ){ 
-    		output = output + "<p><video controls=\"\"  id= vidNum"+ i + " width=\"320\" height=\"240\"><source src=" + "\"" + s3_segments_url  + segID + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
+    		output = output + "<p><video controls=\"\"  id= vidNum"+ i + " width=\"320\" height=\"240\"><source src=" + "\"" + s3_segments_url  + segID + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p><input type=\"button\" value=\"Remove from playlist\" onClick=\"JavaScript:processDeleteFromPlaylist('" + segID + "')\">" ;
     		scriptOutput1 = scriptOutput1 + " var vidNum" + i + " = document.getElementById(\"vidNum" + i + "\"); "
     		scriptOutput2 = "vidNum" + i + ".addEventListener(\"ended\", function() {vidNum" + nextSegNum + ".play(); }); "; 
     	}
     	// 2nd to last one. Shouldn't an event listener to this one
     	else if (i == (js.model.segments.length - 1)){ 
-    		output = output + "<p><video controls=\"\" id= vidNum"+ i + " width=\"320\" height=\"240\"><source src=" + "\"" + s3_segments_url  + segID + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>";
+    		output = output + "<p><video controls=\"\" id= vidNum"+ i + " width=\"320\" height=\"240\"><source src=" + "\"" + s3_segments_url  + segID + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p><input type=\"button\" value=\"Remove from playlist\" onClick=\"JavaScript:processDeleteFromPlaylist('" + segID + "')\">";
     		scriptOutput1 = scriptOutput1 + " var vidNum" + i + " = document.getElementById(\"vidNum" + i + "\"); ";
     	}
     	
@@ -94,4 +94,9 @@ function processViewPlaylistResponse(result) {
 // Update computation result
   playlistSegmentsList.innerHTML = output  + scriptOutput1 + scriptOutput2 + "</script>";
   
+}
+
+// try to create the script to attach event listeners
+function goRegister() {
+	
 }

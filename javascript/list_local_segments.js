@@ -60,7 +60,7 @@ function processListResponse(result) {
     	// character : sentence
     	output = output + "<p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
     	// buttons: delete, mark available, mark unavailable 
-    	output = output + "<p>   <input type=\"button\" id=\"deleteSeg\" value=\"Delete Local Segment\" onClick=\"JavaScript:processDeleteSegment('" + segID + "')\"> <input type=\"button\" value=\"Mark segment remotely available\" /><input type=\"button\" value=\"Mark segment remotely UNavailable\" /></p></br>";
+    	output = output + "<p> Remotely available? " + isRemAvailable +  "   <input type=\"button\" id=\"deleteSeg\" value=\"Delete Local Segment\" onClick=\"JavaScript:processDeleteSegment('" + segID + "')\"/> <input type=\"button\" value=\"Mark segment remotely available\" onClick=\"JavaScript:processMarkSegment('" + segID + "')\"/><input type=\"button\" value=\"Mark segment remotely UNavailable\" onClick=\"JavaScript:processUnmarkSegment('" + segID + "')\"/></p></br>";
     }
     // if it's not the admin
     else if (isAdmin < 3){
