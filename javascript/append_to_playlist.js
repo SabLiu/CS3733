@@ -3,8 +3,8 @@ function processAppendToPlaylist(segURL) {
 	
 	var data = {};
 	// need to make ID objects for segment and playlist
-	data["segmentUrl"] = segURL; 
-	data["playlistId"]= currentPlaylistID; 
+	data["segmentUrl"] = "" + segURL; 
+	data["playlistId"]= {id: currentPlaylistID}; 
 	
 	console.log("currentPlaylistID in append: " + currentPlaylistID);
 	  
