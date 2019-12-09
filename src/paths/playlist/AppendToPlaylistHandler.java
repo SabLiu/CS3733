@@ -22,7 +22,7 @@ public class AppendToPlaylistHandler implements RequestHandler<SegmentAndPlaylis
 		Response<Playlist> response;
 		dao = new PlaylistDAO();
 		try {
-			if (appendSegment(ids.getSegmentId(), ids.getPlaylistId())) {
+			if (appendSegment(ids.getSegmentUrl(), ids.getPlaylistId())) {
 				response = new Response<Playlist>(GetPlaylistHandler.getPlaylist(ids.getPlaylistId(), logger, dao), 200);
 			}  else {
 				response = new Response<Playlist>(400, "Segment not appended");
@@ -38,9 +38,9 @@ public class AppendToPlaylistHandler implements RequestHandler<SegmentAndPlaylis
 	 * 
 	 * @throws Exception 
 	 */
-	boolean appendSegment(Id segmentId, Id playlistId) throws Exception {
+	boolean appendSegment(String segmentUrl, Id playlistId) throws Exception {
 		if (logger != null) { logger.log("in appendSegment (Database)\n"); }
 		
-		return dao.appendToPlaylist(playlistId, segmentId);
+		return dao.appendToPlaylist(playlistId, segmentUrl);
 	}
 }

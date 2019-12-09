@@ -1,28 +1,28 @@
 package definitions;
 
 public class SegmentAndPlaylistRequest {
-	Id segmentId;
+	String segmentUrl;
 	Id playlistId;
 	
 	public SegmentAndPlaylistRequest() {
 		
 	}
 	
-	public SegmentAndPlaylistRequest(Id segmentId, Id playlistId) {
-		this.segmentId = segmentId;
+	public SegmentAndPlaylistRequest(String segmentUrl, Id playlistId) {
+		this.segmentUrl = segmentUrl;
 		this.playlistId = playlistId; 
 	}
 	
-	public void setSegmentId(Id segmentId) {
-		this.segmentId = segmentId;
+	public void setSegmentId(String segmentUrl) {
+		this.segmentUrl = segmentUrl;
 	}
 
 	public void setPlaylistId(Id playlistId) {
 		this.playlistId = playlistId;
 	}
 
-	public Id getSegmentId() {
-		return segmentId;
+	public String getSegmentUrl() {
+		return segmentUrl;
 	}
 
 	public Id getPlaylistId() {
@@ -31,19 +31,19 @@ public class SegmentAndPlaylistRequest {
 
 	@Override
 	public int hashCode() {
-		return segmentId.hashCode() + playlistId.hashCode();
+		return segmentUrl.hashCode() + playlistId.hashCode();
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		return (obj != null) && (obj instanceof SegmentAndPlaylistRequest) && 
-				(this.segmentId.equals((((SegmentAndPlaylistRequest)obj).segmentId))) &&
+				(this.segmentUrl.equals((((SegmentAndPlaylistRequest)obj).segmentUrl))) &&
 				(this.playlistId.equals((((SegmentAndPlaylistRequest)obj).playlistId)));
 	}
 	
 	@Override
 	public String toString() {			
-		return "Segment ID: " + segmentId + 
+		return "Segment ID: " + segmentUrl + 
 				"\nPlaylist ID: " + playlistId + "\n";	
 	}
 }
