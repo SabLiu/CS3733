@@ -35,7 +35,7 @@ public class GetPlaylistHandlerTest extends LambdaTest{
     	GetPlaylistHandler handler = new GetPlaylistHandler();
         Response<Playlist> resp = handler.handleRequest(playlist.getId(), createContext("list"));
         
-        boolean hasSegments = resp.model.getSegments().length == 2;
+        boolean hasSegments = resp.model.getSegmentUrls().length == 2;
         
         System.out.println(resp.model);
         

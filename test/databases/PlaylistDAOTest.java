@@ -609,7 +609,7 @@ public class PlaylistDAOTest {
 			tester.appendToPlaylist(testPlaylist.getId(), nonExistentSegId);
 			Playlist result = tester.getFullPlaylist(testPlaylist.getId());
 			
-			assertTrue("no segments returned", result.getSegments().length == 0);
+			assertTrue("no segments returned", result.getSegmentUrls().length == 0);
 			
 		}catch(Exception e){
 			fail("exception: " + e.getMessage());
@@ -623,7 +623,7 @@ public class PlaylistDAOTest {
 	}
 	
 	@Test
-	public void getFilledPlaylistWithNoSegmentsTest(){
+	public void getFilledPlaylistWithNoUrlsTest(){
 		Playlist testPlaylist = new Playlist("DAO test");
 		PlaylistDAO tester = new PlaylistDAO();
 		
@@ -634,7 +634,7 @@ public class PlaylistDAOTest {
 			
 			System.out.println(result);
 			
-			assertTrue("no segments returned", result.getSegments().length == 0);
+			assertTrue("no urls returned", result.getSegmentUrls().length == 0);
 			
 		}catch(Exception e){
 			fail("exception" + e.getMessage());

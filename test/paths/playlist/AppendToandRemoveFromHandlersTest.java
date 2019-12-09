@@ -46,22 +46,22 @@ public class AppendToandRemoveFromHandlersTest extends LambdaTest{
 			
 
 			
-			Segment[] responseSegments = response.getModel().getSegments();
-			boolean addedToPlaylist = responseSegments[responseSegments.length-1].getId().equals(request1.getSegmentId());
+			String[] responseSegments = response.getModel().getSegmentUrls();
+			boolean addedToPlaylist = responseSegments[responseSegments.length-1].equals(request1.getSegmentId().getId());
 		
 			boolean segmentsArrayIncreased;
 			if(beforeResponse.getModel() != null) {
-				segmentsArrayIncreased = (afterResponse.getModel().getSegments().length - beforeResponse.getModel().getSegments().length) == 1;
+				segmentsArrayIncreased = (afterResponse.getModel().getSegmentUrls().length - beforeResponse.getModel().getSegmentUrls().length) == 1;
 			}
 			else {
-				segmentsArrayIncreased = afterResponse.getModel().getSegments().length == 1;
+				segmentsArrayIncreased = afterResponse.getModel().getSegmentUrls().length == 1;
 			}
 			
 			
 			assertTrue("Response indicates sucess", response.statusCode == 200);
 			assertTrue("Segment added to database", addedToPlaylist);
 			assertTrue("Segments in playlist increased by one", segmentsArrayIncreased);
-			assertArrayEquals("Updated playlist returend", response.getModel().getSegments(), afterResponse.getModel().getSegments());  
+			assertArrayEquals("Updated playlist returend", response.getModel().getSegmentUrls(), afterResponse.getModel().getSegmentUrls());  
 		} catch (Exception e) {
 			System.out.println("EXCPETION: " + e.getMessage());
 			e.printStackTrace();
@@ -84,15 +84,15 @@ public class AppendToandRemoveFromHandlersTest extends LambdaTest{
 			System.out.println(afterResponse.getModel());
 			
 			boolean removedFromPlaylist = true;
-			for(Segment s: response.model.getSegments()) {
-				if(s.getId().equals(request1.getSegmentId())) {
+			for(String s : response.model.getSegmentUrls()) {
+				if(s.equals(request1.getSegmentId().getId())) {
 					removedFromPlaylist = false;
 				}
 			}
 		
 			boolean segmentsArrayDecreased;
 			if(afterResponse.getModel() != null) {
-				segmentsArrayDecreased = (afterResponse.getModel().getSegments().length - beforeResponse.getModel().getSegments().length) < 0;
+				segmentsArrayDecreased = (afterResponse.getModel().getSegmentUrls().length - beforeResponse.getModel().getSegmentUrls().length) < 0;
 			}
 			else {
 				segmentsArrayDecreased = true;
@@ -102,7 +102,7 @@ public class AppendToandRemoveFromHandlersTest extends LambdaTest{
 			assertTrue("Response indicates sucess", response.statusCode == 200);
 			assertTrue("Segment removed from database", removedFromPlaylist);
 			assertTrue("Number of segments in playlist decreased", segmentsArrayDecreased);
-			assertArrayEquals("Updated playlist returend", response.getModel().getSegments(), afterResponse.getModel().getSegments());  
+			assertArrayEquals("Updated playlist returend", response.getModel().getSegmentUrls(), afterResponse.getModel().getSegmentUrls());  
 		} catch (Exception e) {
 			System.out.println("EXCPETION: " + e.getMessage());
 			e.printStackTrace();

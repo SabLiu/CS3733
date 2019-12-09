@@ -314,27 +314,9 @@ public class PlaylistDAO extends DAO{
 	    Playlist p = generatePlaylist(resultSet);
 	    //get the segment urls and add them to the playlist in order
 	    String segmentIDsStr = resultSet.getString("SegmentIDs");
-<<<<<<< HEAD
-	    String[] segmentIDs = segmentIDsStr.split(",");
-	    List<Segment> segmentList = new ArrayList<Segment>();
-	    int si;
-	    for(int i = 0; i < segmentIDs.length; i++) {
-	    	if(segmentList.size() == 1 && segmentIDsStr.length() == 0) {
-	    		//nothing in there
-	    	}else {
-	    		try{
-	    			segmentList.add(segDAO.getSegment(new Id(segmentIDs[i])));
-	    		}catch(Exception e) {
-	    			System.out.println("segment not avaliable " + e.getMessage());
-	    		}
-	    		
-	    	}
-	    	
-=======
 	    String[] segmentUrls = segmentIDsStr.split(",");
 	    if(segmentUrls[0] == "") {
 	    	return p;
->>>>>>> branch 'master' of https://github.com/mariasharman137/CS3733-B19-Hotspur.git
 	    }
 	    p.addSegments(segmentUrls);
 	    return p;
