@@ -1,6 +1,5 @@
 CREATE TABLE `Library` (
   `SegmentID` varchar(64) NOT NULL,
-  `SegmentName` varchar(45) DEFAULT NULL, //Just so we can debug easier
   `SegmentWords` text,
   `SegmentSpeaker` tinytext,
   `IsSegmentPublic` tinyint(4) DEFAULT NULL,
@@ -12,9 +11,11 @@ CREATE TABLE `Library` (
 
 CREATE TABLE `Playlists` (
   `PlayListID` varchar(256) NOT NULL,
-  `SegmentID` varchar(64) DEFAULT NULL
+  `PlayListName` varchar(64) NOT NULL,
+  `SegmentURLs` text,
+  PRIMARY KEY (`PlayListID`),
+  UNIQUE KEY `PlayListID_UNIQUE` (`PlayListID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
-
 
 CREATE TABLE `SiteLibrary` (
   `SiteID` varchar(64) NOT NULL,
