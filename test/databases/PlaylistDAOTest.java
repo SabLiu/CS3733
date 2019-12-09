@@ -598,6 +598,8 @@ public class PlaylistDAOTest {
 		}
 	}
 	
+	
+	/*
 	@Test
 	public void getFilledPlaylistWithNonexistentSegmentsTest(){
 		Playlist testPlaylist = new Playlist("DAO test");
@@ -648,6 +650,7 @@ public class PlaylistDAOTest {
 			e.printStackTrace();
 		}
 	}
+	*/
 	
 }
 
