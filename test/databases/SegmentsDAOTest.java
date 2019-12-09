@@ -184,13 +184,13 @@ public class SegmentsDAOTest {
 	public void searchCharacterTest() {
 		List<Segment> controllerSegments = new ArrayList<>();
 		List<Id> id = new ArrayList<>();
-		id.add(new Id("testabcd-9077-450e-9c94-21f2eaba4e7b.ogg"));
-		id.add(new Id("testabcd-a3f5-4f39-bf3a-b7f65fa9399b.ogg"));
-		id.add(new Id("testabcd-1a2d-45ed-b676-29de0f4e4486.ogg"));
+		id.add(new Id("testabcd-a077-450e-9c94-21f2eaba4e7b.ogg"));
+		id.add(new Id("testabcd-b3f5-4f39-bf3a-b7f65fa9399b.ogg"));
+		id.add(new Id("testabcd-aa2d-45ed-b676-29de0f4e4486.ogg"));
 		id.add(new Id("testabcd-5140-47d9-b2d5-ff7bb9f67d5e.ogg"));
-		id.add(new Id("testabcd-9180-4976-b24d-93cdc98ff6cc.ogg"));
-		id.add(new Id("testabcd-68df-48ec-af09-de17bac46ecd.ogg"));
-		id.add(new Id("testabcd-321f-4365-ab2d-1aabc7354f23.ogg"));
+		id.add(new Id("testabcd-b180-4976-b24d-93cdc98ff6cc.ogg"));
+		id.add(new Id("testabcd-z8df-48ec-af09-de17bac46ecd.ogg"));
+		id.add(new Id("testabcd-c21f-4365-ab2d-1aabc7354f23.ogg"));
 		id.add(new Id("testabcd-5b90-48f8-a3c4-57acb0062a0c.ogg"));
 		id.add(new Id("testabcd-72bf-46c3-be31-d6a1f275194a.ogg"));
 		id.add(new Id("testabcd-e60b-44d7-a231-7a3d7f9ff6cc.ogg"));
@@ -278,7 +278,7 @@ public class SegmentsDAOTest {
 			tester.deleteSegment(controllerSegments.get(7));
 			tester.deleteSegment(controllerSegments.get(8));
 			tester.deleteSegment(controllerSegments.get(9));
-
+		
 			assertTrue(ta && tb && tc && td);
 		}catch(Exception e) {
 			fail("exception");

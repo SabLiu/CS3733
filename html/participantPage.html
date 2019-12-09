@@ -7,13 +7,20 @@
 <script type='text/javascript' src='../create_playlist.js'></script>
 <script type='text/javascript' src='../delete_playlist.js'></script>
 <script type='text/javascript' src='../delete_local_segment.js'></script>
+<script type='text/javascript' src='../view_playlist.js'></script>
+<script type='text/javascript' src='../search_segments.js'></script>
+<script type='text/javascript' src='../append_to_playlist.js'></script>
+
 
 <script type="text/javascript">
+// these are intentionally global (Sorry, Professor!)
+var currentPlaylistLength = 0;
+var currentPlaylistID = ""; 
+var isAdmin = 2; 
 
 function initialize(){
 	//get all segments
-	var isAdmin = 0; 
-	refreshLocalSegmentsList(isAdmin);
+	refreshLocalSegmentsList();
 	refreshPlaylistsList();
 }
 </script>
@@ -24,6 +31,7 @@ function initialize(){
 
 <hr />
 <p><b>Playlists</b></p>
+<p>To append a segment to a playlist, view the playlist first.  &nbsp;</p>
 
 <form name="playlistForm" method="post">  
  	<input name="PLname" value="Enter playlist name" />
@@ -36,9 +44,9 @@ function initialize(){
 
 <p>&nbsp;</p>
 
-<p><b>View a playlist (not implemented yet)&nbsp;</b></p>
-<p><b>Current Playlist: Playlist name goes here&nbsp;</b></p>
-
+<p><b>View a playlist &nbsp;</b></p>
+<p><b>Current Playlist: </b><div id="currentPlaylistName"></div></p>
+<div id="currentPlaylist"></div>
 
 <hr />
 <p><b>Upload a new local segment </b></p>
@@ -100,8 +108,17 @@ function initialize(){
 
 <p>Search by character speaking and/or spoken word(s)</p>
 
-<p>Character:       <input name="searchBarCharacter" type = "text" value = ""/></br>
+<form name="searchForm" method="post">
+   <p>Character:       <input name="searchBarCharacter" type = "text" value = ""/></br>
 Spoken word(s): <input name="searchBarWords" type = "text" value = ""/> </br>
-<input name="searchbtn" type="button" value="Search" /></p>
+<input name="searchbtn" type="button" value="Search" onClick = "JavaScript:processSearch()"/></p>
+
+
+</form>
 
 <p><strong>Search Results</strong></p>
+<p>&nbsp;</p>
+
+<div id="searchResultsList"></div>
+
+<p>&nbsp;</p>

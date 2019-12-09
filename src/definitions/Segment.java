@@ -36,6 +36,10 @@ public class Segment {
 	public Id getId() {
 		return id;
 	}
+	
+	public String getUrl() {
+		return "https://hotspurproject.s3.us-east-2.amazonaws.com/segments/" + this.id.getId();
+	}
 
 	public boolean isRemotelyAvailable() {
 		return isRemotelyAvailable;

@@ -1,8 +1,6 @@
-function processDeletePlaylistResponse(result) {
-  console.log("deleted :" + result);
-  processPlaylistResponse(result); // refresh list of playlists 
-}
+// when Participant clicks "Delete" playlist
 
+// pass in which playlist participant wants to delete
 function processDeletePlaylist(val) {
   var data = {};
   data["id"] = val;
@@ -35,3 +33,8 @@ function processDeletePlaylist(val) {
   };
 }
 
+// update playlists list by calling function in list_playlist
+function processDeletePlaylistResponse(result) {
+  console.log("deleted :" + result);
+  processPlaylistResponse(result); // refresh list of playlists 
+}

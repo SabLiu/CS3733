@@ -1,11 +1,9 @@
-function processDeleteSegmentResponse(result, isAdmin) {
-  console.log("deleted :" + result);
-  processListResponse(xhr.responseText, isAdmin); //replace w/ isAdmin
-}
 
+// called when delete button is pressed corresponding to a segment
+// pass in whether current user is an admin and the ID of the segment they want to delete
 
-function processDeleteSegment(val, isAdmin) {
-	console.log("this is the isAdmin that is passed in " + isAdmin);
+function processDeleteSegment(val) {
+	console.log("this is the isAdmin that is passed into processDeleteSegment: " + isAdmin);
   var data = {};
   data["id"] = val;
 
@@ -24,7 +22,7 @@ function processDeleteSegment(val, isAdmin) {
 	  if (xhr.readyState == XMLHttpRequest.DONE) {
 		  if (xhr.status == 200) {
 			  console.log ("XHR:" + xhr.responseText);
-			  processDeleteSegmentResponse(xhr.responseText);
+			  processListResponse(xhr.responseText);
 		  } else {
 			  console.log("actual:" + xhr.responseText)
 			  var js = JSON.parse(xhr.responseText);
@@ -32,8 +30,15 @@ function processDeleteSegment(val, isAdmin) {
 			  alert (err);
 		  }
 	  } else {
-		  processDeleteSegmentResponse("N/A");
+		  processListResponse("N/A");
 	  }
 	  
   };
 }
+
+// refresh list of segments by calling function in list local segments 
+function processDeleteSegmentResponse(result, isAdmin) {
+	  console.log("deleted :" + result);
+	  processListResponse(xhr.responseText, isAdmin); 
+	}
+

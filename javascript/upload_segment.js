@@ -1,4 +1,8 @@
-  // from heineman create.js
+  // based on heineman create.js
+
+// clicked when the participant selects a file to upload, "upload" button enables, and they click it
+// pass in the user-provided sentence and character spoken in uploaded file 
+
 	function handleUploadClick(e) {
 	  var form = document.createForm;
 	 
@@ -11,7 +15,6 @@
 	  // generate UUID on backend 
 	  data["isRemotelyAvailable"] = false; // default set to false
 	  
-	  // base64EncodedValue":"data:text/plain;base64,My4xND....."
 	  var segments = document.createForm.base64Encoding.value.split(',');
 	  data["contents"] = segments[1];  // skip first one 
 

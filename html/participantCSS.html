@@ -1,0 +1,74 @@
+<html>
+<head>
+
+<script type='text/javascript' src='../ITERATION 2/api.js'></script>
+<script type='text/javascript' src='../ITERATION 2/list_local_segments.js'></script>
+<script type='text/javascript' src='../ITERATION 2/list_playlists.js'></script>
+<script type='text/javascript' src='../ITERATION 2/upload_segment.js'></script>
+<script type='text/javascript' src='../ITERATION 2/create_playlist.js'></script>
+<script type='text/javascript' src='../ITERATION 2/delete_playlist.js'></script>
+<script type='text/javascript' src='../ITERATION 2/delete_local_segment.js'></script>
+
+<script type="text/javascript">
+// these are intentionally global (Sorry, Professor!)
+var currentPlaylistLength = 0;
+var currentPlaylistID = ""; 
+var isAdmin = 2; 
+
+function initialize(){
+	//get all segments
+	refreshLocalSegmentsList();
+	refreshPlaylistsList();
+}
+</script>
+
+<link rel="stylesheet" href='../style-sheet.css'>
+
+</head>
+<body onload="initialize()">
+ <title></title>   
+
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+</style>
+
+
+
+<div class="row">
+    <div class="column" style="background-color:var(--segmentColor);">
+  
+  <ul>
+      <li><a>Local Segments</a></li>
+      <li><a>Remote Segments</a></li>
+      <li><a>Search</a></li>
+  </ul>
+  
+  	<div class="box">
+	<div class="compBox" style="max-height:86vh;">
+
+<div id="model"></div>
+        
+    </div>
+    </div>
+    
+  </div>
+  
+  
+  <div class="column" style="background-color:var(--playlistColor);max-height:100vh;">
+    	<div class="box" >
+	<div class="compBox" style="max-height:100vh;">
+  		<div id="playlists"></div>
+  		'  
+    </div>
+    </div>
+    
+  </div>
+</div>
+
+
+</html>

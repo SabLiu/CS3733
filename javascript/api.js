@@ -13,7 +13,8 @@ var search_url = base_url + "/segmentSearch";
 var create_playlist_url = base_url + "/playlist";	// POST
 var delete_playlist_url = base_url + "/deletePlaylist"; 	// POST
 var list_playlists_url = base_url + "/playlists"; //GET
-var append_url = base_url + "/appendToPlaylist"; 
+var append_playlist_url = base_url + "/appendToPlaylist"; 
+var get_playlist_url = base_url + "/getPlaylist";
 
 
 // admin mark/unmark remote sites

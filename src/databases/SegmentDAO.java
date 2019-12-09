@@ -224,13 +224,12 @@ public class SegmentDAO extends DAO{
             ps.close();
             
             if(segment == null) {
-				throw new NullPointerException("segment not found");
+				throw new Exception("Null Pointer: segment not found");
 			}
             
             return segment;
 
         } catch (Exception e) {
-        	e.printStackTrace();
             throw new Exception("Failed in getting segment: " + e.getMessage());
         }
         

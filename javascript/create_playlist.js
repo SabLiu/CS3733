@@ -1,4 +1,7 @@
  // from heineman create.js
+
+// called when participant clicks "create playlist" button 
+// pass in the name the user wants 
 	function handleCreatePlaylistClick(e) {
 	  var form = document.playlistForm;
 	 
@@ -29,6 +32,7 @@
 	    	 }
 	    }
 	    // takes JSON and refreshes the list with the response of API call
+	    // calls function in list_playlists
 	    processPlaylistResponse(xhr.responseText);
 	  };
 	  
