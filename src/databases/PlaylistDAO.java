@@ -20,7 +20,7 @@ public class PlaylistDAO extends DAO{
 	 * @return true if it was deleted correctly false otherwise
 	 * @throws Exception
 	 */
-	public boolean deleteFromPlaylist(Id playlistId, Id segmentId) throws Exception {
+	public boolean deleteFromPlaylist(Id playlistId, String segmentUrl) throws Exception {
 		 try {
 			 //get the playlist
 	        	String query = "UPDATE Playlists SET SegmentIDs=? WHERE PlayListID=?;";
@@ -34,7 +34,7 @@ public class PlaylistDAO extends DAO{
 	            //get a list of segments that won'tbe deleted
 	            while(i<segs.length) {
 	            	 if(segs[i] != null) {
-	            		 if(!segs[i].contains(segmentId.getId())) {
+	            		 if(!segs[i].equals(segmentUrl)) {
 	            			 playlistSegmentsList.add(segs[i]);
 	            		 }
 	            	 }
@@ -70,7 +70,7 @@ public class PlaylistDAO extends DAO{
 	 * @return true if it was appended correctly false otherwise
 	 * @throws Exception
 	 */
-	public boolean appendToPlaylist(Id playlistId, Id segmentId) throws Exception {
+	public boolean appendToPlaylist(Id playlistId, String segmentUrl) throws Exception {
 		 try {
 			 //get the playlist
 	        	String query = "UPDATE Playlists SET SegmentIDs=? WHERE PlayListID=?;";
@@ -86,19 +86,9 @@ public class PlaylistDAO extends DAO{
 	            	 }
 	            	i++;
 	            }
-	            //add the new id and set the new string as the segmentIds string
-	            try {
-	            	SegmentDAO checker = new SegmentDAO();
-	            	Segment s = checker.getSegment(segmentId);
-	            	playlistSegments = playlistSegments + s.getUrl();   
-	            }catch(Exception e) {
-	            	if(e.getMessage().contentEquals("Failed in getting segment: Null Pointer: segment not found")) {
-	            		//Find the remote segment and get the Url
-	            		playlistSegments = playlistSegments + "remote";	            		
-	            	}else {
-	            		throw new Exception("Could not find Segment: " + e.getMessage());
-	            	}
-	            }
+	            
+	           	playlistSegments = playlistSegments + segmentUrl;   
+	           
 	            ps.setString(1, playlistSegments);
 	            ps.setString(2, playlistId.getId());
 	            int numAffected = ps.executeUpdate();

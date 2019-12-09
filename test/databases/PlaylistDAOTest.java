@@ -347,7 +347,7 @@ public class PlaylistDAOTest {
 			helper.addSegment(segsEnd[4]);
 			helper.addSegment(segsEnd[5]);
 			appender.addPlaylist(startedPlaylist);
-			boolean appendedOne = appender.appendToPlaylist(id, new Id("test709b-5b90-48f8-a3c4-57acb0062a0c.ogg"));
+			boolean appendedOne = appender.appendToPlaylist(id, segsEnd[5].getUrl());
 			Playlist returnedPlaylist = appender.getFullPlaylist(id);
 			appender.deletePlaylist(id);
 			helper.deleteSegment(segsEnd[0]);
@@ -404,12 +404,12 @@ public class PlaylistDAOTest {
 			helper.addSegment(segsEnd[4]);
 			helper.addSegment(segsEnd[5]);
 			appender.addPlaylist(startPlaylist);
-			boolean appendedOne = appender.appendToPlaylist(id, idEnd.get(0));
-			boolean appendedTwo = appender.appendToPlaylist(id, idEnd.get(1));
-			boolean appendedThree = appender.appendToPlaylist(id, idEnd.get(2));
-			boolean appendedFour = appender.appendToPlaylist(id, idEnd.get(3));
-			boolean appendedFive = appender.appendToPlaylist(id, idEnd.get(4));
-			boolean appendedSix = appender.appendToPlaylist(id, idEnd.get(5));
+			boolean appendedOne = appender.appendToPlaylist(id, segsEnd[0].getUrl());
+			boolean appendedTwo = appender.appendToPlaylist(id, segsEnd[1].getUrl());
+			boolean appendedThree = appender.appendToPlaylist(id, segsEnd[2].getUrl());
+			boolean appendedFour = appender.appendToPlaylist(id, segsEnd[3].getUrl());
+			boolean appendedFive = appender.appendToPlaylist(id, segsEnd[4].getUrl());
+			boolean appendedSix = appender.appendToPlaylist(id, segsEnd[5].getUrl());
 			boolean allAppended = appendedOne && appendedTwo && appendedThree && appendedFour && appendedFive && appendedSix;
 			
 			Playlist returnedPlaylist = appender.getFullPlaylist(id);
@@ -475,12 +475,12 @@ public class PlaylistDAOTest {
 			helper.addSegment(addSegs[1]);
 			helper.addSegment(addSegs[2]);
 			appender.addPlaylist(startPlaylist);
-			boolean appendedOne = appender.appendToPlaylist(id, idEnd.get(0));
-			boolean appendedTwo = appender.appendToPlaylist(id, idEnd.get(1));
-			boolean appendedThree = appender.appendToPlaylist(id, idEnd.get(2));
-			boolean appendedFour = appender.appendToPlaylist(id, idEnd.get(3));
-			boolean appendedFive = appender.appendToPlaylist(id, idEnd.get(4));
-			boolean appendedSix = appender.appendToPlaylist(id, idEnd.get(5));
+			boolean appendedOne = appender.appendToPlaylist(id, segsEnd[0]);
+			boolean appendedTwo = appender.appendToPlaylist(id, segsEnd[1]);
+			boolean appendedThree = appender.appendToPlaylist(id, segsEnd[2]);
+			boolean appendedFour = appender.appendToPlaylist(id, segsEnd[3]);
+			boolean appendedFive = appender.appendToPlaylist(id, segsEnd[4]);
+			boolean appendedSix = appender.appendToPlaylist(id, segsEnd[5]);
 			boolean allAppended = appendedOne && appendedTwo && appendedThree && appendedFour && appendedFive && appendedSix;
 			
 			Playlist returnedPlaylist = appender.getFullPlaylist(id);
@@ -572,9 +572,9 @@ public class PlaylistDAOTest {
 			tester.addPlaylist(testThree);
 			//test
 			
-			tester.deleteFromPlaylist(i, new Id("1dba4225-9077-450e-9c94-21f2eaba4e7b.ogg"));
-			tester.deleteFromPlaylist(ii, new Id("3c4bdc3a-a3f5-4f39-bf3a-b7f65fa9399b.ogg"));
-			tester.deleteFromPlaylist(iii, new Id("3e3b9c56-1a2d-45ed-b676-29de0f4e4486.ogg"));
+			tester.deleteFromPlaylist(i, controllerSegments.get(0).getUrl());
+			tester.deleteFromPlaylist(ii, controllerSegments.get(1).getUrl());
+			tester.deleteFromPlaylist(iii, controllerSegments.get(2).getUrl());
 			
 			Playlist gottonOne = tester.getFullPlaylist(i);
 			Playlist gottonTwo = tester.getFullPlaylist(ii);
@@ -606,7 +606,7 @@ public class PlaylistDAOTest {
 		
 		try {
 			tester.addPlaylist(testPlaylist);
-			tester.appendToPlaylist(testPlaylist.getId(), nonExistentSegId);
+			tester.appendToPlaylist(testPlaylist.getId(), "noURL");
 			Playlist result = tester.getFullPlaylist(testPlaylist.getId());
 			
 			assertTrue("no segments returned", result.getSegmentUrls().length == 0);
