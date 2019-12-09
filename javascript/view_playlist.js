@@ -95,3 +95,8 @@ function processViewPlaylistResponse(result) {
   playlistSegmentsList.innerHTML = output  + scriptOutput1 + scriptOutput2 + "</script>";
   
 }
+
+// try to create the script to attach event listeners
+function goRegister() {
+	
+}
