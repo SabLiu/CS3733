@@ -46,8 +46,6 @@ function processRemoteListResponse(result) {
     var character 		= remoteSegJson["character"];
     
     // updates html
-    
-    // if it's not the admin
     	// character : sentence
     	output = output + "</br><p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
     	output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + segURL+ "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
@@ -56,5 +54,4 @@ function processRemoteListResponse(result) {
   // Update computation result
   remoteSegmentsList.innerHTML = output;
   
-//  console.log(output);
 }
