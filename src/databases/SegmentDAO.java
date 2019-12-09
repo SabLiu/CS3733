@@ -18,54 +18,6 @@ public class SegmentDAO extends DAO{
 	public SegmentDAO() {super();}
 	public SegmentDAO(java.sql.Connection conn) {super(conn);}
    
-    /*
-    public boolean updateConstant(Constant constant) throws Exception {
-        try {
-        	String query = "UPDATE constants SET value=? WHERE name=?;";
-        	PreparedStatement ps = conn.prepareStatement(query);
-            ps.setDouble(1, constant.value);
-            ps.setString(2, constant.name);
-            int numAffected = ps.executeUpdate();
-            ps.close();
-            
-            return (numAffected == 1);
-        } catch (Exception e) {
-            throw new Exception("Failed to update report: " + e.getMessage());
-        }
-    }
-    */
-	
-	
-	
-	 /**
-     * Gets all the public segments that are in the database
-     * @return the list of public segments that are in the database
-     * @throws Exception
-     */
-	/*
-    public List<Segment> getAllPublicSegments() throws Exception {
-        List<Segment> allSegments = new ArrayList<>();
-        try {
-        	//get all the segment entries
-            Statement statement = conn.createStatement();
-            String query = "SELECT * FROM Library WHERE isSegmentPublic = true;";
-            ResultSet resultSet = statement.executeQuery(query);
-            //turn them into Segments and add it to the list
-            while (resultSet.next()) {
-                Segment c = generateSegment(resultSet);
-                allSegments.add(c);
-            }
-            resultSet.close();
-            statement.close();
-            return allSegments;
-
-        } catch (Exception e) {
-            throw new Exception("Failed in getting books: " + e.getMessage());
-        }
-    }
-	*/
-	
-	
 	/**
 	 * Marks the segment public or private based on input
 	 * @param segmentId the segment to make public or private
