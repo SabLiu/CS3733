@@ -71,6 +71,8 @@ public class PlaylistDAOTest {
 			boolean set = setter.addPlaylist(emptyPlaylist);
 			Playlist returnedPlaylistEmpty = setter.getFullPlaylist(idEmpty);
 			boolean didSetEmptyPass = returnedPlaylistEmpty.equals(emptyPlaylist);
+			System.out.println("returned\n" + returnedPlaylistEmpty.toString() + " ");
+			System.out.println("returned\n" + emptyPlaylist.toString() + " ");
 			boolean didTryToSetEmptyPass = false;
 			if(didSetEmptyPass) {
 				didTryToSetEmptyPass = !setter.addPlaylist(emptyPlaylist); 
@@ -411,6 +413,7 @@ public class PlaylistDAOTest {
 			boolean allAppended = appendedOne && appendedTwo && appendedThree && appendedFour && appendedFive && appendedSix;
 			
 			Playlist returnedPlaylist = appender.getFullPlaylist(id);
+			//System.out.println("returned\n" + returnedPlaylist.toString() + " ");
 			helper.deleteSegment(segsEnd[0]);
 			helper.deleteSegment(segsEnd[1]);
 			helper.deleteSegment(segsEnd[2]);
@@ -425,13 +428,81 @@ public class PlaylistDAOTest {
 		assertTrue(true);
 	}
 	
+	
+	
+	
+	/**
+	 * Tests the append to playlist function, by appending 5 segments to an empty playlist
+	 * Includes appending a remote segment, needs to be changed when we actualy implement
+	 * that code
+	 */
+	@Test
+	public void appendToPlaylistTestFour() {
+		//control data
+		List<Segment> controllerSegmentsEnd = new ArrayList<>();
+		List<Id> idEnd = new ArrayList<>();
+		idEnd.add(new Id("test4225-9077-450e-9c94-21f2eaba4e7b.ogg"));
+		idEnd.add(new Id("test5621-9180-4976-b24d-93cdc98ff6cc.ogg"));
+		idEnd.add(new Id("Remote11-68df-48ec-af09-de17bac46ecd.ogg"));
+		idEnd.add(new Id("test7ef5-72bf-46c3-be31-d6a1f275194a.ogg"));
+		idEnd.add(new Id("Remote22-e60b-44d7-a231-7a3d7f9ff6cc.ogg"));
+		idEnd.add(new Id("Remote33-5b90-48f8-a3c4-57acb0062a0c.ogg"));
+		
+		controllerSegmentsEnd.add(new Segment(idEnd.get(0), false, "You had a normal emotion", "McCoy"));
+		controllerSegmentsEnd.add(new Segment(idEnd.get(1), false, "Do you smell something?", "Spock"));
+		controllerSegmentsEnd.add(new Segment(idEnd.get(2), false, "Crazy way to travel, spreading a man's molecules all over the universe.", "McCoy"));
+		controllerSegmentsEnd.add(new Segment(idEnd.get(3), false, "You know, self-pity is a terrible first course", "Chapel"));
+		controllerSegmentsEnd.add(new Segment(idEnd.get(4), false, "I know you would prefer to wallow in a pool of emotion", "Spock"));
+		controllerSegmentsEnd.add(new Segment(idEnd.get(5), false, "Mr. Spock, why aren’t you dead?", "Kirk"));
+		
+		String[] segsEnd = {controllerSegmentsEnd.get(0).getUrl(), controllerSegmentsEnd.get(1).getUrl(),
+				"remote", controllerSegmentsEnd.get(3).getUrl(), "remote", "remote"};
+		
+		Segment[] addSegs = {controllerSegmentsEnd.get(0), controllerSegmentsEnd.get(1), controllerSegmentsEnd.get(3)};
+		
+		
+		
+		Id id = new Id("j4567h586y-5555-6666-90c4-13f630ad72f2");
+		String nameAppendTo = "testAppendPL";
+		Playlist startPlaylist = new Playlist(id, nameAppendTo);
+		Playlist appendedPlaylist = new Playlist(id, nameAppendTo);
+		appendedPlaylist.setSegmentUrls(segsEnd);
+		//test
+		PlaylistDAO appender = new PlaylistDAO();
+		SegmentDAO helper = new SegmentDAO();
+		try {
+			helper.addSegment(addSegs[0]);
+			helper.addSegment(addSegs[1]);
+			helper.addSegment(addSegs[2]);
+			appender.addPlaylist(startPlaylist);
+			boolean appendedOne = appender.appendToPlaylist(id, idEnd.get(0));
+			boolean appendedTwo = appender.appendToPlaylist(id, idEnd.get(1));
+			boolean appendedThree = appender.appendToPlaylist(id, idEnd.get(2));
+			boolean appendedFour = appender.appendToPlaylist(id, idEnd.get(3));
+			boolean appendedFive = appender.appendToPlaylist(id, idEnd.get(4));
+			boolean appendedSix = appender.appendToPlaylist(id, idEnd.get(5));
+			boolean allAppended = appendedOne && appendedTwo && appendedThree && appendedFour && appendedFive && appendedSix;
+			
+			Playlist returnedPlaylist = appender.getFullPlaylist(id);
+			//System.out.println("returned\n" + returnedPlaylist.toString() + " ");
+			helper.deleteSegment(addSegs[0]);
+			helper.deleteSegment(addSegs[1]);
+			helper.deleteSegment(addSegs[2]);
+			appender.deletePlaylist(id);
+			assertTrue(allAppended && appendedPlaylist.equals(returnedPlaylist));
+		}catch(Exception e) {
+			assertTrue(false);
+		}
+		assertTrue(true);
+	}
+	
 	/**
 	 * Tests the get full playlist function
 	 */
 	@Test
 	public void getFullPlaylistTest() {
 		//make the controlle data
-		Id i = new Id("fc11d60f-c6f1-4138-a0b1-cb7fc2010e9d");
+		Id i = new Id("testd60f-c6f1-4138-a0b1-cb7fc2010e9d");
 		List<Segment> controllerSegments = new ArrayList<>();
 		controllerSegments.add(new Segment(new Id("test4225-9077-450e-9c94-21f2eaba4e7b.ogg"), false, "You had a normal emotion", "McCoy"));
 		controllerSegments.add(new Segment(new Id("testdc3a-a3f5-4f39-bf3a-b7f65fa9399b.ogg"), false, "Then I need a drink", "McCoy"));
@@ -445,10 +516,12 @@ public class PlaylistDAOTest {
 			helper.addSegment(segs[0]);
 			helper.addSegment(segs[1]);
 			helper.addSegment(segs[2]);
+			getter.addPlaylist(control);
 			Playlist gotten = getter.getFullPlaylist(i);
 			helper.deleteSegment(segs[0]);
 			helper.deleteSegment(segs[1]);
 			helper.deleteSegment(segs[2]);
+			getter.deletePlaylist(control);
 			assertTrue(control.equals(gotten));
 		}catch(Exception e) {
 			fail("exception");

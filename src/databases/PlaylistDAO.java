@@ -26,15 +26,15 @@ public class PlaylistDAO extends DAO{
 	        	String query = "UPDATE Playlists SET SegmentIDs=? WHERE PlayListID=?;";
 	        	PreparedStatement ps = conn.prepareStatement(query);
 	        	String playlistSegments = "";
-	        	List<Segment> playlistSegmentsList = new ArrayList<Segment>();
+	        	List<String> playlistSegmentsList = new ArrayList<String>();
 	        	Playlist p = this.getFullPlaylist(playlistId);
-	            Segment[] segs =  p.getSegments();
+	            String[] segs =  p.getSegmentUrls();
 	            int i = 0;
 	            
 	            //get a list of segments that won'tbe deleted
 	            while(i<segs.length) {
 	            	 if(segs[i] != null) {
-	            		 if(!segs[i].getId().equals(segmentId)) {
+	            		 if(!segs[i].contains(segmentId.getId())) {
 	            			 playlistSegmentsList.add(segs[i]);
 	            		 }
 	            	 }
@@ -44,11 +44,11 @@ public class PlaylistDAO extends DAO{
 	           
 	            i = 0;
 	            while(i<playlistSegmentsList.size()-1) {
-	            	playlistSegments = playlistSegments + playlistSegmentsList.get(i).getId().getId() + ",";
+	            	playlistSegments = playlistSegments + playlistSegmentsList.get(i) + ",";
 	            	i++;
 	            }
 	           
-	            playlistSegments = playlistSegments + playlistSegmentsList.get(i).getId().getId();
+	            playlistSegments = playlistSegments + playlistSegmentsList.get(i);
 	            
 	            ps.setString(1, playlistSegments);
 	            ps.setString(2, playlistId.getId());
@@ -77,17 +77,28 @@ public class PlaylistDAO extends DAO{
 	        	PreparedStatement ps = conn.prepareStatement(query);
 	        	String playlistSegments = "";
 	        	Playlist p = this.getFullPlaylist(playlistId);
-	            Segment[] segs =  p.getSegments();
+	            String[] segs =  p.getSegmentUrls();
 	            int i = 0;
 	            //get the curent segments string
 	            while(i<segs.length) {
 	            	 if(segs[i] != null) {
-	            		 playlistSegments = playlistSegments + segs[i].getId().getId() + ",";
+	            		 playlistSegments = playlistSegments + segs[i] + ",";
 	            	 }
 	            	i++;
 	            }
 	            //add the new id and set the new string as the segmentIds string
-	            playlistSegments = playlistSegments + segmentId.getId();      
+	            try {
+	            	SegmentDAO checker = new SegmentDAO();
+	            	Segment s = checker.getSegment(segmentId);
+	            	playlistSegments = playlistSegments + s.getUrl();   
+	            }catch(Exception e) {
+	            	if(e.getMessage().contentEquals("Failed in getting segment: Null Pointer: segment not found")) {
+	            		//Find the remote segment and get the Url
+	            		playlistSegments = playlistSegments + "remote";	            		
+	            	}else {
+	            		throw new Exception("Could not find Segment: " + e.getMessage());
+	            	}
+	            }
 	            ps.setString(1, playlistSegments);
 	            ps.setString(2, playlistId.getId());
 	            int numAffected = ps.executeUpdate();
@@ -111,13 +122,13 @@ public class PlaylistDAO extends DAO{
 	        	PreparedStatement ps = conn.prepareStatement(query);
 	        	//get the string of segmentIds
 	        	String playlistSegments = "";
-	            Segment[] segs =  playlist.getSegments();
+	            String[] segs =  playlist.getSegmentUrls();
 	            int i = 0;
 	            while(i<segs.length) {
 	            	if(i == 0) {
-	            		playlistSegments = segs[i].getId().getId();
+	            		playlistSegments = segs[i];
 	            	}else {
-	            		playlistSegments = playlistSegments + "," + segs[i].getId().getId();
+	            		playlistSegments = playlistSegments + "," + segs[i];
 	            	}
 	            	i++;
 	            }
@@ -196,14 +207,14 @@ public class PlaylistDAO extends DAO{
 	            ps.setString(1,  playlist.getId().getId());
 	            ps.setString(2,  playlist.getName());
 	            String playlistSegments = "";
-	            Segment[] segs =  playlist.getSegments();
+	            String[] segs =  playlist.getSegmentUrls();
 	            
 	            int i = 0;
 	            while(i<segs.length) {
 	            	if(i == 0) {
-	            		playlistSegments = segs[i].getId().getId();
+	            		playlistSegments = segs[i];
 	            	}else {
-	            		playlistSegments = playlistSegments + "," + segs[i].getId().getId();
+	            		playlistSegments = playlistSegments + "," + segs[i];
 	            	}
 	            	i++;
 	            }
@@ -301,28 +312,13 @@ public class PlaylistDAO extends DAO{
 	 */
 	private Playlist generatePlaylist(ResultSet resultSet, SegmentDAO segDAO) throws Exception {
 	    Playlist p = generatePlaylist(resultSet);
-	    //generate the segments and add them to the playlist in order
+	    //get the segment urls and add them to the playlist in order
 	    String segmentIDsStr = resultSet.getString("SegmentIDs");
-	    String[] segmentIDs = segmentIDsStr.split(",");
-	    List<Segment> segmentList = new ArrayList<Segment>();
-	    int si;
-	    for(int i = 0; i < segmentIDs.length; i++) {
-	    	if(segmentList.size() == 1 && segmentIDsStr.length() == 0) {
-	    		//nothing in there
-	    	}else {
-	    		try{
-	    			segmentList.add(segDAO.getSegment(new Id(segmentIDs[i])));
-	    		}catch(Exception e) {
-	    			
-	    		}
-	    		
-	    	}
-	    	
+	    String[] segmentUrls = segmentIDsStr.split(",");
+	    if(segmentUrls[0] == "") {
+	    	return p;
 	    }
-	    Segment[] segments = {};
-	    segments = segmentList.toArray(segments);
-	    
-	    p.addSegments(segments);
+	    p.addSegments(segmentUrls);
 	    return p;
 	}
 	
