@@ -34,6 +34,11 @@ function processListResponse(result) {
   var js = JSON.parse(result);
   //  var constList = document.getElementById('constantList'); this is from get_constantList.js
   var localSegmentsList = document.getElementById('model');
+  
+  if(localSegmentsList == null){
+	  console.log("IN CSS FILE");
+	  localSegmentsList = document.getElementById('segmentsColumn');
+  }
   // model is a list of segment objects
   
   var output = "";

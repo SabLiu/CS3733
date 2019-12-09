@@ -2,7 +2,7 @@
 <head>
 
 <script type='text/javascript' src='../ITERATION 2/api.js'></script>
-<script type='text/javascript' src='../ITERATION 2/list_local_segments.js'></script>
+<script type='text/javascript' src='../list_local_segments.js'></script>
 <script type='text/javascript' src='../ITERATION 2/list_playlists.js'></script>
 <script type='text/javascript' src='../ITERATION 2/upload_segment.js'></script>
 <script type='text/javascript' src='../ITERATION 2/create_playlist.js'></script>
@@ -17,9 +17,53 @@ var isAdmin = 2;
 
 function initialize(){
 	//get all segments
-	refreshLocalSegmentsList();
+	localSegmentsPage();
 	refreshPlaylistsList();
 }
+
+function remoteSegmentsPage(){
+	document.getElementById('segmentsColumnHeader').innerHTML = "TEST REMOTE";
+	document.getElementById('segmentsColumn').innerHTML = "";
+}
+
+function localSegmentsPage(){
+	document.getElementById('segmentsColumnHeader').innerHTML = "<p><b>Upload a new local segment </b></p><form name='createForm' method='post'> <input name='character' value='Character speaking' /><input name='sentence' value='Sentence spoken' /><br /> <input name='base64Encoding' hidden value=''/> Select a video file: <input type='file' id='videoFile' name='videoFile'>  <input type='button' id='uploadButton' value='Upload segment' disabled onClick='JavaScript:handleUploadClick(this)''><br />Note: Must upload an ogg file. </form>";
+	refreshLocalSegmentsList();
+}
+
+function searchPage(){
+	document.getElementById('segmentsColumnHeader').innerHTML = "TEST SEARCH";
+	document.getElementById('segmentsColumn').innerHTML = "";
+}
+
+// from Professor Heineman's calculator.html. 
+// Magic file processing stuff!
+
+//called in handleFileSelect()
+// prepares the base64-encoded string and enabled button
+function getBase64(file) {
+var reader = new FileReader();
+reader.readAsDataURL(file);
+
+reader.onload = function () {
+  document.createForm.base64Encoding.value = reader.result;
+  document.createForm.uploadButton.disabled = false;
+};
+}
+
+// When file is selected, stash base64 value in the encoding field.  
+function handleFileSelect(evt) {
+var files = evt.target.files; 
+if (files[0].size > 500000000) {  // changeable value. currently 5 MB 
+	document.createForm.base64Encoding.value = "";
+	alert("File size too large to use:" + files[0].size + " bytes");
+} else {
+	getBase64(files[0]); // request the load (async)
+}
+}
+
+// register
+document.getElementById('videoFile').addEventListener('change', handleFileSelect, false);
 </script>
 
 <link rel="stylesheet" href='../style-sheet.css'>
@@ -43,15 +87,16 @@ function initialize(){
     <div class="column" style="background-color:var(--segmentColor);">
   
   <ul>
-      <li><a>Local Segments</a></li>
-      <li><a>Remote Segments</a></li>
-      <li><a>Search</a></li>
+      <li onclick="localSegmentsPage()"><a>Local Segments</a></li>
+      <li onclick="remoteSegmentsPage()"><a>Remote Segments</a></li>
+      <li onclick="searchPage()"><a>Search</a></li>
   </ul>
   
   	<div class="box">
 	<div class="compBox" style="max-height:86vh;">
 
-<div id="model"></div>
+<div id="segmentsColumnHeader"></div>
+<div id="segmentsColumn"></div>
         
     </div>
     </div>
