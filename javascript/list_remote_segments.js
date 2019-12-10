@@ -43,24 +43,32 @@ function processRemoteSitesListResponse(remSitesList) {
   for (var i = 0; i < js.model.length; i++) { // array of sites
 	var aSite = js.model[i];
     
-    var siteURL 			= aSite["url"];
-    callRemoteAPI(siteURL); 
-    // need to make an API call to this site. 
+    var siteURL = aSite["url"];
+    var q = siteURL.indexOf("?apikey=");
+    if (q == -1) {
+      alert("Your input must be of the form 'url?apikey=...'");
+    } else {
+      var url = siteURL.substring(0, q);
+      var apikey = siteURL.substring(q+8);
+    callRemoteAPI(url, apikey); 
+    // need to make an API call to this site with this API key. 
   }
   
+}
 }
 
 /**
  *  Call the remote API of site in our registered sites list
  *  Get a list of available segments from each site. 
  */
-function callRemoteAPI(siteURL) {
+function callRemoteAPI(siteURL, apikey) {
 	   var xhr = new XMLHttpRequest();
 	   xhr.open("GET", siteURL, true); 
+	   xhr.setRequestHeader("x-api-key", apikey)
 	   // want to get their list of available segments
 	   xhr.send();
 	   
-	   console.log("sent. Want remote segments. ");
+	   console.log("sent. Want remote segments from: " + siteURL);
 	  // This will process results and update HTML as appropriate. 
 	   
 	  xhr.onloadend = function () {
@@ -86,7 +94,7 @@ function processRemoteSegmentsListResponse(result) {
   for (var i = 0; i < js.segments.length; i++) { 
 	//grabs stuff out of json
 	var remoteSegJson = js.segments[i]; // this is a segment. 
-    console.log(remoteSegJson);
+    console.log("REMOTE SEG: " + remoteSegJson);
     
     var segURL 			= remoteSegJson["url"];
     var sent			= remoteSegJson["text"];
@@ -96,7 +104,7 @@ function processRemoteSegmentsListResponse(result) {
     	// character : sentence
     	output = output + "</br><p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
     	output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + segURL+ "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
-    	output = output + "<p><input type=\"button\" value=\"Append to current playlist\" onClick=\"JavaScript:processAppendToPlaylist(" + segURL + ")\"></p></br>";
+    	output = output + "<p><input type=\"button\" value=\"Append to current playlist\" onClick=\"JavaScript:processAppendToPlaylist('" + segURL + "')\"></p></br>";
   }
   // Update computation result
   remoteSegmentsList.innerHTML = remoteSegmentsList.innerHTML + output;
