@@ -51,8 +51,9 @@ function processViewPlaylistResponse(result) {
   currentPlaylistLength = js.model.segmentUrls.length; // change global variable in Participant Page, used by play_playlist
   console.log("currentPlaylist length: " + currentPlaylistLength); 
 
-  for (var i = 0; i < js.model.segmentUrls.length; i++) {// segmentUrls is a string that is a URL 
-	//grabs stuff out of json
+  for (var i = 0; i < js.model.segmentUrls.length; i++) {
+	  // however many segments is in segmentUrls
+	  // segmentUrls is a string that is a URL 
 	var segURL = js.model.segmentUrls[i]; // is a segment URL
     console.log(segURL);
     
