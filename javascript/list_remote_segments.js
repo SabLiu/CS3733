@@ -1,3 +1,10 @@
+/*
+ * How this works: 
+ * 1. call our API to get a list of our registered sites
+ * 2. call the API of each URL to get the list of segments
+ * 3. generate necessary HTML for each list of segments
+ */
+
 
 /**
  * Refresh list of remote segments
@@ -5,7 +12,8 @@
  */
 function refreshRemoteSegmentsList() {
    var xhr = new XMLHttpRequest();
-   xhr.open("GET", list_remote_segments_url, true); // need to call the URLs in our remote sites list 
+   xhr.open("GET", remote_site_url, true); 
+   // get all remote sites (call our API) 
    xhr.send();
    
    console.log("sent");
@@ -16,32 +24,71 @@ function refreshRemoteSegmentsList() {
   xhr.onloadend = function () {
     if (xhr.readyState == XMLHttpRequest.DONE) {
       console.log ("XHR:" + xhr.responseText);
-      processRemoteListResponse(xhr.responseText);
+      processRemoteSitesListResponse(xhr.responseText);
     } else {
-      processRemoteListResponse("N/A");
+      processRemoteSitesListResponse("N/A");
     }
   };
 }
 
 /**
- * Respond to server JSON object.
+ * Respond to server JSON object: list of OUR registered sites.
  *
  */
-function processRemoteListResponse(result) {
-//  var localIsAdmin = isAdmin; 
-  console.log("ISADMIN to list segments = " + isAdmin);
-  // Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
-  var js = JSON.parse(result);
-  var remoteSegmentsList = document.getElementById('remoteSegments');
-  // model is a list of segment objects
+function processRemoteSitesListResponse(remSitesList) {
+  var js = JSON.parse(remSitesList);
+  // model is a list of registered remote sites
   
   var output = "";
-  for (var i = 0; i < js.segments.length; i++) { // array of segments
+  for (var i = 0; i < js.model.length; i++) { // array of sites
+	var aSite = js.model[i];
+    
+    var siteURL 			= aSite["url"];
+    callRemoteAPI(siteURL); 
+    // need to make an API call to this site. 
+  }
+  
+}
+
+/**
+ *  Call the remote API of site in our registered sites list
+ *  Get a list of available segments from each site. 
+ */
+function callRemoteAPI(siteURL) {
+	   var xhr = new XMLHttpRequest();
+	   xhr.open("GET", siteURL, true); 
+	   // want to get their list of available segments
+	   xhr.send();
+	   
+	   console.log("sent. Want remote segments. ");
+	  // This will process results and update HTML as appropriate. 
+	   
+	  xhr.onloadend = function () {
+	    if (xhr.readyState == XMLHttpRequest.DONE) {
+	      console.log ("XHR:" + xhr.responseText);
+	      processRemoteSegmentsListResponse(xhr.responseText);
+	    } else {
+	    	processRemoteSegmentsListResponse("N/A");
+	    }
+	  };
+	}
+
+/**
+ * Respond to JSON object from remote site.
+ *
+ */
+function processRemoteSegmentsListResponse(result) {
+
+	var js = JSON.parse(result);// array of segments
+  var remoteSegmentsList = document.getElementById('remoteSegments');
+  
+  var output = "";
+  for (var i = 0; i < js.segments.length; i++) { 
 	//grabs stuff out of json
-	var remoteSegJson = js.model[i];
+	var remoteSegJson = js.segments[i]; // this is a segment. 
     console.log(remoteSegJson);
     
-    var segURL 			= remoteSegJson["URL"];
+    var segURL 			= remoteSegJson["url"];
     var sent			= remoteSegJson["text"];
     var character 		= remoteSegJson["character"];
     
@@ -52,6 +99,6 @@ function processRemoteListResponse(result) {
     	output = output + "<p><input type=\"button\" value=\"Append to current playlist\" onClick=\"JavaScript:processAppendToPlaylist(" + segURL + ")\"></p></br>";
   }
   // Update computation result
-  remoteSegmentsList.innerHTML = output;
+  remoteSegmentsList.innerHTML = remoteSegmentsList.innerHTML + output;
   
 }

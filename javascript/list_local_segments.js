@@ -33,7 +33,7 @@ function processListResponse(result) {
   // Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
   var js = JSON.parse(result);
   //  var constList = document.getElementById('constantList'); this is from get_constantList.js
-  var localSegmentsList = document.getElementById('model');
+  var localSegmentsList = document.getElementById('localSegments');
   
   if(localSegmentsList == null){
 	  console.log("IN CSS FILE");
@@ -42,7 +42,7 @@ function processListResponse(result) {
   // model is a list of segment objects
   
   var output = "";
-  for (var i = 0; i < js.model.length; i++) {
+  for (var i = 0; i < js.model.length; i++) { // model is a list of segments
 	//grabs stuff out of json
 	var localSegsJson = js.model[i];
     console.log(localSegsJson);

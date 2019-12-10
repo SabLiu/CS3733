@@ -11,6 +11,8 @@
 <script type='text/javascript' src='../search_segments.js'></script>
 <script type='text/javascript' src='../append_to_playlist.js'></script>
 <script type='text/javascript' src='../delete_from_playlist.js'></script>
+<script type='text/javascript' src='../list_remote_segments.js'></script>
+
 
 
 <script type="text/javascript">
@@ -22,6 +24,7 @@ var isAdmin = 2;
 function initialize(){
 	//get all segments
 	refreshLocalSegmentsList();
+	refreshRemoteSegmentsList();
 	refreshPlaylistsList();
 }
 </script>
@@ -102,7 +105,7 @@ function initialize(){
 <p><b>Local Segments</b></p>
 <p>&nbsp;</p>
 
-<div id="model"></div>
+<div id="localSegments"></div>
 
 <p>&nbsp;</p>
 
