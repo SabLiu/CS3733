@@ -84,10 +84,12 @@ function processViewPlaylistResponse(result,e) {
 // that is used (at runtime) to play the given id
 // e = event handler
 function makePlayFunction(id) {
-
   // we are returning a function to be the event handler that plays 'id'
   return function(e) {
-    document.getElementById(id).play();
+	// scrolling?!
+	  document.getElementById(id).scrollIntoView();
+	  document.getElementById(id).play();
+    
   };
 }
 
