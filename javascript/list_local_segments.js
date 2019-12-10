@@ -69,7 +69,7 @@ function processListResponse(result) {
     	// character : sentence
     	output = output + "</br><p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
     	output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + segURL + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
-    	output = output + "<p><input type=\"button\" value=\"Append to current playlist\" onClick=\"JavaScript:processAppendToPlaylist('" + segURL + "')\"><input type=\"button\" id=\"deleteSeg\" value=\"Delete Local Segment\" onClick=\"JavaScript:processDeleteSegment('" + segID + "')\"></p></br>";
+    	output = output + "<p><input type=\"button\" id = \"appendButton"+ i + "\"value=\"Append to current playlist\" onClick=\"JavaScript:processAppendToPlaylist('" + segURL + "')\"><input type=\"button\" id=\"deleteSeg\" value=\"Delete Local Segment\" onClick=\"JavaScript:processDeleteSegment('" + segID + "')\"></p></br>";
     } 
   
   }

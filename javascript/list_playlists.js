@@ -3,6 +3,15 @@
  * Refresh list of playlists
  */
 function refreshPlaylistsList() {
+	try{
+		   var i = 0;
+		   while(true){
+			   document.getElementById('appendButton' + i).disabled = true;
+			   i = i + 1;
+		   }
+	   }
+	catch(e){}
+
    var xhr = new XMLHttpRequest();
    xhr.open("GET", list_playlists_url, true);
    xhr.send();
@@ -44,7 +53,7 @@ function processPlaylistResponse(result) {
     
     var name = playlistJson["name"];
     var id = playlistJson["id"]["id"];
-    output = output + "<p>" + name + "&nbsp;&nbsp;<input type=\"button\" value=\"View\" onClick=\"JavaScript:processViewPlaylist('" + id + "', this)\" /><input type=\"button\" value=\"Delete\" onClick=\"JavaScript:processDeletePlaylist('" + id + "')\" /></p>";    
+    output = output + "<p><input type=\"button\" value=\"View\" onClick=\"JavaScript:processViewPlaylist('" + id + "', this)\" />  <input type=\"button\" value=\"Delete\" onClick=\"JavaScript:processDeletePlaylist('" + id + "')\" />    "  + name + "</p><p>&nbsp;</p>";    
   }
 
   // Update computation result

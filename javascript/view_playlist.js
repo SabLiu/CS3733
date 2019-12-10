@@ -1,7 +1,14 @@
 // called when participant clicks "view" button next to a playlist
 // pass in ID of playlist they want to view
 function processViewPlaylist(val,e) {
-	
+	try{
+		   var i = 0;
+		   while(true){
+			   document.getElementById('appendButton' + i).disabled = false;
+			   i = i + 1;
+		   }
+	   }
+	catch(e){}
 	var data = {};
 	data["id"] = val;  
 	currentPlaylistID = val; // update global variable in ParticipantPage.html
@@ -109,7 +116,12 @@ function registerAll(e) {
   }
 
   var output = document.getElementById("currentPlaylist");
-  output.innerHTML = contents;
+  var backButtonHTML = "";
+  if(output == null){
+	  output = document.getElementById("playlistsColumn");
+	  backButtonHTML = "<div style='text-align:right'><input type=\"button\" value=\"Back To Playlists List\" onClick=\"JavaScript:refreshPlaylistsList()\" /></div><p>" + currentPLJS.model.name + "</p>&nbsp;";
+  }
+  output.innerHTML = backButtonHTML + contents;
 
   // now that videos are in place, we can locate them and register the 
   // necessary callback functions, which is a tricky use of "closures" in Javascript.
