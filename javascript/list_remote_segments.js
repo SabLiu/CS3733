@@ -68,7 +68,6 @@ function callRemoteAPI(siteURL, apikey) {
 	   // want to get their list of available segments
 	   xhr.send();
 	   
-	   console.log("sent. Want remote segments from: " + siteURL);
 	  // This will process results and update HTML as appropriate. 
 	   
 	  xhr.onloadend = function () {

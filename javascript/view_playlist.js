@@ -6,10 +6,6 @@ function processViewPlaylist(val, e) {
 	data["id"] = val;  
 	currentPlaylistID = val; // update global variable in ParticipantPage.html
 	
-	
-	
-	console.log("currentPlaylistID: " + currentPlaylistID);
-	  
 	var js = JSON.stringify(data);
 	console.log("JS:" + js);
 	var xhr = new XMLHttpRequest();
@@ -30,11 +26,8 @@ function processViewPlaylist(val, e) {
 }
 
 // generate information of segments 
-// later: generate list of segments in the playlist and print to html 
-// script is to play the playlist 
-function processViewPlaylistResponse(result) {
-  // Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
-  var js = JSON.parse(result);
+function processViewPlaylistResponse(result) {  
+	var js = JSON.parse(result);
   console.log("response to view: " + js); 
   var playlistSegmentsList = document.getElementById('currentPlaylist');
 
@@ -53,22 +46,20 @@ function processViewPlaylistResponse(result) {
   var output = ""; 
   
   currentPlaylistLength = js.model.segmentUrls.length; // change global variable in Participant Page, used by play_playlist
-  console.log("currentPlaylist length: " + currentPlaylistLength); 
 
   for (var i = 0; i < js.model.segmentUrls.length; i++) {
 	  // however many segments is in segmentUrls
 	  // segmentUrls is a string that is a URL 
 	var segURL = js.model.segmentUrls[i]; // is a segment URL
-    console.log(segURL);
-    
+
     // updates html
     var nextSegNum = i + 1; 
     	// first: this video needs controls
     	if (i == 0){ 
-    		output = output + "<p><video id= vidNum"+ i + " width=\"320\" height=\"240\" controls><source src=" + segURL +  " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p> <input type=\"button\" value=\"Remove from playlist\" onClick=\"JavaScript:processDeleteFromPlaylist('" + segURL + "')\">" ;
+    		output = output + "<p><video controls=\"\" id= \"vidNum"+ i + "\" width=\"320\" height=\"240\" controls><source src=" + segURL +  " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p> <input type=\"button\" value=\"Remove from playlist\" onClick=\"JavaScript:processDeleteFromPlaylist('" + segURL + "')\">" ;
     	}
     	else { 
-    		output = output + "<p><video id= vidNum"+ i + " width=\"320\" height=\"240\"><source src=" + segURL + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p><input type=\"button\" value=\"Remove from playlist\" onClick=\"JavaScript:processDeleteFromPlaylist('" + segURL + "')\">" ;
+    		output = output + "<p><video controls=\"\" id= \"vidNum"+ i + "\" width=\"320\" height=\"240\"><source src=" + segURL + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p><input type=\"button\" value=\"Remove from playlist\" onClick=\"JavaScript:processDeleteFromPlaylist('" + segURL + "')\">" ;
     	}
     
   }
