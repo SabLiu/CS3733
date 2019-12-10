@@ -1,5 +1,13 @@
+var js;
 
-// called when "search" button is pressed 
+// this is called when you refresh local segments list. 
+
+function receiveLocalSegs(JSin){ 
+	js = JSin; 
+}
+
+// this takes in the global variable (which has been changed by refreshSegmentsList())
+// only when "search" button is pressed 
 
 function processSearch(js) {
 	// grab user-entered data from form
