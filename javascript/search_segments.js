@@ -9,6 +9,20 @@ function processSearch(js) {
 
 	//get all segments from js
 	
+	//iterate through videos
+	 var output = "";
+	  for (var i = 0; i < js.model.length; i++) { // model is a list of segments
+		//grabs stuff out of json
+		var localSegsJson = js.model[i];
+	    console.log(localSegsJson);
+	    
+	    var segID 			= localSegsJson["id"]["id"];
+	    var isRemAvailable 	= localSegsJson["remotelyAvailable"];
+	    var sent			= localSegsJson["sentence"];
+	    var character 		= localSegsJson["character"];
+//	    var segURL 			= s3_segments_url  + segID;
+	    var segURL 			= localSegsJson["url"];
+	
 	//find which Characters include the string which was searched
 	//find which Sentences include the string which was searched
 	
