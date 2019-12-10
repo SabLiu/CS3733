@@ -31,6 +31,11 @@ function processPlaylistResponse(result) {
   var js = JSON.parse(result);
   var localPlaylistsList = document.getElementById('playlists');
   
+  if (localPlaylistsList == null){
+	  console.log("in CSS");
+	  localPlaylistsList = document.getElementById('playlistsColumn');
+  }
+  
   var output = "";
   for (var i = 0; i < js.model.length; i++) {
 	//grabs stuff out of json
@@ -39,7 +44,7 @@ function processPlaylistResponse(result) {
     
     var name = playlistJson["name"];
     var id = playlistJson["id"]["id"];
-    output = output + "<p>" + name + "&nbsp;&nbsp;<input type=\"button\" value=\"View\" onClick=\"JavaScript:processViewPlaylist('" + id + "')\" /><input type=\"button\" value=\"Delete\" onClick=\"JavaScript:processDeletePlaylist('" + id + "')\" /></p>";    
+    output = output + "<p>" + name + "&nbsp;&nbsp;<input type=\"button\" value=\"View\" onClick=\"JavaScript:processViewPlaylist('" + id + "', this)\" /><input type=\"button\" value=\"Delete\" onClick=\"JavaScript:processDeletePlaylist('" + id + "')\" /></p>";    
   }
 
   // Update computation result

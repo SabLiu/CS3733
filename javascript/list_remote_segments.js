@@ -64,7 +64,7 @@ function processRemoteSitesListResponse(remSitesList) {
 function callRemoteAPI(siteURL, apikey) {
 	   var xhr = new XMLHttpRequest();
 	   xhr.open("GET", siteURL, true); 
-	   xhr.setRequestHeader("x-api-key", apikey)
+	   xhr.setRequestHeader("x-api-key", apikey);
 	   // want to get their list of available segments
 	   xhr.send();
 	   
