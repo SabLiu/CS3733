@@ -1,7 +1,9 @@
 <title>CSS Template</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <style>
+
 * {
     margin: 0;
     padding: 0;
@@ -9,7 +11,7 @@
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Racing Sans One', Helvetica, sans-serif;
 }
 
 :root {
@@ -106,6 +108,32 @@ li a {
   text-decoration: none;
 }
 
+input[type="button"]{
+  background-color: var(--menuColor);
+  border: 2px solid;
+  margins: 5px 5px;
+  border-color: white;
+  border-radius: 8px;
+  padding: 5px 5px;
+  color: white;
+  font-size: 14px;
+}
+
+input[type="button"]:disabled{
+  background-color: grey;
+  border: 2px none;
+  margins: 5px 5px;
+  border-color: white;
+  border-radius: 8px;
+  padding: 5px 5px;
+  color: white;
+  font-size: 14px;
+}
+
+input[type="button"]:hover {
+  border-color: var(--menuColor);
+}
+
 /* Change the link color to #111 (black) on hover */
 li a:hover {
   background-color: var(--segmentColor);
@@ -121,5 +149,8 @@ li a:hover {
     width: 100vw;
   }
 }
+
+
+
 </style>
 </head>

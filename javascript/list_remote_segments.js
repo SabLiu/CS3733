@@ -90,6 +90,11 @@ function processRemoteSegmentsListResponse(result) {
 	var js = JSON.parse(result);// array of segments
   var remoteSegmentsList = document.getElementById('remoteSegments');
   
+  if(remoteSegmentsList == null){
+	  console.log("IN CSS FILE");
+	  remoteSegmentsList = document.getElementById('segmentsColumn');
+  }
+  
   var output = "";
   for (var i = 0; i < js.segments.length; i++) { 
 	//grabs stuff out of json

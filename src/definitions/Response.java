@@ -5,7 +5,7 @@ public class Response<Model> {
 	public int statusCode;
 	public String error;
 	
-	public Response(Model model, int code) {
+	public Response(Model model, int code) {  
 		this.model = model;
 		this.statusCode = code;
 		this.error = ""; 

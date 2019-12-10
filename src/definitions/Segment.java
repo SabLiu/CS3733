@@ -9,7 +9,7 @@ public class Segment {
 	
 	
 	public Segment(Id id, boolean isRemotelyAvailable, String sentence, String character) {
-		this.id = id; 
+		this.id = id;  
 		this.isRemotelyAvailable = isRemotelyAvailable;
 		this.sentence = sentence;
 		this.character = character;
