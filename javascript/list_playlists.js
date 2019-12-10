@@ -49,5 +49,5 @@ function processPlaylistResponse(result) {
 
   // Update computation result
   localPlaylistsList.innerHTML = output;
-  console.log(output);
+  console.log("View playlist: " + output);
 }

@@ -55,14 +55,14 @@ function initialize(){
 
 
 <script>
-// This is quick and dirty to make this work. You will have your own 
-// video segments as stored in a playlist, right?
-var allScripts = currentPLJS;
+if (currentPLJS != ""){
+var allScripts = currentPLJS.model.segmentUrls;
 
-// makePlayFunction returns a function used (at runtime) to play the given id
-// so we can create unique callback methods
-// e is an event handler.
+// Oh this is tricky. The outer 'makePlayFunction' returns a function
+// that is used (at runtime) to play the given id
+// e = event handler
 function makePlayFunction(id) {
+
   // we are returning a function to be the event handler that plays 'id'
   return function(e) {
     document.getElementById(id).play();
@@ -70,20 +70,33 @@ function makePlayFunction(id) {
 }
 
 function registerAll(e) {
-// put proper IDs on videos (done in view_playlist)
-  
+
+  var contents = "";
+  var i;
+  for (i = 0; i < currentPlaylistLength; i++) {
+     var id = "vidNum" + i;
+
+     var vidBlock = "<video id='" + id + "' width=320 height=240";
+     if (i == 0) { vidBlock += " controls"; }
+     vidBlock += "><source src=\"" + allScripts[i] + "\" type=\"video/ogg\"></video>";
+     console.log("REGISTERING: vidNum"+i);
+     console.log(vidBlock);
+     contents += vidBlock;
+  }
+
+  var output = document.getElementById("currentPlaylist");
+  output.innerHTML = contents;
+
   // now that videos are in place, we can locate them and register the 
   // necessary callback functions, which is a tricky use of "closures" in Javascript.
   for (i = 0; i < currentPlaylistLength-1; i++) {
-	  console.log("REGISTERING: vidNum"+i);
     var priorVid = document.getElementById("vidNum" + i);
     callBackFunction = makePlayFunction("vidNum" + (i+1));
     priorVid.addEventListener("ended", callBackFunction);
   }
 }
+}
 </script>
-
-
 <hr />
 <p><b>Upload a new local segment </b></p>
 
