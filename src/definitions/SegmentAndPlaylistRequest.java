@@ -13,7 +13,7 @@ public class SegmentAndPlaylistRequest {
 		this.playlistId = playlistId; 
 	}
 	
-	public void setSegmentId(String segmentUrl) {
+	public void setSegmentUrl(String segmentUrl) {
 		this.segmentUrl = segmentUrl;
 	}
 

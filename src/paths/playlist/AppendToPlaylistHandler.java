@@ -17,7 +17,7 @@ public class AppendToPlaylistHandler implements RequestHandler<SegmentAndPlaylis
 	@Override
 	public Response<Playlist> handleRequest(SegmentAndPlaylistRequest ids, Context context) {
 		logger = context.getLogger();
-		logger.log(ids.toString());
+		logger.log("here" + ids.toString());
 
 		Response<Playlist> response;
 		dao = new PlaylistDAO();

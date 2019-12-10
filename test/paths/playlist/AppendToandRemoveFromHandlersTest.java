@@ -111,7 +111,40 @@ public class AppendToandRemoveFromHandlersTest extends LambdaTest{
 	}
 	
 	public void testRemoveEnd() {
-		Response<Playlist> response = removeHandler.handleRequest(request2,createContext("list"));
+		try {
+    	Response<Playlist> beforeResponse = getHandler.handleRequest(request2.getPlaylistId(), createContext("list"));
+    	Response<Playlist> response = removeHandler.handleRequest(request2,createContext("list"));
+		Response<Playlist> afterResponse = getHandler.handleRequest(request2.getPlaylistId(), createContext("list"));
+		
+		System.out.println(beforeResponse.getModel());
+		//System.out.println(response.getModel());
+		System.out.println(afterResponse.getModel());
+		
+		boolean removedFromPlaylist = true;
+		for(String s : response.model.getSegmentUrls()) {
+			if(s.equals(request1.getSegmentUrl())) {
+				removedFromPlaylist = false;
+			}
+		}
+	
+		boolean segmentsArrayDecreased;
+		if(afterResponse.getModel() != null) {
+			segmentsArrayDecreased = (afterResponse.getModel().getSegmentUrls().length - beforeResponse.getModel().getSegmentUrls().length) < 0;
+		}
+		else {
+			segmentsArrayDecreased = true;
+		}
+		
+		
+		assertTrue("Response indicates sucess", response.statusCode == 200);
+		assertTrue("Segment removed from database", removedFromPlaylist);
+		assertTrue("Number of segments in playlist decreased", segmentsArrayDecreased);
+		assertArrayEquals("Updated playlist returend", response.getModel().getSegmentUrls(), afterResponse.getModel().getSegmentUrls());  
+	} catch (Exception e) {
+		System.out.println("EXCPETION: " + e.getMessage());
+		e.printStackTrace();
+		fail("EXCPETION: " + e.getMessage());
+	}
 	}
 	
 	@Before
