@@ -28,12 +28,11 @@ function refreshLocalSegmentsList() {
  *
  */
 function processListResponse(result) {
-//  var localIsAdmin = isAdmin; 
-  console.log("ISADMIN to list segments = " + isAdmin);
-  // Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
   var js = JSON.parse(result);
-  processSearch(js);
-  //  var constList = document.getElementById('constantList'); this is from get_constantList.js
+  if (isAdmin<3){
+//	  receiveLocalSegs(js);
+	  currentPLJS = js; 
+  }
   var localSegmentsList = document.getElementById('localSegments');
   
   if(localSegmentsList == null){
@@ -52,11 +51,8 @@ function processListResponse(result) {
     var isRemAvailable 	= localSegsJson["remotelyAvailable"];
     var sent			= localSegsJson["sentence"];
     var character 		= localSegsJson["character"];
-//    var segURL 			= s3_segments_url  + segID;
     var segURL 			= localSegsJson["url"];
     
-    
-    console.log("segURL to get: " + segURL);
     
     // updates html
     // if it is the admin
@@ -75,14 +71,8 @@ function processListResponse(result) {
     	output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + segURL + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
     	output = output + "<p><input type=\"button\" value=\"Append to current playlist\" onClick=\"JavaScript:processAppendToPlaylist('" + segURL + "')\"><input type=\"button\" id=\"deleteSeg\" value=\"Delete Local Segment\" onClick=\"JavaScript:processDeleteSegment('" + segID + "')\"></p></br>";
     } 
-    // catch weird errors/troubleshooting
-    else {
-    	console.log ("I don't know what isAdmin is");
-    }
   
   }
   // Update computation result
   localSegmentsList.innerHTML = output;
-  
-//  console.log(output);
 }
