@@ -43,16 +43,17 @@ public class PlaylistDAO extends DAO{
 	             //convert the list to a string to put into the database
 	           
 	            i = 0;
-	            while(i<playlistSegmentsList.size()-1) {
-	            	playlistSegments = playlistSegments + playlistSegmentsList.get(i) + ",";
-	            	i++;
-	            }
-	           
-	            playlistSegments = playlistSegments + playlistSegmentsList.get(i);
-	            
+	            if(playlistSegmentsList.size() != 0) {
+		            while(i<playlistSegmentsList.size()-1) {
+		            	playlistSegments = playlistSegments + playlistSegmentsList.get(i) + ",";
+		            	i++;
+		            }
+		         
+		            playlistSegments = playlistSegments + playlistSegmentsList.get(i);
+		        }
 	            ps.setString(1, playlistSegments);
 	            ps.setString(2, playlistId.getId());
-	          
+
 	            int numAffected = ps.executeUpdate();
 	            ps.close(); 
 	            return (numAffected == 1); 
