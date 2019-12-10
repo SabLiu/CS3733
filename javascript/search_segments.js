@@ -1,22 +1,15 @@
-var js;
-
-// this is called when you refresh local segments list. 
-
-function receiveLocalSegs(JSin){ 
-	js = JSin; 
-}
 
 // this takes in the global variable (which has been changed by refreshSegmentsList())
 // only when "search" button is pressed 
 
-function processSearch(js) {
+function processSearch() {
 	// grab user-entered data from form
 	var form = document.searchForm;
 	var character = form.searchBarCharacter.value;
 	var sentence = form.searchBarWords.value;
 
 	//get all segments from js
-	
+	js = currentPLJS; // this is a global variable we update on refresh.  
 	//iterate through videos
 	 var output = "";
 	  for (var i = 0; i < js.model.length; i++) { // model is a list of segments
@@ -66,6 +59,7 @@ function processSearch(js) {
 		  processSearchResponse("N/A");
 	  }
   };
+}
 }
 
 // analyze search results 
