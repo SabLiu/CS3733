@@ -537,6 +537,7 @@ public class PlaylistDAOTest {
 		Id i = new Id("one6h8uh-3344-uwu9-owo6-cb7fc2010e9d");
 		Id ii = new Id("two6h8uh-3344-uwu9-owo6-cb7fc2010e9d");
 		Id iii = new Id("three8uh-3344-uwu9-owo6-cb7fc2010e9d");
+		Id iiii = new Id("four8uh-3344-uwu9-owo6-cb7fc2010e9d");
 		List<Segment> controllerSegments = new ArrayList<>();
 		controllerSegments.add(new Segment(new Id("1dba4225-9077-450e-9c94-21f2eaba4e7b.ogg"), false, ">:~(", "Erich"));
 		controllerSegments.add(new Segment(new Id("3c4bdc3a-a3f5-4f39-bf3a-b7f65fa9399b.ogg"), false, "delete delete delete", "sabrina"));
@@ -557,6 +558,12 @@ public class PlaylistDAOTest {
 		Segment conSegsThree[] = {controllerSegments.get(0), controllerSegments.get(1)};
 		Playlist conThree = new Playlist(iii, "Test PLaylist three", conSegsThree);
 		
+		Segment segsFour[] = {controllerSegments.get(0)};
+		Playlist testFour = new Playlist(iiii, "Test PLaylist three", segsFour);
+		Segment conSegsFour[] = {};
+		Playlist conFour = new Playlist(iiii, "Test PLaylist three", conSegsFour);
+		
+		
 		PlaylistDAO tester = new PlaylistDAO();
 		SegmentDAO helper = new SegmentDAO();
 		
@@ -570,20 +577,25 @@ public class PlaylistDAOTest {
 			tester.addPlaylist(testOne);
 			tester.addPlaylist(testTwo);
 			tester.addPlaylist(testThree);
+			tester.addPlaylist(testFour);
 			//test
 			
 			tester.deleteFromPlaylist(i, controllerSegments.get(0).getUrl());
 			tester.deleteFromPlaylist(ii, controllerSegments.get(1).getUrl());
 			tester.deleteFromPlaylist(iii, controllerSegments.get(2).getUrl());
+			tester.deleteFromPlaylist(iiii, controllerSegments.get(0).getUrl());
+			
 			
 			Playlist gottonOne = tester.getFullPlaylist(i);
 			Playlist gottonTwo = tester.getFullPlaylist(ii);
 			Playlist gottonThree = tester.getFullPlaylist(iii);
+			Playlist gottonFour = tester.getFullPlaylist(iiii);
 			//clean
 			
 			tester.deletePlaylist(i);
 			tester.deletePlaylist(ii);
 			tester.deletePlaylist(iii);
+			tester.deletePlaylist(iiii);
 			helper.deleteSegment(segsOne[0]);
 			helper.deleteSegment(segsOne[1]);
 			helper.deleteSegment(segsOne[2]);
@@ -591,8 +603,9 @@ public class PlaylistDAOTest {
 			boolean testOnePassed = conOne.equals(gottonOne);
 			boolean testTwoPassed = conTwo.equals(gottonTwo);
 			boolean testThreePassed = conThree.equals(gottonThree);
+			boolean testFourPassed = conFour.equals(gottonFour);
 			
-			assertTrue(testOnePassed && testTwoPassed && testThreePassed);
+			assertTrue(testOnePassed && testTwoPassed && testThreePassed && testFourPassed);
 		}catch(Exception e) {
 			fail("exception");
 		}
