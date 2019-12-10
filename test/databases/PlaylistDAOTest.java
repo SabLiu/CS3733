@@ -17,8 +17,10 @@ import definitions.Id;
 public class PlaylistDAOTest {
 	
 	/**
-	 * Tests the function that gets all the playlists(will break in the futer as more adds to the database)
+	 * Tests the function that gets all the playlists in the database
+	 * used as one of our first tests(no longer works)
 	 */
+	/*
 	@Test
 	public void getPlaylistsTest() {
 		//Controle data
@@ -53,7 +55,7 @@ public class PlaylistDAOTest {
 		}
 				
 	}
-	
+	*/
 	
 	/**
 	 * Tests adding an empty playlist to the database
