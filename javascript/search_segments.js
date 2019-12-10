@@ -1,12 +1,17 @@
 
 // called when "search" button is pressed 
 
-function processSearch() {
+function processSearch(js) {
 	// grab user-entered data from form
 	var form = document.searchForm;
 	var character = form.searchBarCharacter.value;
 	var sentence = form.searchBarWords.value;
 
+	//get all segments from js
+	
+	//find which Characters include the string which was searched
+	//find which Sentences include the string which was searched
+	
 	var data = {};
 	// make sure not to pass in "character" field if it's empty
 	// (this makes the JSON :( )
