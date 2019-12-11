@@ -29,6 +29,8 @@ function refreshRemoteSegmentsList() {
       processRemoteSitesListResponse("N/A");
     }
   };
+  
+  initalizing = 2;
 }
 
 /**
