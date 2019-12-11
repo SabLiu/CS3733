@@ -5,61 +5,68 @@
 function processSearch() {
 	// grab user-entered data from form
 	var form = document.searchForm;
-	var character = form.searchBarCharacter.value;
-	var sentence = form.searchBarWords.value;
+	var characterSearch = form.searchBarCharacter.value;
+	var sentenceSearch = form.searchBarWords.value;
 
 	//get all segments from js
 	js = currentPLJS; // this is a global variable we update on refresh.  
 	//iterate through videos
-	 var output = "";
+	 
 	  for (var i = 0; i < js.model.length; i++) { // model is a list of segments
 		//grabs stuff out of json
 		var localSegsJson = js.model[i];
 	    console.log(localSegsJson);
 	    
-	    var segID 			= localSegsJson["id"]["id"];
-	    var isRemAvailable 	= localSegsJson["remotelyAvailable"];
 	    var sent			= localSegsJson["sentence"];
-	    var character 		= localSegsJson["character"];
-//	    var segURL 			= s3_segments_url  + segID;
-	    var segURL 			= localSegsJson["url"];
-	
-	//find which Characters include the string which was searched
-	//find which Sentences include the string which was searched
-	
-	var data = {};
-	// make sure not to pass in "character" field if it's empty
-	// (this makes the JSON :( )
-	if (character != ""){data["characterKeyphrase"] = character;}
-	console.log("character: " + character); 
-	data["sentenceKeyphrase"] = sentence;
-  
-	var js = JSON.stringify(data);
-	console.log("JS:" + js);
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", search_url, true);  
-	// send the collected data as JSON
-	xhr.send(js);
+	    var character 		= localSegsJson["character"];	   
+	    
+	    var data = {};
+	    
+	    //find which Characters include the string which was searched
+	    // make sure not to pass in "character" field if it's empty
+	    // (this makes the JSON :( )
+	    if (characterSearch != "") {
+	    	if (character.includes(characterSearch)) {
+	    		data["characterKeyphrase"] = character;
+	    	} else {
+	    		data["characterKeyphrase"] = characterSearch;
+	    	}
+	    }
 
-	// This will process results and update HTML as appropriate. 
-	xhr.onloadend = function () {
-	console.log(xhr);
-	console.log(xhr.request);
-	  if (xhr.readyState == XMLHttpRequest.DONE) {
-		  if (xhr.status == 200) {
-			  console.log ("XHR:" + xhr.responseText);
-			  processSearchResponse(xhr.responseText);
-		  } else {
-			  console.log("actual:" + xhr.responseText)
-			  var js = JSON.parse(xhr.responseText);
-			  var err = js["error"];
-			  alert (err);
-		  }
-	  } else {
-		  processSearchResponse("N/A");
+		//find which Sentences include the string which was searched
+	    
+	    if (sent.includes(sentanceSearch)) {
+	    	data["sentenceKeyphrase"] = sent;
+	    } else {
+	    	data["sentenceKeyphrase"] = sentenceSearch;
+	    }
+  
+	    var js = JSON.stringify(data);
+	    console.log("JS:" + js);
+	    var xhr = new XMLHttpRequest();
+	    xhr.open("POST", search_url, true);  
+	    // send the collected data as JSON
+	    xhr.send(js);
+
+	    // This will process results and update HTML as appropriate. 
+	    xhr.onloadend = function () {
+	    	console.log(xhr);
+	    	console.log(xhr.request);
+	    	if (xhr.readyState == XMLHttpRequest.DONE) {
+	    		if (xhr.status == 200) {
+	    			console.log ("XHR:" + xhr.responseText);
+	    			processSearchResponse(xhr.responseText);
+	    		} else {
+	    			console.log("actual:" + xhr.responseText)
+	    			var js = JSON.parse(xhr.responseText);
+	    			var err = js["error"];
+	    			alert (err);
+	    		}
+	    	} else {
+	    		processSearchResponse("N/A");
+	    	}
+	    };
 	  }
-  };
-}
 }
 
 // analyze search results 
