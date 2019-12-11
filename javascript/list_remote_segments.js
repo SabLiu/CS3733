@@ -30,7 +30,6 @@ function refreshRemoteSegmentsList() {
     }
   };
   
-  initalizing = 2;
 }
 
 /**
@@ -135,5 +134,6 @@ function processRemoteSegmentsListResponse(result) {
 			remoteSegmentsList.innerHTML = remoteSegmentsList.innerHTML + output;
 		}
 	}
+	initalizing = 2;
 	  
 }
