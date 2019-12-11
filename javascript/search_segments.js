@@ -5,7 +5,9 @@
  * 	get JSON for list of all remote segments
  * 	get search parameter(s): character, text
  * 	
- * 	list of results: list of segments that match parameters 	
+ * 	list of local results: list of local segments that match parameters 	
+ * 	list of remote results: list of remote segments that match parameters 	
+ *  (they have slightly different JSONs, so we need to access them for HTML differently)	
  * 
  * 	search segment characters for character
  * 	search segment text for text
