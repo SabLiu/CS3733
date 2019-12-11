@@ -73,12 +73,14 @@ public class SegmentsDAOTest {
 	 */
 	@Test
 	public void getSegmentTestLocal() {
-		String testID = "c9314e2c-68df-48ec-af09-de17bac46ecd.ogg";
+		String testID = "test-68df-48ec-af09-de17bac46ecd.ogg";
 		Segment controlSegment = new Segment(new Id(testID), false, "Crazy way to travel, spreading a man's molecules all over the universe.", "McCoy");
 
 		SegmentDAO getter = new SegmentDAO();
 		try {
+			getter.addSegment(controlSegment);
 			Segment returnedSegment = getter.getSegment(new Id(testID));
+			getter.deleteSegment(controlSegment.getId());
 			System.out.println(returnedSegment);
 			assertTrue(returnedSegment.equals(controlSegment));
 		}catch(Exception e) {

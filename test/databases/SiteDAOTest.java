@@ -160,15 +160,15 @@ public class SiteDAOTest {
 			gottenSites = tester.getAllSites();
 			i = 0;
 			//checking to make sure the controle and returned arrays are the same
-			while(i<controleSitese.size() ) {
+			while(i<gottenSites.size() ) {
 				int j = 0;
 				boolean m = true;
-				while(j<gottenSites.size()) {
-					if(controleSitese.get(i).equals(gottenSites.get(j))) {
+				while(j<controleSitese.size()) {
+					if(gottenSites.get(i).equals(controleSitese.get(j))) {
 					m = true;
-					controleSitese.remove(i);
-					gottenSites.remove(j);
-					j = gottenSites.size()+10;
+					gottenSites.remove(i);
+					controleSitese.remove(j);
+					j = controleSitese.size()+10;
 					}else {
 						m = false;
 					}
@@ -185,5 +185,4 @@ public class SiteDAOTest {
 			fail("exception");
 		}
 	}
-
 }

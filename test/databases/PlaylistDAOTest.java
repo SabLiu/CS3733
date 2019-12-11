@@ -65,7 +65,9 @@ public class PlaylistDAOTest {
 		//playlist construction
 		Id idEmpty = new Id("d53f987e-1615-4948-90c4-13f630ad72f2");
 		String nameEmpty = "testEmptyPL";
-		Playlist emptyPlaylist = new Playlist(idEmpty, nameEmpty);
+		Playlist emptyPlaylist = new Playlist();
+		emptyPlaylist.setName(nameEmpty);
+		emptyPlaylist.setId(idEmpty);
 		//Segment sentSegment = new Segment(id, false, "testing testing 123", "erich", "test.ogg");
 		//test
 		PlaylistDAO setter = new PlaylistDAO();
@@ -117,7 +119,8 @@ public class PlaylistDAOTest {
 		Id idFull = new Id("h12f987e-4209-6969-90c4-13f630ad72f2");
 		String nameFull = "testFullPL";
 
-		Playlist fullPlaylist = new Playlist(idFull, nameFull, segs);
+		Playlist fullPlaylist = new Playlist(idFull, nameFull);
+		fullPlaylist.setSegments(segs);
 		//Segment sentSegment = new Segment(id, false, "testing testing 123", "erich", "test.ogg");
 		//test
 		PlaylistDAO setter = new PlaylistDAO();
@@ -267,7 +270,8 @@ public class PlaylistDAOTest {
 		Id id = new Id("t7659m486e-6969-4023-90c4-13f630ad72f2");
 		String nameAppendTo = "testAppendPL";
 
-		Playlist startedPlaylist = new Playlist(id, nameAppendTo, segsStart);
+		Playlist startedPlaylist = new Playlist(id, nameAppendTo);
+		startedPlaylist.addSegments(segsStart);
 		Playlist appendedPlaylist = new Playlist(id, nameAppendTo, segsEnd);
 		
 		PlaylistDAO appender = new PlaylistDAO();
@@ -347,7 +351,9 @@ public class PlaylistDAOTest {
 		String nameAppendTo = "testAppendPL";
 
 		Playlist startedPlaylist = new Playlist(id, nameAppendTo, segsStart);
-		Playlist appendedPlaylist = new Playlist(id, nameAppendTo, segsEnd);
+		Playlist appendedPlaylist = new Playlist(id, nameAppendTo);
+		appendedPlaylist.setSegments(segsStart);
+		appendedPlaylist.addSegment(controllerSegmentsEnd.get(5));
 		
 		PlaylistDAO appender = new PlaylistDAO();
 		SegmentDAO helper = new SegmentDAO();
@@ -555,6 +561,7 @@ public class PlaylistDAOTest {
 		Id i = new Id("one6h8uh-3344-uwu9-owo6-cb7fc2010e9d");
 		Id ii = new Id("two6h8uh-3344-uwu9-owo6-cb7fc2010e9d");
 		Id iii = new Id("three8uh-3344-uwu9-owo6-cb7fc2010e9d");
+		iii.setId("three8uh-3344-uwu9-owo6-cb7fc2010e9d");
 		Id iiii = new Id("four8uh-3344-uwu9-owo6-cb7fc2010e9d");
 		List<Segment> controllerSegments = new ArrayList<>();
 		controllerSegments.add(new Segment(new Id("1dba4225-9077-450e-9c94-21f2eaba4e7b.ogg"), false, ">:~(", "Erich"));

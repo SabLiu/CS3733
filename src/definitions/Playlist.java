@@ -90,6 +90,7 @@ public class Playlist {
 		int i = 0;
 		while(i < segments.length) {
 			newSegments[i] = segments[i].getUrl();
+			i++;
 		}
 		this.segmentUrls = newSegments;
 	}
