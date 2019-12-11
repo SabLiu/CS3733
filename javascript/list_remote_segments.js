@@ -29,6 +29,8 @@ function refreshRemoteSegmentsList() {
       processRemoteSitesListResponse("N/A");
     }
   };
+  
+  doneLoadingRemote = 1;
 }
 
 /**
@@ -90,42 +92,46 @@ function processRemoteSegmentsListResponse(result) {
 
 	var js = JSON.parse(result);// array of segments
 	  // update global variable used for search
-	  remoteSegsJSON = js;  
-	  console.log("setting remote segments list on boot? " + remoteSegsJSON);
+	  remoteSegsJSON = js; 
 	  
-  var remoteSegmentsList = document.getElementById('remoteSegments');
+	if(displayRemote < 5){
+		console.log("setting remote segments list on boot? " + remoteSegsJSON);
+	  
+		var remoteSegmentsList = document.getElementById('remoteSegments');
   
-  if(remoteSegmentsList == null){
-	  console.log("IN CSS FILE");
-	  remoteSegmentsList = document.getElementById('segmentsColumn');
-  }
+		if(remoteSegmentsList == null){
+			console.log("IN CSS FILE");
+			remoteSegmentsList = document.getElementById('segmentsColumn');
+		}
   
-  var output = "";
-  for (var i = 0; i < js.segments.length; i++) { 
-	//grabs stuff out of json
-	var remoteSegJson = js.segments[i]; // this is a segment. 
-    console.log("REMOTE SEG: " + remoteSegJson);
+		var output = "";
+		for (var i = 0; i < js.segments.length; i++) { 
+			//grabs stuff out of json
+			var remoteSegJson = js.segments[i]; // this is a segment. 
+			
+		    console.log("REMOTE SEG: " + remoteSegJson);
+		    
+		    var segURL 			= remoteSegJson["url"];
+		    var sent			= remoteSegJson["text"];
+		    var character 		= remoteSegJson["character"];
+		    
+		    var isDisabled = "";
+		        try{
+		        	if (viewPlaylist == 0){
+		        		isDisabled = "disabled";
+		        	}
+		        }catch(e){}
     
-    var segURL 			= remoteSegJson["url"];
-    var sent			= remoteSegJson["text"];
-    var character 		= remoteSegJson["character"];
-    
-    var isDisabled = "";
-        try{
-        	if (viewPlaylist == 0){
-        		isDisabled = "disabled";
-        	}
-        }catch(e){}
-    
-    // updates html
-        if (isInitializing>3){
-    	// character : sentence
-    	output = output + "</br><p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
-    	output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + segURL+ "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
-    	output = output + "<p><input type=\"button\" id = \"appendButton" + i + "\"value=\"Append to current playlist\" " + isDisabled + " onClick=\"JavaScript:processAppendToPlaylist('" + segURL + "')\"></p></br>";
-        }
-    }
-  // Update computation result
-  remoteSegmentsList.innerHTML = remoteSegmentsList.innerHTML + output;
+		    // updates html
+	    	// character : sentence
+	    	output = output + "</br><p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
+	    	output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + segURL+ "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
+	    	output = output + "<p><input type=\"button\" id = \"appendButton" + i + "\"value=\"Append to current playlist\" " + isDisabled + " onClick=\"JavaScript:processAppendToPlaylist('" + segURL + "')\"></p></br>";
+		        
+		}
+		// Update computation result
+		remoteSegmentsList.innerHTML = remoteSegmentsList.innerHTML + output;
   
+	}
+	  
 }

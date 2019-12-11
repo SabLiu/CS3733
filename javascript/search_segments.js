@@ -29,34 +29,54 @@ function processSearch() {
 	// localjs.model[i] is a segment
 	remotejs = remoteSegsJSON; // this is a global variable
 	// remotejs.segments[i] is a segment 
+	try{
+		var a = remotejs.segments.length;
+	}
+	catch(e){
+		console.log("loading remote segments for search")
+		doneLoadingRemote = 0;
+		displayRemote = 6;
+		refreshRemoteSegmentsList();
+		while(doneLoadingRemote == 0){}
+		doneLoadingRemote = 0;
+		displayRemote = 4;
+		remotejs = remoteSegsJSON;
+	}
 	
+		
 	var localSearchResults = [];
 	var remoteSearchResults = [];
-	// check if any local segments match search
-	for (var i = 0; i < localjs.model.length; i++) {
-		var curSeg = localjs.model[i]; 
-		var curChar = curSeg["character"].toLowerCase(); 
-		var curText = curSeg["sentence"].toLowerCase(); 
-		
-			if (((curChar.includes(characterSearch))&&(curText.includes(sentenceSearch)))&&(!localSearchResults.includes(curSeg))){
-				// make sure no duplicates 
-				localSearchResults.push(curSeg); 
-			}
-	}
-	// check if any remote segments match search
-	for (var i = 0; i < remotejs.segments.length; i++) {
-		var curSeg = remotejs.segments[i]; 
-		
-		var curChar = curSeg["character"].toLowerCase(); 
-		var curText = curSeg["text"].toLowerCase(); 
-
-			if (((curChar.includes(characterSearch))&&(curText.includes(sentenceSearch)))&&(!remoteSearchResults.includes(curSeg))){
-				// make sure no duplicates 
-				remoteSearchResults.push(curSeg); 
+	
+	if(localjs.model != null){
+		// check if any local segments match search
+		for (var i = 0; i < localjs.model.length; i++) {
+			var curSeg = localjs.model[i]; 
+			var curChar = curSeg["character"].toLowerCase(); 
+			var curText = curSeg["sentence"].toLowerCase(); 
 			
+				if (((curChar.includes(characterSearch))&&(curText.includes(sentenceSearch)))&&(!localSearchResults.includes(curSeg))){
+					// make sure no duplicates 
+					localSearchResults.push(curSeg); 
+				}
+		}
 	}
-	console.log("addLocalCount: " + addLocalCount); 
-	console.log("local length: " + localSearchResults.length);
+	
+	if(remotejs.segments != null){
+		// check if any remote segments match search
+		for (var i = 0; i < remotejs.segments.length; i++) {
+			var curSeg = remotejs.segments[i]; 
+			
+			var curChar = curSeg["character"].toLowerCase(); 
+			var curText = curSeg["text"].toLowerCase(); 
+	
+				if (((curChar.includes(characterSearch))&&(curText.includes(sentenceSearch)))&&(!remoteSearchResults.includes(curSeg))){
+					// make sure no duplicates 
+					remoteSearchResults.push(curSeg); 
+				
+		}
+	}
+	//console.log("addLocalCount: " + addLocalCount); 
+	//console.log("local length: " + localSearchResults.length);
 	// pass everything in to generate HTML. 
 	processSearchResponse(localSearchResults, remoteSearchResults);
 }
