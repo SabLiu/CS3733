@@ -1,95 +1,102 @@
 
-// this takes in the global variable (which has been changed by refreshSegmentsList())
-// only when "search" button is pressed 
+/* Search Overview: ON SEARCH PRESS
+ * 	
+ * 	get JSON for list of all local segments
+ * 	get JSON for list of all remote segments
+ * 	get search parameter(s): character, text
+ * 	
+ * 	list of results: list of segments that match parameters 	
+ * 
+ * 	search segment characters for character
+ * 	search segment text for text
+ * 	
+ * 	return list of results. 
+ * 	
+ */
 
 function processSearch() {
 	// grab user-entered data from form
 	var form = document.searchForm;
 	var characterSearch = form.searchBarCharacter.value;
 	var sentenceSearch = form.searchBarWords.value;
+	
+	console.log("Searching: " + characterSearch + ", " + sentenceSearch); 
 
-	//get all segments from js
-	js = currentPLJS; // this is a global variable we update on refresh.  
-	//iterate through videos
-	 
-	  for (var i = 0; i < js.model.length; i++) { // model is a list of segments
-		//grabs stuff out of json
-		var localSegsJson = js.model[i];
-	    console.log(localSegsJson);
-	    
-	    var sent			= localSegsJson["sentence"];
-	    var character 		= localSegsJson["character"];	   
-	    
-	    var data = {};
-	    
-	    //find which Characters include the string which was searched
-	    // make sure not to pass in "character" field if it's empty
-	    // (this makes the JSON :( )
-	    if (characterSearch != "") {
-	    	if (character.includes(characterSearch)) {
-	    		data["characterKeyphrase"] = character;
-	    	} else {
-	    		data["characterKeyphrase"] = characterSearch;
-	    	}
-	    }
-
-		//find which Sentences include the string which was searched
-	    
-	    if (sent.includes(sentanceSearch)) {
-	    	data["sentenceKeyphrase"] = sent;
-	    } else {
-	    	data["sentenceKeyphrase"] = sentenceSearch;
-	    }
-  
-	    var js = JSON.stringify(data);
-	    console.log("JS:" + js);
-	    var xhr = new XMLHttpRequest();
-	    xhr.open("POST", search_url, true);  
-	    // send the collected data as JSON
-	    xhr.send(js);
-
-	    // This will process results and update HTML as appropriate. 
-	    xhr.onloadend = function () {
-	    	console.log(xhr);
-	    	console.log(xhr.request);
-	    	if (xhr.readyState == XMLHttpRequest.DONE) {
-	    		if (xhr.status == 200) {
-	    			console.log ("XHR:" + xhr.responseText);
-	    			processSearchResponse(xhr.responseText);
-	    		} else {
-	    			console.log("actual:" + xhr.responseText)
-	    			var js = JSON.parse(xhr.responseText);
-	    			var err = js["error"];
-	    			alert (err);
-	    		}
-	    	} else {
-	    		processSearchResponse("N/A");
-	    	}
-	    };
-	  }
+	//get all local+remote segments, come in as js
+	localjs = localSegsJSON; 	// this is a global variable we update on refresh.  
+	// localjs.model[i] is a segment
+	remotejs = remoteSegsJSON; 
+	// remotejs.segments[i] is a segment 
+	
+	var localSearchResults = [];
+	var remoteSearchResults = [];
+	
+	// check if any local segments match search
+	for (var i = 0; i < localjs.model.length; i++) {
+		var curSeg = localjs.model[i]; 
+		var curChar = curSeg["character"]; 
+		var curText = curSeg["sentence"]; 
+		
+			if (((curChar.includes(characterSearch))||(curText.includes(sentenceSearch)))&&(!localSearchResults.includes(curSeg))){
+				// make sure no duplicates 
+				localSearchResults.push(curSeg); 
+			}
+	}
+	// check if any local segments match search
+	for (var i = 0; i < remotejs.segments.length; i++) {
+		var curSeg = remotejs.segments[i]; 
+		var curChar = curSeg["character"]; 
+		var curText = curSeg["text"]; 
+		
+			if (((curChar.includes(characterSearch))||(curText.includes(sentenceSearch)))&&(!remoteSearchResults.includes(curSeg))){
+				// make sure no duplicates 
+				remoteSearchResults.push(curSeg); 
+			
+	}
+	
+	console.log("local results: " + localSearchResults); 
+	// pass everything in to generate HTML. 
+	processSearchResponse(localSearchResults, remoteSearchResults);
+}
 }
 
 // analyze search results 
 // can't just reuse function in list_local_segments because need to generate different buttons 
 
-function processSearchResponse(result) {
-	var js = JSON.parse(result);
+// searchResults is a JSON: list of segments 
+// need to pass in 2 arrays because the JSON naming conventions are different 
+
+function processSearchResponse(localSearchResults, remoteSearchResults) {
+	var localjs = localSearchResults; //JSON.parse(localSearchResults);
+	var remotejs = remoteSearchResults; // JSON.parse(remoteSearchResults);
+	
 	var searchResultsList = document.getElementById('searchResultsList');
-	// returns list of segments in model 
 	
 	var output = "";
-	for (var i = 0; i < js.model.length; i++) {
+	// generate HTML for local segments in search result
+	for (var i = 0; i < localjs.length; i++) {
 		//grabs stuff out of json
-		var localSRJson = js.model[i];
+		var localSRJson = localjs[i];
 	    
-	    var segID 			= localSRJson["id"]["id"];
-//	    var isRemAvailable 	= localSRJson["remotelyAvailable"];
+	    var segURL 			= localSRJson["url"];
 	    var sent			= localSRJson["sentence"];
 	    var character 		= localSRJson["character"];
 
 	    output = output + "</br><p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
-	    output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + s3_segments_url  + segID + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
-	    output = output + "<p><input type=\"button\" value=\"Append to current playlist\" /></p></br>";//need to add append handler here 
+	    output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + segURL + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
+	    output = output + "<p><input type=\"button\" value=\"Append to current playlist\" onClick=\"JavaScript:processAppendToPlaylist('" + segURL + "')\"/></p></br>"; 
+	  }
+	for (var i = 0; i < remotejs.length; i++) {
+		//grabs stuff out of json
+		var remoteSRJson = remotejs[i];
+	    
+	    var segURL 			= localSRJson["url"];
+	    var sent			= localSRJson["text"];
+	    var character 		= localSRJson["character"];
+
+	    output = output + "</br><p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
+	    output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + segURL + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
+	    output = output + "<p><input type=\"button\" value=\"Append to current playlist\" onClick=\"JavaScript:processAppendToPlaylist('" + segURL + "')\"/></p></br>"; 
 	  }
 	  // Update computation result
 	  searchResultsList.innerHTML = output;

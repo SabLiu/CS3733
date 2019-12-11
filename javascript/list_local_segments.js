@@ -30,8 +30,7 @@ function refreshLocalSegmentsList() {
 function processListResponse(result) {
   var js = JSON.parse(result);
   if (isAdmin<3){
-//	  receiveLocalSegs(js);
-	  currentPLJS = js; 
+	  localSegsJSON = js; 
   }
   var localSegmentsList = document.getElementById('localSegments');
   
@@ -64,7 +63,7 @@ function processListResponse(result) {
     	// buttons: delete, mark available, mark unavailable 
     	output = output + "<p> Remotely available?   " + isRemAvailable +  "   <input type=\"button\" id=\"deleteSeg\" value=\"Delete Local Segment\" onClick=\"JavaScript:processDeleteSegment('" + segID + "')\"/> <input type=\"button\" value=\"Mark segment remotely available\" onClick=\"JavaScript:processMarkSegment('" + segID + "')\"/><input type=\"button\" value=\"Mark segment remotely UNavailable\" onClick=\"JavaScript:processUnmarkSegment('" + segID + "')\"/></p></br>";
     }
-    // if it's not the admin
+    // if it's the participant
     else if (isAdmin < 3){
     	// character : sentence
     	output = output + "</br><p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";

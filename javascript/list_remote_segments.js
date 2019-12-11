@@ -37,6 +37,8 @@ function refreshRemoteSegmentsList() {
  */
 function processRemoteSitesListResponse(remSitesList) {
   var js = JSON.parse(remSitesList);
+  
+
   // model is a list of registered remote sites
   
   var output = "";
@@ -87,6 +89,8 @@ function callRemoteAPI(siteURL, apikey) {
 function processRemoteSegmentsListResponse(result) {
 
 	var js = JSON.parse(result);// array of segments
+	  // update global variable used for search
+	  remoteSegsJSON = js; 
   var remoteSegmentsList = document.getElementById('remoteSegments');
   
   if(remoteSegmentsList == null){
