@@ -29,8 +29,6 @@ function refreshRemoteSegmentsList() {
       processRemoteSitesListResponse("N/A");
     }
   };
-  
-  doneLoadingRemote = 1;
 }
 
 /**
@@ -94,7 +92,7 @@ function processRemoteSegmentsListResponse(result) {
 	  // update global variable used for search
 	  remoteSegsJSON = js; 
 	  
-	if(displayRemote < 5){
+	if(initalizing < 3){
 		console.log("setting remote segments list on boot? " + remoteSegsJSON);
 	  
 		var remoteSegmentsList = document.getElementById('remoteSegments');
@@ -129,9 +127,11 @@ function processRemoteSegmentsListResponse(result) {
 	    	output = output + "<p><input type=\"button\" id = \"appendButton" + i + "\"value=\"Append to current playlist\" " + isDisabled + " onClick=\"JavaScript:processAppendToPlaylist('" + segURL + "')\"></p></br>";
 		        
 		}
-		// Update computation result
-		remoteSegmentsList.innerHTML = remoteSegmentsList.innerHTML + output;
-  
+		
+		if(initalizing < 3){
+			// Update computation result
+			remoteSegmentsList.innerHTML = remoteSegmentsList.innerHTML + output;
+		}
 	}
 	  
 }
