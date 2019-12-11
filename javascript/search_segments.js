@@ -45,19 +45,19 @@ function processSearch() {
 		if (curText.includes(sentenceSearch)){
 			console.log("I think these match:"+ curText + ", "+ sentenceSearch);
 		}
-			if (((curChar.includes(characterSearch))||(curText.includes(sentenceSearch)))&&(!localSearchResults.includes(curSeg))){
+			if (((curChar.includes(characterSearch))&&(curText.includes(sentenceSearch)))&&(!localSearchResults.includes(curSeg))){
 				// make sure no duplicates 
 				localSearchResults.push(curSeg); 
 				addLocalCount++; 
 			}
 	}
-	// check if any local segments match search
+	// check if any remote segments match search
 	for (var i = 0; i < remotejs.segments.length; i++) {
 		var curSeg = remotejs.segments[i]; 
 		var curChar = curSeg["character"]; 
 		var curText = curSeg["text"]; 
 		
-			if (((curChar.includes(characterSearch))||(curText.includes(sentenceSearch)))&&(!remoteSearchResults.includes(curSeg))){
+			if (((curChar.includes(characterSearch))&&(curText.includes(sentenceSearch)))&&(!remoteSearchResults.includes(curSeg))){
 				// make sure no duplicates 
 				remoteSearchResults.push(curSeg); 
 			
@@ -82,6 +82,8 @@ function processSearchResponse(localSearchResults, remoteSearchResults) {
 	var searchResultsList = document.getElementById('searchResultsList');
 	
 	var output = "";
+	
+	if (localjs.length > 0){
 	// generate HTML for local segments in search result
 	for (var i = 0; i < localjs.length; i++) {
 		//grabs stuff out of json
@@ -95,6 +97,10 @@ function processSearchResponse(localSearchResults, remoteSearchResults) {
 	    output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + segURL + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
 	    output = output + "<p><input type=\"button\" value=\"Append to current playlist\" onClick=\"JavaScript:processAppendToPlaylist('" + segURL + "')\"/></p></br>"; 
 	  }
+	}
+	if (remotejs.length > 0){
+		
+	
 	for (var i = 0; i < remotejs.length; i++) {
 		//grabs stuff out of json
 		var remoteSRJson = remotejs[i];
@@ -107,7 +113,10 @@ function processSearchResponse(localSearchResults, remoteSearchResults) {
 	    output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + segURL + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
 	    output = output + "<p><input type=\"button\" value=\"Append to current playlist\" onClick=\"JavaScript:processAppendToPlaylist('" + segURL + "')\"/></p></br>"; 
 	  }
-	  // Update computation result
+	}
+	if ((remotejs.length ==0)&&(localjs.length ==0)){
+		output = output + "<p>No segments match the search criteria.</p>";
+	}	  // Update computation result
 	  searchResultsList.innerHTML = output;
 	  
 	}	
