@@ -32,7 +32,6 @@ function processSearch() {
 	
 	var localSearchResults = [];
 	var remoteSearchResults = [];
-	var addLocalCount = 0;
 	// check if any local segments match search
 	for (var i = 0; i < localjs.model.length; i++) {
 		var curSeg = localjs.model[i]; 
@@ -42,14 +41,13 @@ function processSearch() {
 			if (((curChar.includes(characterSearch))&&(curText.includes(sentenceSearch)))&&(!localSearchResults.includes(curSeg))){
 				// make sure no duplicates 
 				localSearchResults.push(curSeg); 
-				addLocalCount++; 
 			}
 	}
 	// check if any remote segments match search
 	for (var i = 0; i < remotejs.segments.length; i++) {
 		var curSeg = remotejs.segments[i]; 
-		var curChar = curSeg["character"]; 
-		var curText = curSeg["text"]; 
+		var curChar = curSeg["character"].toLowerCase(); 
+		var curText = curSeg["text"].toLowerCase(); 
 		
 			if (((curChar.includes(characterSearch))&&(curText.includes(sentenceSearch)))&&(!remoteSearchResults.includes(curSeg))){
 				// make sure no duplicates 
