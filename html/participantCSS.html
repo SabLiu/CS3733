@@ -19,11 +19,18 @@
 	var currentPlaylistID = ""; 
 	var isAdmin = 2; 
 	var viewPlaylist = 1;
+
+	var currentPLJS = ""; 
+	var localSegsJSON = ""; 
+	var remoteSegsJSON = ""; 
 	
+	var isInitializing = 2;
 	function initialize(){
 		//get all segments
 		localSegmentsPage();
 		refreshPlaylistsList();
+		isInitializing = 4; 
+		refreshRemoteSegmentsList(); 
 	}
 	
 	function remoteSegmentsPage(){

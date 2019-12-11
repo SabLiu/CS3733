@@ -19,8 +19,8 @@
 function processSearch() {
 	// grab user-entered data from form
 	var form = document.searchForm;
-	var characterSearch = form.searchBarCharacter.value;
-	var sentenceSearch = form.searchBarWords.value;
+	var characterSearch = form.searchBarCharacter.value.toLowerCase();
+	var sentenceSearch = form.searchBarWords.value.toLowerCase();
 	
 	console.log("Searching: " + characterSearch + ", " + sentenceSearch); 
 
@@ -32,21 +32,13 @@ function processSearch() {
 	
 	var localSearchResults = [];
 	var remoteSearchResults = [];
-	console.log("starting search results length: "+ localSearchResults.length);
-	
 	var addLocalCount = 0;
 	// check if any local segments match search
 	for (var i = 0; i < localjs.model.length; i++) {
 		var curSeg = localjs.model[i]; 
-		var curChar = curSeg["character"]; 
-		var curText = curSeg["sentence"]; 
+		var curChar = curSeg["character"].toLowerCase(); 
+		var curText = curSeg["sentence"].toLowerCase(); 
 		
-		if (curChar.includes(characterSearch)){
-			console.log("I think these match:"+ curChar + ", "+ characterSearch);
-		}
-		if (curText.includes(sentenceSearch)){
-			console.log("I think these match:"+ curText + ", "+ sentenceSearch);
-		}
 			if (((curChar.includes(characterSearch))&&(curText.includes(sentenceSearch)))&&(!localSearchResults.includes(curSeg))){
 				// make sure no duplicates 
 				localSearchResults.push(curSeg); 
@@ -121,7 +113,8 @@ function processSearchResponse(localSearchResults, remoteSearchResults) {
 	    output = output + "<p><input type=\"button\" value=\"Append to current playlist\" onClick=\"JavaScript:processAppendToPlaylist('" + segURL + "')\"/></p></br>"; 
 	  }
 	}
-	if ((remotejs.length ==0)&&(localjs.length ==0)){
+	
+	if ((remotejs.length ==0)&&(localjs.length ==0)) {
 		output = output + "<p>No segments match the search criteria.</p>";
 	}	  // Update computation result
 	  searchResultsList.innerHTML = output;

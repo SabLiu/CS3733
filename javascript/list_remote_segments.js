@@ -90,7 +90,9 @@ function processRemoteSegmentsListResponse(result) {
 
 	var js = JSON.parse(result);// array of segments
 	  // update global variable used for search
-	  remoteSegsJSON = js; 
+	  remoteSegsJSON = js;  
+	  console.log("setting remote segments list on boot? " + remoteSegsJSON);
+	  
   var remoteSegmentsList = document.getElementById('remoteSegments');
   
   if(remoteSegmentsList == null){
@@ -108,7 +110,7 @@ function processRemoteSegmentsListResponse(result) {
     var sent			= remoteSegJson["text"];
     var character 		= remoteSegJson["character"];
     
-    var isDisabled = ""
+    var isDisabled = "";
         try{
         	if (viewPlaylist == 0){
         		isDisabled = "disabled";
@@ -116,11 +118,13 @@ function processRemoteSegmentsListResponse(result) {
         }catch(e){}
     
     // updates html
+        if (isInitializing>3){
     	// character : sentence
     	output = output + "</br><p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
     	output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + segURL+ "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
     	output = output + "<p><input type=\"button\" id = \"appendButton" + i + "\"value=\"Append to current playlist\" " + isDisabled + " onClick=\"JavaScript:processAppendToPlaylist('" + segURL + "')\"></p></br>";
-  }
+        }
+    }
   // Update computation result
   remoteSegmentsList.innerHTML = remoteSegmentsList.innerHTML + output;
   
