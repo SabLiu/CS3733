@@ -43,6 +43,7 @@ public class PlaylistDAO extends DAO{
 	             //convert the list to a string to put into the database
 	           
 	            i = 0;
+	            //make sure the list isn't empty
 	            if(playlistSegmentsList.size() != 0) {
 		            while(i<playlistSegmentsList.size()-1) {
 		            	playlistSegments = playlistSegments + playlistSegmentsList.get(i) + ",";
@@ -51,6 +52,7 @@ public class PlaylistDAO extends DAO{
 		         
 		            playlistSegments = playlistSegments + playlistSegmentsList.get(i);
 		        }
+	            //set the ?s and execute the command
 	            ps.setString(1, playlistSegments);
 	            ps.setString(2, playlistId.getId());
 
@@ -94,7 +96,7 @@ public class PlaylistDAO extends DAO{
 	            ps.setString(2, playlistId.getId());
 	            int numAffected = ps.executeUpdate();
 	            ps.close();
-	            //run = 1; 
+	           
 	            return (numAffected == 1); 
 	        } catch (Exception e) { 
 	            throw new Exception("Failed to update Segments: " + e.getMessage());
@@ -199,7 +201,7 @@ public class PlaylistDAO extends DAO{
 	            ps.setString(2,  playlist.getName());
 	            String playlistSegments = "";
 	            String[] segs =  playlist.getSegmentUrls();
-	            
+	            //set the string of playlist urls
 	            int i = 0;
 	            while(i<segs.length) {
 	            	if(i == 0) {
