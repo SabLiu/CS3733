@@ -29,21 +29,7 @@ function processSearch() {
 	// localjs.model[i] is a segment
 	remotejs = remoteSegsJSON; // this is a global variable
 	// remotejs.segments[i] is a segment 
-	try{
-		var a = remotejs.segments.length;
-	}
-	catch(e){
-		console.log("loading remote segments for search")
-		doneLoadingRemote = 0;
-		displayRemote = 6;
-		refreshRemoteSegmentsList();
-		while(doneLoadingRemote == 0){}
-		doneLoadingRemote = 0;
-		displayRemote = 4;
-		remotejs = remoteSegsJSON;
-	}
 	
-		
 	var localSearchResults = [];
 	var remoteSearchResults = [];
 	
