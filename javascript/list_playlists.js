@@ -44,7 +44,7 @@ function processPlaylistResponse(result) {
   if (localPlaylistsList == null){
 	  console.log("in CSS");
 	  localPlaylistsList = document.getElementById('playlistsColumn');
-	  addPlaylist = "<h1>Remote Sites</h1><div>&nbsp;</div>" + "<form name='playlistForm' method='post'>"+  
+	  addPlaylist = "<h1>Playlists</h1><div>&nbsp;</div>" + "<form name='playlistForm' method='post'>"+  
 	 	"<input name='PLname'  type='text' placeHolder='Enter playlist name' style='width:75%'/>  " +
 	 	 	"<input type='button' id='createPLButton' value='Create Playlist' onClick='JavaScript:handleCreatePlaylistClick(this)'>"+
 	 	"</form>" +
