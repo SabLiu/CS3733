@@ -70,7 +70,9 @@ public class PlaylistDAOTest {
 		//test
 		PlaylistDAO setter = new PlaylistDAO();
 		try {	
+			//add
 			boolean set = setter.addPlaylist(emptyPlaylist);
+			//get
 			Playlist returnedPlaylistEmpty = setter.getFullPlaylist(idEmpty);
 			boolean didSetEmptyPass = returnedPlaylistEmpty.equals(emptyPlaylist);
 			System.out.println("returned\n" + returnedPlaylistEmpty.toString() + " ");
@@ -121,11 +123,13 @@ public class PlaylistDAOTest {
 		PlaylistDAO setter = new PlaylistDAO();
 		SegmentDAO helper = new SegmentDAO();
 		try {	
+			//add the segments to the library
 			helper.addSegment(segs[0]);
 			helper.addSegment(segs[1]);
 			helper.addSegment(segs[2]);
 			helper.addSegment(segs[3]);
 			helper.addSegment(segs[4]);
+			//add playlist
 			boolean set = setter.addPlaylist(fullPlaylist);
 			Playlist returnedPlaylistEmpty = setter.getFullPlaylist(idFull);
 			boolean didSetPass = returnedPlaylistEmpty.equals(fullPlaylist);
@@ -144,6 +148,7 @@ public class PlaylistDAOTest {
 	 */	
 	@Test
 	public void deletePlaylistTestOne() {
+		//playlist from the first test
 		Id idEmpty = new Id("d53f987e-1615-4948-90c4-13f630ad72f2");
 		String nameEmpty = "testEmptyPL";
 		Playlist emptyPlaylist = new Playlist(idEmpty, nameEmpty);
@@ -153,6 +158,7 @@ public class PlaylistDAOTest {
 		int difference = 0;
 		boolean oneAffected = false;
 		try {	
+			//delete the playlist to test and clean up the database
 			gottenPlaylistsBeforDelete = deleter.getAllPlaylists();
 			int lengthBefor = gottenPlaylistsBeforDelete.size();
 			oneAffected = deleter.deletePlaylist(emptyPlaylist);
@@ -165,7 +171,7 @@ public class PlaylistDAOTest {
 		}
 		
 		try {
-
+			//make sure you cant get the deleted playlist
 			Playlist returnedPlaylist = deleter.getFullPlaylist(idEmpty);
 			assertTrue(false);
 		}catch(Exception e) {
@@ -178,6 +184,7 @@ public class PlaylistDAOTest {
 	 */
 	@Test
 	public void deletePlaylistTestTwo() {
+		//playlist from second test
 		Id idFull = new Id("h12f987e-4209-6969-90c4-13f630ad72f2");
 		PlaylistDAO deleter = new PlaylistDAO();
 		List<Playlist> gottenPlaylistsBeforDelete = new ArrayList<>();
@@ -193,7 +200,7 @@ public class PlaylistDAOTest {
 			int lengthAfter = gottenPlaylistsAfterDelete.size();
 			//makes sure only 1 is deleted
 			difference = lengthBefor - lengthAfter;
-			
+			//clean up the library
 			helper.deleteSegment(new Id("test1234-9077-450e-9c94-21f2eaba4e7b.ogg"));
 			helper.deleteSegment(new Id("test1234-9180-4976-b24d-93cdc98ff6cc.ogg"));
 			helper.deleteSegment(new Id("test1234-68df-48ec-af09-de17bac46ecd.ogg"));
@@ -218,6 +225,7 @@ public class PlaylistDAOTest {
 	@Test
 	public void appendToPlaylistTestOne() {
 		//controle data
+		//the starting playlist
 		List<Segment> controllerSegmentsStart = new ArrayList<>();
 		List<Id> idStart = new ArrayList<>();
 		idStart.add(new Id("test4225-9077-450e-9c94-21f2eaba4e7b.ogg"));
@@ -235,7 +243,7 @@ public class PlaylistDAOTest {
 		Segment[] segsStart = {controllerSegmentsStart.get(0), controllerSegmentsStart.get(1),
 				controllerSegmentsStart.get(2), controllerSegmentsStart.get(3), controllerSegmentsStart.get(4)};
 		
-		
+		//the ending playlist
 		List<Segment> controllerSegmentsEnd = new ArrayList<>();
 		List<Id> idEnd = new ArrayList<>();
 		idEnd.add(new Id("test4225-9077-450e-9c94-21f2eaba4e7b.ogg"));
@@ -266,6 +274,7 @@ public class PlaylistDAOTest {
 		SegmentDAO helper = new SegmentDAO();
 		//test
 		try {
+			//add segments to library
 			helper.addSegment(segsEnd[0]);
 			helper.addSegment(segsEnd[1]);
 			helper.addSegment(segsEnd[2]);
@@ -276,6 +285,7 @@ public class PlaylistDAOTest {
 			boolean appendedOne = appender.appendToPlaylist(appendedPlaylist);
 			Playlist returnedPlaylist = appender.getFullPlaylist(id);
 			appender.deletePlaylist(id);
+			//clean up library
 			helper.deleteSegment(segsEnd[0]);
 			helper.deleteSegment(segsEnd[1]);
 			helper.deleteSegment(segsEnd[2]);
@@ -294,6 +304,7 @@ public class PlaylistDAOTest {
 	@Test
 	public void appendToPlaylistTestTwo() {
 		//controle data
+		//satart playlist
 		List<Segment> controllerSegmentsStart = new ArrayList<>();
 		List<Id> idStart = new ArrayList<>();
 		idStart.add(new Id("test4225-9077-450e-9c94-21f2eaba4e7b.ogg"));
@@ -311,7 +322,7 @@ public class PlaylistDAOTest {
 		Segment[] segsStart = {controllerSegmentsStart.get(0), controllerSegmentsStart.get(1),
 				controllerSegmentsStart.get(2), controllerSegmentsStart.get(3), controllerSegmentsStart.get(4)};
 		
-		
+		//end playlist
 		List<Segment> controllerSegmentsEnd = new ArrayList<>();
 		List<Id> idEnd = new ArrayList<>();
 		idEnd.add(new Id("test4225-9077-450e-9c94-21f2eaba4e7b.ogg"));
@@ -342,6 +353,7 @@ public class PlaylistDAOTest {
 		SegmentDAO helper = new SegmentDAO();
 		//test
 		try {
+			//add segments to library
 			helper.addSegment(segsEnd[0]);
 			helper.addSegment(segsEnd[1]);
 			helper.addSegment(segsEnd[2]);
@@ -352,6 +364,7 @@ public class PlaylistDAOTest {
 			boolean appendedOne = appender.appendToPlaylist(id, segsEnd[5].getUrl());
 			Playlist returnedPlaylist = appender.getFullPlaylist(id);
 			appender.deletePlaylist(id);
+			//clean up library
 			helper.deleteSegment(segsEnd[0]);
 			helper.deleteSegment(segsEnd[1]);
 			helper.deleteSegment(segsEnd[2]);
@@ -399,6 +412,7 @@ public class PlaylistDAOTest {
 		PlaylistDAO appender = new PlaylistDAO();
 		SegmentDAO helper = new SegmentDAO();
 		try {
+			//add segments to the library
 			helper.addSegment(segsEnd[0]);
 			helper.addSegment(segsEnd[1]);
 			helper.addSegment(segsEnd[2]);
@@ -406,6 +420,7 @@ public class PlaylistDAOTest {
 			helper.addSegment(segsEnd[4]);
 			helper.addSegment(segsEnd[5]);
 			appender.addPlaylist(startPlaylist);
+			//test the adds
 			boolean appendedOne = appender.appendToPlaylist(id, segsEnd[0].getUrl());
 			boolean appendedTwo = appender.appendToPlaylist(id, segsEnd[1].getUrl());
 			boolean appendedThree = appender.appendToPlaylist(id, segsEnd[2].getUrl());
@@ -415,7 +430,7 @@ public class PlaylistDAOTest {
 			boolean allAppended = appendedOne && appendedTwo && appendedThree && appendedFour && appendedFive && appendedSix;
 			
 			Playlist returnedPlaylist = appender.getFullPlaylist(id);
-			//System.out.println("returned\n" + returnedPlaylist.toString() + " ");
+			//clean up the library
 			helper.deleteSegment(segsEnd[0]);
 			helper.deleteSegment(segsEnd[1]);
 			helper.deleteSegment(segsEnd[2]);
@@ -435,7 +450,7 @@ public class PlaylistDAOTest {
 	
 	/**
 	 * Tests the append to playlist function, by appending 5 segments to an empty playlist
-	 * Includes appending a remote segment, needs to be changed when we actualy implement
+	 * Includes appending a remote segment
 	 * that code
 	 */
 	@Test
@@ -473,6 +488,7 @@ public class PlaylistDAOTest {
 		PlaylistDAO appender = new PlaylistDAO();
 		SegmentDAO helper = new SegmentDAO();
 		try {
+			//add local segments to the library
 			helper.addSegment(addSegs[0]);
 			helper.addSegment(addSegs[1]);
 			helper.addSegment(addSegs[2]);
@@ -486,7 +502,7 @@ public class PlaylistDAOTest {
 			boolean allAppended = appendedOne && appendedTwo && appendedThree && appendedFour && appendedFive && appendedSix;
 			
 			Playlist returnedPlaylist = appender.getFullPlaylist(id);
-			//System.out.println("returned\n" + returnedPlaylist.toString() + " ");
+			//clean up library
 			helper.deleteSegment(addSegs[0]);
 			helper.deleteSegment(addSegs[1]);
 			helper.deleteSegment(addSegs[2]);
@@ -544,22 +560,22 @@ public class PlaylistDAOTest {
 		controllerSegments.add(new Segment(new Id("1dba4225-9077-450e-9c94-21f2eaba4e7b.ogg"), false, ">:~(", "Erich"));
 		controllerSegments.add(new Segment(new Id("3c4bdc3a-a3f5-4f39-bf3a-b7f65fa9399b.ogg"), false, "delete delete delete", "sabrina"));
 		controllerSegments.add(new Segment(new Id("3e3b9c56-1a2d-45ed-b676-29de0f4e4486.ogg"), false, "Its yoour own fault erich", "maria"));
-		
+		//for deleting the first segment
 		Segment segsOne[] = {controllerSegments.get(0), controllerSegments.get(1), controllerSegments.get(2)};
 		Playlist testOne = new Playlist(i, "Test PLaylist one", segsOne);
 		Segment conSegsOne[] = {controllerSegments.get(1), controllerSegments.get(2)};
 		Playlist conOne = new Playlist(i, "Test PLaylist one", conSegsOne);
-		
+		//for deleting the middle segment and multipul segmetns
 		Segment segsTwo[] = {controllerSegments.get(0), controllerSegments.get(1), controllerSegments.get(2), controllerSegments.get(1)};
 		Playlist testTwo = new Playlist(ii, "Test PLaylist two", segsTwo);
 		Segment conSegsTwo[] = {controllerSegments.get(0), controllerSegments.get(2)};
 		Playlist conTwo = new Playlist(ii, "Test PLaylist two", conSegsTwo);
-		
+		//for deleting the last segment
 		Segment segsThree[] = {controllerSegments.get(0), controllerSegments.get(1), controllerSegments.get(2)};
 		Playlist testThree = new Playlist(iii, "Test PLaylist three", segsThree);
 		Segment conSegsThree[] = {controllerSegments.get(0), controllerSegments.get(1)};
 		Playlist conThree = new Playlist(iii, "Test PLaylist three", conSegsThree);
-		
+		//for deleting the only segment
 		Segment segsFour[] = {controllerSegments.get(0)};
 		Playlist testFour = new Playlist(iiii, "Test PLaylist three", segsFour);
 		Segment conSegsFour[] = {};
