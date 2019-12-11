@@ -25,21 +25,30 @@ function processSearch() {
 	//get all local+remote segments, come in as js
 	localjs = localSegsJSON; 	// this is a global variable we update on refresh.  
 	// localjs.model[i] is a segment
-	remotejs = remoteSegsJSON; 
+	remotejs = remoteSegsJSON; // this is a global variable
 	// remotejs.segments[i] is a segment 
 	
 	var localSearchResults = [];
 	var remoteSearchResults = [];
+	console.log("starting search results length: "+ localSearchResults.length);
 	
+	var addLocalCount = 0;
 	// check if any local segments match search
 	for (var i = 0; i < localjs.model.length; i++) {
 		var curSeg = localjs.model[i]; 
 		var curChar = curSeg["character"]; 
 		var curText = curSeg["sentence"]; 
 		
+		if (curChar.includes(characterSearch)){
+			console.log("I think these match:"+ curChar + ", "+ characterSearch);
+		}
+		if (curText.includes(sentenceSearch)){
+			console.log("I think these match:"+ curText + ", "+ sentenceSearch);
+		}
 			if (((curChar.includes(characterSearch))||(curText.includes(sentenceSearch)))&&(!localSearchResults.includes(curSeg))){
 				// make sure no duplicates 
 				localSearchResults.push(curSeg); 
+				addLocalCount++; 
 			}
 	}
 	// check if any local segments match search
@@ -53,8 +62,8 @@ function processSearch() {
 				remoteSearchResults.push(curSeg); 
 			
 	}
-	
-	console.log("local results: " + localSearchResults); 
+	console.log("addLocalCount: " + addLocalCount); 
+	console.log("local length: " + localSearchResults.length);
 	// pass everything in to generate HTML. 
 	processSearchResponse(localSearchResults, remoteSearchResults);
 }
@@ -90,9 +99,9 @@ function processSearchResponse(localSearchResults, remoteSearchResults) {
 		//grabs stuff out of json
 		var remoteSRJson = remotejs[i];
 	    
-	    var segURL 			= localSRJson["url"];
-	    var sent			= localSRJson["text"];
-	    var character 		= localSRJson["character"];
+	    var segURL 			= remoteSRJson["url"];
+	    var sent			= remoteSRJson["text"];
+	    var character 		= remoteSRJson["character"];
 
 	    output = output + "</br><p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
 	    output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + segURL + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
