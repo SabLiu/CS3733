@@ -23,12 +23,19 @@ function processSearch() {
 	var sentenceSearch = form.searchBarWords.value.toLowerCase();
 	
 	console.log("Searching: " + characterSearch + ", " + sentenceSearch); 
+	console.log("Searching  " + remoteSegsJSON.length + " sites"); 
 
 	//get all local+remote segments, come in as js
-	localjs = localSegsJSON; 	// this is a global variable we update on refresh.  
+	localjs = localSegsJSON; 	// this is a global variable
+	// local js is an array of local segments
 	// localjs.model[i] is a segment
 	remotejs = remoteSegsJSON; // this is a global variable
-	// remotejs.segments[i] is a segment 
+	console.log("GLOBAL REMOTE SITES JSON " + remoteSegsJSON);
+	console.log("num of remote sites: " + remoteSegsJSON.length);
+	console.log("a site" + remoteSegsJSON[0]);
+	console.log("a segment: " + remoteSegsJSON[0].segments[0]);
+	// remotejs is an array of JSONs 
+	// remotejs[i].segments[i] is a segment 
 	
 	var localSearchResults = [];
 	var remoteSearchResults = [];
@@ -47,25 +54,34 @@ function processSearch() {
 		}
 	}
 	
-	if(remotejs.segments != null){
-		// check if any remote segments match search
-		for (var i = 0; i < remotejs.segments.length; i++) {
-			var curSeg = remotejs.segments[i]; 
+	if (remotejs.length > 0){
+		// for each remote site: 
+		for (var j = 0; j < remotejs.length; j++){
+			var currentRemSite = remotejs[j]; 
+			console.log("Searching Site  #: " + j);
+			console.log("currentSiteSegments list: "+ currentRemSite);
+			if(remotejs.segments != null){
+			// for each segment in the remote site: 
+				for (var i = 0; i < currentRemSite.segments.length; i++) {
+					console.log("for each segment");
+				var curSeg = currentRemSite.segments[i]; // this is a remote segment 
+				var curChar = curSeg["character"].toLowerCase(); 
+				var curText = curSeg["text"].toLowerCase(); 
 			
-			var curChar = curSeg["character"].toLowerCase(); 
-			var curText = curSeg["text"].toLowerCase(); 
-	
-				if (((curChar.includes(characterSearch))&&(curText.includes(sentenceSearch)))&&(!remoteSearchResults.includes(curSeg))){
+					if (((curChar.includes(characterSearch))&&(curText.includes(sentenceSearch)))&&(!remoteSearchResults.includes(curSeg))){
 					// make sure no duplicates 
-					remoteSearchResults.push(curSeg); 
-				
+						remoteSearchResults.push(curSeg); 
+					
+					}
+				}
+			}
 		}
 	}
 	//console.log("addLocalCount: " + addLocalCount); 
 	//console.log("local length: " + localSearchResults.length);
 	// pass everything in to generate HTML. 
 	processSearchResponse(localSearchResults, remoteSearchResults);
-}
+
 }
 
 // analyze search results 
@@ -83,14 +99,13 @@ function processSearchResponse(localSearchResults, remoteSearchResults) {
 		  console.log("IN CSS FILE");
 		  searchResultsList = document.getElementById('segmentsColumn');
 	  }
-	  
-	
+	 
 	var output = "";
 	
 	if(initalizing > 3){
-		output = output + "<p>Warning, remote sites not fully loaded. For complete search results please try again later.</p><p>&nbsp;</p>"
+		output = output + "<p>Warning, remote sites not fully loaded. For complete search results please try again in 10 seconds.</p><p>&nbsp;</p>"
 	}
-	
+	console.log("Trying to print search results: " + localjs.length + remotejs.length);
 	if (localjs.length > 0){
 	// generate HTML for local segments in search result
 	for (var i = 0; i < localjs.length; i++) {

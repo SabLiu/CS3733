@@ -91,11 +91,21 @@ function processRemoteSegmentsListResponse(result) {
 
 	var js = JSON.parse(result);// array of segments
 	  // update global variable used for search
-	  remoteSegsJSON = js; 
-	  
+//	if (remoteSegsJSON.indexOf(js) == -1){  
+//		console.log("indexOf I think: " + remoteSegsJSON.indexOf(js));
+//		remoteSegsJSON.push(js); // add this to the array of remote segments JSONs
+//		
+//
+//	}
+	if (remoteSegsJSON != null){
+		
+	
+	if (isNewSite(js)){
+		remoteSegsJSON.push(js);
+	}
+	}
 	if(initalizing < 3){
-		console.log("setting remote segments list on boot? " + remoteSegsJSON);
-	  
+			  
 		var remoteSegmentsList = document.getElementById('remoteSegments');
   
 		if(remoteSegmentsList == null){
@@ -108,7 +118,6 @@ function processRemoteSegmentsListResponse(result) {
 			//grabs stuff out of json
 			var remoteSegJson = js.segments[i]; // this is a segment. 
 			
-		    console.log("REMOTE SEG: " + remoteSegJson);
 		    
 		    var segURL 			= remoteSegJson["url"];
 		    var sent			= remoteSegJson["text"];
@@ -136,4 +145,29 @@ function processRemoteSegmentsListResponse(result) {
 	}
 	initalizing = 2;
 	  
+}
+
+/**
+ * This function sees if a remote site has already been registered
+**/
+
+function isNewSite(newSite){
+	console.log("Is site new? ");
+	var isNew = true; 
+	for (var i = 0; i < remoteSegsJSON.length; i++){
+		var inList = remoteSegsJSON[i];
+
+		if (inList.segments.length != newSite.segments.length){
+			isNew = false; 
+		}
+		else {
+			for (var i = 0; i < inList.segments.length; i++){
+				if (isNew&&(inList.segments[i]["url"] != newSite.segments[i]["url"])){
+					isNew = false; 
+				}
+			}		
+		
+		}
+	}
+	return isNew; 
 }
