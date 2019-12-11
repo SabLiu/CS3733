@@ -2,6 +2,7 @@
 // pass in ID of playlist they want to view
 function processViewPlaylist(val,e) {
 	try{
+		   viewPlaylist = 1;
 		   var i = 0;
 		   while(true){
 			   document.getElementById('appendButton' + i).disabled = false;
@@ -107,9 +108,9 @@ function registerAll(e) {
   for (i = 0; i < currentPlaylistLength; i++) {
      var id = "vidNum" + i;
      var segURL = allScripts[i];
-     var vidBlock = "<p><video id='" + id + "' width=320 height=240";
+     var vidBlock = "<p><video id='" + id + "' width=100% height: 100%";
      if (i == 0) { vidBlock += " controls"; }
-     vidBlock += "><source src=\"" + segURL + "\" type=\"video/ogg\"></video></p><input type=\"button\" value=\"Remove from playlist\" onClick=\"JavaScript:processDeleteFromPlaylist('" + segURL + "')\">";
+     vidBlock += "><source src=\"" + segURL + "\" type=\"video/ogg\"></video></p><input type=\"button\" value=\"Remove from playlist\" onClick=\"JavaScript:processDeleteFromPlaylist('" + segURL + "')\"><p>&nbsp;</p>";
      console.log("REGISTERING: vidNum"+i);
      console.log(vidBlock);
      contents += vidBlock;
@@ -119,7 +120,7 @@ function registerAll(e) {
   var backButtonHTML = "";
   if(output == null){
 	  output = document.getElementById("playlistsColumn");
-	  backButtonHTML = "<div style='text-align:right'><input type=\"button\" value=\"Back To Playlists List\" onClick=\"JavaScript:refreshPlaylistsList()\" /></div><p>" + currentPLJS.model.name + "</p>&nbsp;";
+	  backButtonHTML = "<div style='text-align:right'><input type=\"button\" value=\"Back To Playlists List\" onClick=\"JavaScript:refreshPlaylistsList()\" /></div> <h1>" + currentPLJS.model.name + "</h1><div>&nbsp;</div>";
   }
   output.innerHTML = backButtonHTML + contents;
 

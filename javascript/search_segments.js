@@ -69,6 +69,11 @@ function processSearchResponse(result) {
 	var js = JSON.parse(result);
 	var searchResultsList = document.getElementById('searchResultsList');
 	// returns list of segments in model 
+	  if(searchResultsList == null){
+		  console.log("IN CSS FILE");
+		  searchResultsList = document.getElementById('segmentsColumn');
+	  }
+	  
 	
 	var output = "";
 	for (var i = 0; i < js.model.length; i++) {

@@ -1,0 +1,72 @@
+<html>
+<head>
+<script type='text/javascript' src='../list_local_segments.js'></script>
+<script type='text/javascript' src='../api.js'></script>
+
+<script type='text/javascript' src='../add_remote_site.js'></script>
+<script type='text/javascript' src='../list_remote_sites.js'></script>
+<script type='text/javascript' src='../unregister_site.js'></script>
+<script type='text/javascript' src='../delete_local_segment.js'></script>
+
+<script type='text/javascript' src='../mark_segment.js'></script>
+<script type='text/javascript' src='../unmark_segment.js'></script>
+
+
+<script type="text/javascript">
+var isAdmin = 4; 
+function initialize(){
+	//get all segments
+  	
+	refreshLocalSegmentsList();
+	refreshRemoteSitesList();
+	
+}
+</script>
+	
+<link rel="stylesheet" href='../style-sheet.css'>
+<link href='https://fonts.googleapis.com/css?family=Racing Sans One' rel='stylesheet'>
+	
+</head>
+<body onload="initialize()">  
+
+	
+<style>
+	* {
+	    margin: 0;
+	    padding: 0;
+	    overflow: hidden;
+	}
+</style>
+	
+	
+	
+<div class="row">
+	<div class="column" style="background-color:var(--segmentColor);">
+		<div class="box" >
+			<div class="compBox" style="max-height:100vh;">
+				<h1>Local Segments</h1>
+				<div>&nbsp;</div>
+				<div id="segmentsColumn"></div>
+	        </div>
+	 	</div>
+	 </div>
+
+	  
+	 <div class="column" style="background-color:var(--playlistColor);max-height:100vh;">
+	    	<div class="box" >
+				<div class="compBox" style="max-height:100vh;">
+						<h1>Remote Sites</h1>
+						<div>&nbsp;</div>
+						<form name="registerURL" method="post">  
+						 	<input type="text" name="URLtoRegister" placeholder="URL of site to reigster" style="width:75%" />
+						 	<input type="button" id="regSite" value="Register site" onClick="JavaScript:handleAddRemoteSiteClick(this)">
+						</form>
+						<div>&nbsp;</div>
+	  				<div id='remoteSites'></div>  
+	    		</div>
+	    	</div>
+	 </div>
+</div>
+	
+	
+	</html>

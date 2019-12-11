@@ -1,144 +1,148 @@
-<html>
-<head>
-
-<script type='text/javascript' src='../api.js'></script>
-<script type='text/javascript' src='../list_local_segments.js'></script>
-<script type='text/javascript' src='../list_playlists.js'></script>
-<script type='text/javascript' src='../upload_segment.js'></script>
-<script type='text/javascript' src='../create_playlist.js'></script>
-<script type='text/javascript' src='../delete_playlist.js'></script>
-<script type='text/javascript' src='../delete_local_segment.js'></script>
-<script type='text/javascript' src='../view_playlist.js'></script>
-<script type='text/javascript' src='../search_segments.js'></script>
-<script type='text/javascript' src='../append_to_playlist.js'></script>
-<script type='text/javascript' src='../delete_from_playlist.js'></script>
-<script type='text/javascript' src='../list_remote_segments.js'></script>
-<script type="text/javascript">
-// these are intentionally global (Sorry, Professor!)
-var currentPlaylistLength = 0;
-var currentPlaylistID = ""; 
-var isAdmin = 2; 
-
-function initialize(){
-	//get all segments
-	localSegmentsPage();
-	refreshPlaylistsList();
-}
-
-function remoteSegmentsPage(){
-	document.getElementById('segmentsColumnHeader').innerHTML = "";
-	document.getElementById('segmentsColumn').innerHTML = "";
-	refreshRemoteSegmentsList();
-}
-
-function localSegmentsPage(){
-	document.getElementById('segmentsColumnHeader').innerHTML = 
-		"<p><b>Upload a new local segment </b></p>" + 
-		"<form name='createForm' method='post'>" +
-		   "<input name='character' placeholder='Character speaking' />" + 
-		  "<input name='sentence' placeholder='Sentence spoken' /><br />" +
-		   "<input name='base64Encoding' hidden value=''/> " +
-		 	"Select a video file: <input type='file' id='videoFile' name='videoFile'>"+  
-		 	"<input type='button' id='uploadButton' value='Upload segment' disabled onClick='JavaScript:handleUploadClick(this)''>"+
-		 	"<br />Note: Must upload an ogg file.";
-    
-	// register
-	document.getElementById('videoFile').addEventListener('change', handleFileSelect, false);
-	document.getElementById('segmentsColumn').innerHTML = "";
-	refreshLocalSegmentsList();
-}
-
-function searchPage(){
-	document.getElementById('segmentsColumnHeader').innerHTML = 
-		"<p><b>Search for a Segment</b></p>" + 
-		"<p>Search by character speaking and/or spoken word(s)</p>" +
-		"<form name='searchForm' method='post'>" +
-		 "<p>Character:       <input name='searchBarCharacter' type = 'text' value = ''/></br>" +
-		"Spoken word(s): <input name='searchBarWords' type = 'text' value = ''/> </br>" +
-		"<input name='searchbtn' type='button' value='Search' onClick = 'JavaScript:processSearch()'/></p>" +
-		"</form>" + 
-		"<p><strong>Search Results</strong></p>" +
-		"<p>&nbsp;</p>"
-	document.getElementById('segmentsColumn').innerHTML = "";
-}
-
-// from Professor Heineman's calculator.html. 
-// Magic file processing stuff!
-
-//called in handleFileSelect()
-// prepares the base64-encoded string and enabled button
-function getBase64(file) {
-var reader = new FileReader();
-reader.readAsDataURL(file);
-
-reader.onload = function () {
-  document.createForm.base64Encoding.value = reader.result;
-  document.getElementById('uploadButton').disabled = false;
-};
-}
-
-// When file is selected, stash base64 value in the encoding field.  
-function handleFileSelect(evt) {
-var files = evt.target.files; 
-if (files[0].size > 500000000) {  // changeable value. currently 5 MB 
-	document.createForm.base64Encoding.value = "";
-	alert("File size too large to use:" + files[0].size + " bytes");
-} else {
-	getBase64(files[0]); // request the load (async)
-}
-}
-
-
-</script>
-
-<link rel="stylesheet" href='../style-sheet.css'>
-<link href='https://fonts.googleapis.com/css?family=Racing Sans One' rel='stylesheet'>
-
-</head>
-<body onload="initialize()">
- <title></title>   
-
-
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-}
-</style>
-
-
-
-<div class="row">
-    <div class="column" style="background-color:var(--segmentColor);">
-  
-  <ul>
-      <li onclick="localSegmentsPage()"><a>Local Segments</a></li>
-      <li onclick="remoteSegmentsPage()"><a>Remote Segments</a></li>
-      <li onclick="searchPage()"><a>Search</a></li>
-  </ul>
-  
-  	<div class="box">
-	<div class="compBox" style="max-height:86vh;">
-
-<div id="segmentsColumnHeader"></div>
-<div id="segmentsColumn"></div>
-        
-    </div>
-    </div>
-    
-  </div>
-  
-  
-  <div class="column" style="background-color:var(--playlistColor);max-height:100vh;">
-    	<div class="box" >
-	<div class="compBox" style="max-height:100vh;">
-  		<div id='playlistsColumn'></div>  
-    </div>
-    </div>
-    
-  </div>
-</div>
-
-
-</html>
+	<html>
+	<head>
+	
+	<script type='text/javascript' src='../api.js'></script>
+	<script type='text/javascript' src='../list_local_segments.js'></script>
+	<script type='text/javascript' src='../list_playlists.js'></script>
+	<script type='text/javascript' src='../upload_segment.js'></script>
+	<script type='text/javascript' src='../create_playlist.js'></script>
+	<script type='text/javascript' src='../delete_playlist.js'></script>
+	<script type='text/javascript' src='../delete_local_segment.js'></script>
+	<script type='text/javascript' src='../view_playlist.js'></script>
+	<script type='text/javascript' src='../search_segments.js'></script>
+	<script type='text/javascript' src='../append_to_playlist.js'></script>
+	<script type='text/javascript' src='../delete_from_playlist.js'></script>
+	<script type='text/javascript' src='../list_remote_segments.js'></script>
+	<script type="text/javascript">
+	// these are intentionally global (Sorry, Professor!)
+	var currentPlaylistLength = 0;
+	var currentPlaylistID = ""; 
+	var isAdmin = 2; 
+	var viewPlaylist = 1;
+	
+	function initialize(){
+		//get all segments
+		localSegmentsPage();
+		refreshPlaylistsList();
+	}
+	
+	function remoteSegmentsPage(){
+		document.getElementById('segmentsColumnHeader').innerHTML = "<h1>Remote Segments</h1><div>&nbsp;</div>";
+		document.getElementById('segmentsColumn').innerHTML = "";
+		refreshRemoteSegmentsList();
+	}
+	
+	function localSegmentsPage(){
+		document.getElementById('segmentsColumnHeader').innerHTML = 
+			"<h1>Local Segments</h1><div>&nbsp;</div>" + 
+			"<h2>Upload a new local segment</h2>" + 
+			"<form name='createForm' method='post'>" +
+			   "<input name='character' type = 'text' placeholder='Character speaking' style='width:25%'/>" + 
+			  "<input name='sentence' type = 'text' placeholder='Sentence spoken' style='width:75%'/><br />" +
+			   "<input name='base64Encoding' hidden value=''/> " +
+			 	"Select a video file: <input type='file' id='videoFile' name='videoFile'>"+  
+			 	"<input type='button' id='uploadButton' value='Upload segment' disabled onClick='JavaScript:handleUploadClick(this)''>"+
+			 	"<br />Note: Must upload an ogg file.";
+	    
+		// register
+		document.getElementById('videoFile').addEventListener('change', handleFileSelect, false);
+		document.getElementById('segmentsColumn').innerHTML = "";
+		refreshLocalSegmentsList();
+	}
+	
+	function searchPage(){
+		document.getElementById('segmentsColumnHeader').innerHTML = 
+			"<h1>Search</h1><div>&nbsp;</div>" +  
+			"<h2>Search for a Segment</h2>" + 
+			"<p>Search by character speaking and/or spoken word(s)</p>" +
+			"<form name='searchForm' method='post'>" +
+			 "<p>Character:       <input name='searchBarCharacter' type = 'text' value = '' style='width:75%'/></br>" +
+			"Spoken word(s): <input name='searchBarWords' type = 'text' value = '' style='width:67%'/> </br>" +
+			"<input name='searchbtn' type='button' value='Search' onClick = 'JavaScript:processSearch()'/></p>" +
+			"</form>" + 
+			"<p>&nbsp;</p>" +
+			"<h2>Search Results</h2>" +
+			"<p>&nbsp;</p>"
+		document.getElementById('segmentsColumn').innerHTML = "";
+	}
+	
+	// from Professor Heineman's calculator.html. 
+	// Magic file processing stuff!
+	
+	//called in handleFileSelect()
+	// prepares the base64-encoded string and enabled button
+	function getBase64(file) {
+	var reader = new FileReader();
+	reader.readAsDataURL(file);
+	
+	reader.onload = function () {
+	  document.createForm.base64Encoding.value = reader.result;
+	  document.getElementById('uploadButton').disabled = false;
+	};
+	}
+	
+	// When file is selected, stash base64 value in the encoding field.  
+	function handleFileSelect(evt) {
+	var files = evt.target.files; 
+	if (files[0].size > 500000000) {  // changeable value. currently 5 MB 
+		document.createForm.base64Encoding.value = "";
+		alert("File size too large to use:" + files[0].size + " bytes");
+	} else {
+		getBase64(files[0]); // request the load (async)
+	}
+	}
+	
+	
+	</script>
+	
+	<link rel="stylesheet" href='../style-sheet.css'>
+	<link href='https://fonts.googleapis.com/css?family=Racing Sans One' rel='stylesheet'>
+	
+	</head>
+	<body onload="initialize()">
+	 <title></title>   
+	
+	
+	<style>
+	* {
+	    margin: 0;
+	    padding: 0;
+	    overflow: hidden;
+	}
+	</style>
+	
+	
+	
+	<div class="row">
+	    <div class="column" style="background-color:var(--segmentColor);">
+	  
+	  <ul>
+	      <li onclick="localSegmentsPage()"><a>Local Segments</a></li>
+	      <li onclick="remoteSegmentsPage()"><a>Remote Segments</a></li>
+	      <li onclick="searchPage()"><a>Search</a></li>
+	  </ul>
+	  
+	  	<div class="box">
+		<div class="compBox" style="max-height:86vh;">
+	
+	<div id="segmentsColumnHeader"></div>
+	<div id="segmentsColumn"></div>
+	        
+	    </div>
+	    </div>
+	    
+	  </div>
+	  
+	  
+	  <div class="column" style="background-color:var(--playlistColor);max-height:100vh;">
+	    	<div class="box" >
+		<div class="compBox" style="max-height:100vh;">
+	  		<div id='playlistsColumn'></div>  
+	    </div>
+	    </div>
+	    
+	  </div>
+	</div>
+	
+	
+	</html>

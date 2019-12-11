@@ -53,23 +53,37 @@ function processListResponse(result) {
     var character 		= localSegsJson["character"];
     var segURL 			= localSegsJson["url"];
     
+    var isDisabled = ""
+    try{
+    	if (viewPlaylist == 0){
+    		isDisabled = "disabled";
+    	}
+    }catch(e){}
+    
     
     // updates html
     // if it is the admin
     if (isAdmin > 3){
-    	// video
-    	output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + segURL + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
+    	
+    	var remoteToggle = "test"
+    	if(isRemAvailable){
+    		remoteToggle = "<input type=\"button\" value=\"Mark segment remotely UNavailable\" onClick=\"JavaScript:processUnmarkSegment('" + segID + "')\"/>";
+    	} else{
+    		remoteToggle = "<input type=\"button\" value=\"Mark segment remotely available\" onClick=\"JavaScript:processMarkSegment('" + segID + "')\"/>";
+    	}
     	// character : sentence
     	output = output + "<p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
+    	// video
+    	output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + segURL + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>";
     	// buttons: delete, mark available, mark unavailable 
-    	output = output + "<p> Remotely available?   " + isRemAvailable +  "   <input type=\"button\" id=\"deleteSeg\" value=\"Delete Local Segment\" onClick=\"JavaScript:processDeleteSegment('" + segID + "')\"/> <input type=\"button\" value=\"Mark segment remotely available\" onClick=\"JavaScript:processMarkSegment('" + segID + "')\"/><input type=\"button\" value=\"Mark segment remotely UNavailable\" onClick=\"JavaScript:processUnmarkSegment('" + segID + "')\"/></p></br>";
+    	output = output +  remoteToggle + "  <input type=\"button\" id=\"deleteSeg\" value=\"Delete Local Segment\" onClick=\"JavaScript:processDeleteSegment('" + segID + "')\"/><p></br>";
     }
     // if it's not the admin
     else if (isAdmin < 3){
     	// character : sentence
-    	output = output + "</br><p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
+    	output = output + "<br><p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
     	output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + segURL + "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
-    	output = output + "<p><input type=\"button\" id = \"appendButton"+ i + "\"value=\"Append to current playlist\" onClick=\"JavaScript:processAppendToPlaylist('" + segURL + "')\"><input type=\"button\" id=\"deleteSeg\" value=\"Delete Local Segment\" onClick=\"JavaScript:processDeleteSegment('" + segID + "')\"></p></br>";
+    	output = output + "<p><input type=\"button\" id = \"appendButton"+ i + "\"value=\"Append to current playlist\" " + isDisabled + " onClick=\"JavaScript:processAppendToPlaylist('" + segURL + "')\">  <input type=\"button\" id=\"deleteSeg\" value=\"Delete Local Segment\" onClick=\"JavaScript:processDeleteSegment('" + segID + "')\"></p></br>";
     } 
   
   }

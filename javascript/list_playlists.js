@@ -4,6 +4,7 @@
  */
 function refreshPlaylistsList() {
 	try{
+		   viewPlaylist = 0;
 		   var i = 0;
 		   while(true){
 			   document.getElementById('appendButton' + i).disabled = true;
@@ -39,10 +40,15 @@ function processPlaylistResponse(result) {
   // Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
   var js = JSON.parse(result);
   var localPlaylistsList = document.getElementById('playlists');
-  
+  var addPlaylist = ""
   if (localPlaylistsList == null){
 	  console.log("in CSS");
 	  localPlaylistsList = document.getElementById('playlistsColumn');
+	  addPlaylist = "<h1>Remote Sites</h1><div>&nbsp;</div>" + "<form name='playlistForm' method='post'>"+  
+	 	"<input name='PLname'  type='text' placeHolder='Enter playlist name' style='width:75%'/>  " +
+	 	 	"<input type='button' id='createPLButton' value='Create Playlist' onClick='JavaScript:handleCreatePlaylistClick(this)'>"+
+	 	"</form>" +
+	 	"<p>&nbsp;</p>";
   }
   
   var output = "";
@@ -57,6 +63,6 @@ function processPlaylistResponse(result) {
   }
 
   // Update computation result
-  localPlaylistsList.innerHTML = output;
+  localPlaylistsList.innerHTML = addPlaylist + output;
   console.log("View playlist: " + output);
 }
