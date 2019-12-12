@@ -23,19 +23,15 @@ function processSearch() {
 	var sentenceSearch = form.searchBarWords.value.toLowerCase();
 	
 	console.log("Searching: " + characterSearch + ", " + sentenceSearch); 
-	console.log("Searching  " + remoteSegsJSON.length + " sites"); 
+	console.log("Searching  " + remoteSegsGlobal.length + " sites"); 
 
 	//get all local+remote segments, come in as js
 	localjs = localSegsJSON; 	// this is a global variable
 	// local js is an array of local segments
 	// localjs.model[i] is a segment
-	remotejs = remoteSegsJSON; // this is a global variable
-	console.log("GLOBAL REMOTE SITES JSON " + remoteSegsJSON);
-	console.log("num of remote sites: " + remoteSegsJSON.length);
-	console.log("a site" + remoteSegsJSON[0]);
-	console.log("a segment: " + remoteSegsJSON[0].segments[0]);
-	// remotejs is an array of JSONs 
-	// remotejs[i].segments[i] is a segment 
+	remotejs = remoteSegsGlobal; // this is a global variable
+	// remoteSegsGlobal: list of LONE REMOTE segments
+	// remotejs[i] is a segment
 	
 	var localSearchResults = [];
 	var remoteSearchResults = [];
@@ -57,28 +53,15 @@ function processSearch() {
 	if (remotejs.length > 0){
 		// for each remote site: 
 		for (var j = 0; j < remotejs.length; j++){
-			var currentRemSite = remotejs[j]; 
-			console.log("Searching Site  #: " + j);
-			console.log("currentSiteSegments list: "+ currentRemSite);
-			if(remotejs.segments != null){
-			// for each segment in the remote site: 
-				for (var i = 0; i < currentRemSite.segments.length; i++) {
-					console.log("for each segment");
-				var curSeg = currentRemSite.segments[i]; // this is a remote segment 
-				var curChar = curSeg["character"].toLowerCase(); 
-				var curText = curSeg["text"].toLowerCase(); 
-			
-					if (((curChar.includes(characterSearch))&&(curText.includes(sentenceSearch)))&&(!remoteSearchResults.includes(curSeg))){
-					// make sure no duplicates 
-						remoteSearchResults.push(curSeg); 
-					
-					}
-				}
+			var currentRemSeg = remotejs[j]; // a single segment
+			var curChar = currentRemSeg["character"].toLowerCase(); 
+			var curText = currentRemSeg["text"].toLowerCase(); 
+			// if they include any of the search parameters, add to remoteSearchResults
+			if (((curChar.includes(characterSearch))&&(curText.includes(sentenceSearch)))&&(!remoteSearchResults.includes(curSeg))){
+				remoteSearchResults.push(currentRemSeg); 
 			}
 		}
 	}
-	//console.log("addLocalCount: " + addLocalCount); 
-	//console.log("local length: " + localSearchResults.length);
 	// pass everything in to generate HTML. 
 	processSearchResponse(localSearchResults, remoteSearchResults);
 
@@ -87,12 +70,13 @@ function processSearch() {
 // analyze search results 
 // can't just reuse function in list_local_segments because need to generate different buttons 
 
-// searchResults is a JSON: list of segments 
+// localSearchResults is a JSON: list of local segments 
+// remoteSearchResults is a JSON: list of remote segments
 // need to pass in 2 arrays because the JSON naming conventions are different 
 
 function processSearchResponse(localSearchResults, remoteSearchResults) {
-	var localjs = localSearchResults; //JSON.parse(localSearchResults);
-	var remotejs = remoteSearchResults; // JSON.parse(remoteSearchResults);
+	var localjs = localSearchResults; 
+	var remotejs = remoteSearchResults; 
 	
 	var searchResultsList = document.getElementById('searchResultsList');
 	  if(searchResultsList == null){
@@ -105,7 +89,6 @@ function processSearchResponse(localSearchResults, remoteSearchResults) {
 	if(initalizing > 3){
 		output = output + "<p>Warning, remote sites not fully loaded. For complete search results please try again in 10 seconds.</p><p>&nbsp;</p>"
 	}
-	console.log("Trying to print search results: " + localjs.length + remotejs.length);
 	if (localjs.length > 0){
 	// generate HTML for local segments in search result
 	for (var i = 0; i < localjs.length; i++) {

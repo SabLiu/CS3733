@@ -16,8 +16,6 @@ function refreshRemoteSegmentsList() {
    // get all remote sites (call our API) 
    xhr.send();
    
-   console.log("sent");
-   console.log("REFRESHING SEGMENTS : " + isAdmin);
 
   // This will process results and update HTML as appropriate. 
    
@@ -55,9 +53,9 @@ function processRemoteSitesListResponse(remSitesList) {
       var apikey = siteURL.substring(q+8);
     callRemoteAPI(url, apikey); 
     // need to make an API call to this site with this API key. 
-  }
+    }
   
-}
+  }
 }
 
 /**
@@ -88,21 +86,23 @@ function callRemoteAPI(siteURL, apikey) {
  *
  */
 function processRemoteSegmentsListResponse(result) {
-
-	var js = JSON.parse(result);// array of segments
-	  // update global variable used for search
-//	if (remoteSegsJSON.indexOf(js) == -1){  
-//		console.log("indexOf I think: " + remoteSegsJSON.indexOf(js));
-//		remoteSegsJSON.push(js); // add this to the array of remote segments JSONs
-//		
-//
-//	}
-	if (remoteSegsJSON != null){
-		
+	var js = JSON.parse(result);
+	// js.segments[i] is a remote segment
 	
-	if (isNewSite(js)){
-		remoteSegsJSON.push(js);
+	if (remoteSegsGlobal.length > 0){
+		// check to see if any segments match the current segment 
+		if (js != null){
+			addNewSegs(result);//(js);
+			console.log("added new segments. "+ remoteSegsGlobal.length);
+		}
+		
 	}
+	else if (remoteSegsGlobal.length == 0){
+		// just add in all the segments 
+		for (var k = 0; k < js.segments.length; k++){
+			remoteSegsGlobal.push(js.segments[k]);
+		}
+		console.log("FIRST REMOTE SITE. " + remoteSegsGlobal.length);
 	}
 	if(initalizing < 3){
 			  
@@ -151,23 +151,47 @@ function processRemoteSegmentsListResponse(result) {
  * This function sees if a remote site has already been registered
 **/
 
-function isNewSite(newSite){
-	console.log("Is site new? ");
-	var isNew = true; 
-	for (var i = 0; i < remoteSegsJSON.length; i++){
-		var inList = remoteSegsJSON[i];
+	// if remote segment from a remote site has the same url, character, text as the segment in the list you're trying to add
+	// remoteSegsJSON: a list of remote lists of segments
+	// remoteSegsJSON[i]: a JSON of a list of segments from 1 site ????????
+	// remoteSegsJSON[i]["segments"]: a list of remote segments ??????
 
-		if (inList.segments.length != newSite.segments.length){
-			isNew = false; 
-		}
-		else {
-			for (var i = 0; i < inList.segments.length; i++){
-				if (isNew&&(inList.segments[i]["url"] != newSite.segments[i]["url"])){
-					isNew = false; 
-				}
-			}		
+
+function addNewSegs(result){
+	// for each segment in js.segments
+	// check against all of the segments in remoteSegsGlobal
+
+	var js = JSON.parse(result);
+	var foundMatch = 3; // 3 is "false", 5 is "true" 
+	for (var j = 0; j < js.segments.length; j++){
+		var remoteSegJson = js.segments[j]; // this is a segment. 
 		
-		}
+        var curSegURL 			= remoteSegJson["url"].toLowerCase();
+        var curSent			= remoteSegJson["text"].toLowerCase();
+        var curCharacter 		= remoteSegJson["character"].toLowerCase();
+        for (var i = 0; i < remoteSegsGlobal.length; i++){
+        	
+        	var existingURL = remoteSegsGlobal[i]["url"].toLowerCase();
+        	var existingSent = remoteSegsGlobal[i]["text"].toLowerCase();
+        	var existingChar = remoteSegsGlobal[i]["character"].toLowerCase();
+        	
+        	if (((existingURL===curSegURL)&&(existingSent===curSent)&&(existingChar===curCharacter))){
+        		foundMatch = 5;
+        		console.log("found matching segment. won't add");
+        		console.log("e,n " + existingURL + ", " + curSegURL);
+        		console.log("    " + existingSent + ", " + curSent);
+        		console.log("    " + existingChar + ", " + curCharacter);
+        		
+        	}
+        }
+        if (foundMatch < 4){
+        	remoteSegsGlobal.push(remoteSegJson);
+        	console.log("new segment. Added. " + remoteSegsGlobal.length);
+    		console.log("e,n " + existingURL + ", " + curSegURL);
+    		console.log("    " + existingChar + ", " + curCharacter);
+    		console.log("    " + existingSent + ", " + curSent);
+        }
+        
 	}
-	return isNew; 
+    
 }
