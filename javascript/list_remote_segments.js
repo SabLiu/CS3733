@@ -16,9 +16,6 @@ function refreshRemoteSegmentsList() {
    // get all remote sites (call our API) 
    xhr.send();
    
-   console.log("sent");
-   console.log("REFRESHING SEGMENTS : " + isAdmin);
-
   // This will process results and update HTML as appropriate. 
    
   xhr.onloadend = function () {
@@ -55,9 +52,9 @@ function processRemoteSitesListResponse(remSitesList) {
       var apikey = siteURL.substring(q+8);
     callRemoteAPI(url, apikey); 
     // need to make an API call to this site with this API key. 
-  }
+    }
   
-}
+  }
 }
 
 /**
@@ -88,21 +85,23 @@ function callRemoteAPI(siteURL, apikey) {
  *
  */
 function processRemoteSegmentsListResponse(result) {
-
-	var js = JSON.parse(result);// array of segments
-	  // update global variable used for search
-//	if (remoteSegsJSON.indexOf(js) == -1){  
-//		console.log("indexOf I think: " + remoteSegsJSON.indexOf(js));
-//		remoteSegsJSON.push(js); // add this to the array of remote segments JSONs
-//		
-//
-//	}
-	if (remoteSegsJSON != null){
-		
+	var js = JSON.parse(result);
+	// js.segments[i] is a remote segment
 	
-	if (isNewSite(js)){
-		remoteSegsJSON.push(js);
+	if (remoteSegsGlobal.length > 0){
+		// check to see if any segments match the current segment 
+		if (js != null){
+			addNewSegs(js);//(js);
+			console.log("added new segments. "+ remoteSegsGlobal.length);
+		}
+		
 	}
+	else if (remoteSegsGlobal.length == 0){
+		// just add in all the segments 
+		for (var k = 0; k < js.segments.length; k++){
+			remoteSegsGlobal.push(js.segments[k]);
+		}
+		console.log("FIRST REMOTE SITE. " + remoteSegsGlobal.length);
 	}
 	if(initalizing < 3){
 			  
@@ -118,7 +117,6 @@ function processRemoteSegmentsListResponse(result) {
 			//grabs stuff out of json
 			var remoteSegJson = js.segments[i]; // this is a segment. 
 			
-		    
 		    var segURL 			= remoteSegJson["url"];
 		    var sent			= remoteSegJson["text"];
 		    var character 		= remoteSegJson["character"];
@@ -131,13 +129,10 @@ function processRemoteSegmentsListResponse(result) {
 		        }catch(e){}
     
 		    // updates html
-	    	// character : sentence
 	    	output = output + "</br><p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
 	    	output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + segURL+ "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
-	    	output = output + "<p><input type=\"button\" id = \"appendButton" + i + "\"value=\"Append to current playlist\" " + isDisabled + " onClick=\"JavaScript:processAppendToPlaylist('" + segURL + "')\"></p></br>";
-		        
+	    	output = output + "<p><input type=\"button\" id = \"appendButton" + i + "\"value=\"Append to current playlist\" " + isDisabled + " onClick=\"JavaScript:processAppendToPlaylist('" + segURL + "')\"></p></br>";  
 		}
-		
 		if(initalizing < 3){
 			// Update computation result
 			remoteSegmentsList.innerHTML = remoteSegmentsList.innerHTML + output;
@@ -151,23 +146,41 @@ function processRemoteSegmentsListResponse(result) {
  * This function sees if a remote site has already been registered
 **/
 
-function isNewSite(newSite){
-	console.log("Is site new? ");
-	var isNew = true; 
-	for (var i = 0; i < remoteSegsJSON.length; i++){
-		var inList = remoteSegsJSON[i];
+	// if remote segment from a remote site has the same url, character, text as the segment in the list you're trying to add
+	// remoteSegsJSON: a list of remote lists of segments
+	// remoteSegsJSON[i]: a JSON of a list of segments from 1 site ????????
+	// remoteSegsJSON[i]["segments"]: a list of remote segments ??????
 
-		if (inList.segments.length != newSite.segments.length){
-			isNew = false; 
-		}
-		else {
-			for (var i = 0; i < inList.segments.length; i++){
-				if (isNew&&(inList.segments[i]["url"] != newSite.segments[i]["url"])){
-					isNew = false; 
-				}
-			}		
+
+function addNewSegs(js){
+//	var js = JSON.parse(result);
+	var foundMatch = 3; // 3 is "false", 5 is "true"
+	
+	// for each segment in the passed-in response
+	for (var j = 0; j < js.segments.length; j++){
+		foundMatch = 3; // reset boolean to toggle
+		var remoteSegJson = js.segments[j]; // this is a segment. 
 		
-		}
+        var curSegURL 			= remoteSegJson["url"].toLowerCase();
+        var curSent			= remoteSegJson["text"].toLowerCase();
+        var curCharacter 		= remoteSegJson["character"].toLowerCase();
+        
+        // for each segment already in remoteSegsGlobal
+        for (var i = 0; i < remoteSegsGlobal.length; i++){
+        	var existingURL = remoteSegsGlobal[i]["url"].toLowerCase();
+        	var existingSent = remoteSegsGlobal[i]["text"].toLowerCase();
+        	var existingChar = remoteSegsGlobal[i]["character"].toLowerCase();
+        	
+        	if (((existingURL===curSegURL)&&(existingSent===curSent)&&(existingChar===curCharacter))){
+        		foundMatch = 5;
+        		// found a matching segment. do not add again.
+        	}
+        }
+        if (foundMatch < 4){ // if still haven't set off the warning
+        	remoteSegsGlobal.push(remoteSegJson);
+        	// didn't find a matching segment. add. 
+        }
+        
 	}
-	return isNew; 
+    
 }
