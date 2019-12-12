@@ -85,9 +85,6 @@ function processSearchResponse(localSearchResults, remoteSearchResults) {
 	 
 	var output = "";
 	
-	if(initalizing > 3){
-		output = output + "<p>Warning, remote sites not fully loaded. For complete search results please try again in 10 seconds.</p><p>&nbsp;</p>"
-	}
 	if (localjs.length > 0){
 	// generate HTML for local segments in search result
 	for (var i = 0; i < localjs.length; i++) {

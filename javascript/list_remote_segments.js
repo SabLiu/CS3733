@@ -10,7 +10,7 @@
  * Refresh list of remote segments
  *
  */
-function refreshRemoteSegmentsList() {
+function refreshRemoteSegmentsList(initalizing) {
    var xhr = new XMLHttpRequest();
    xhr.open("GET", remote_site_url, true); 
    // get all remote sites (call our API) 
@@ -21,9 +21,9 @@ function refreshRemoteSegmentsList() {
   xhr.onloadend = function () {
     if (xhr.readyState == XMLHttpRequest.DONE) {
       console.log ("XHR:" + xhr.responseText);
-      processRemoteSitesListResponse(xhr.responseText);
+      processRemoteSitesListResponse(initalizing, xhr.responseText);
     } else {
-      processRemoteSitesListResponse("N/A");
+      processRemoteSitesListResponse(initalizing, "N/A");
     }
   };
   
@@ -33,7 +33,7 @@ function refreshRemoteSegmentsList() {
  * Respond to server JSON object: list of OUR registered sites.
  *
  */
-function processRemoteSitesListResponse(remSitesList) {
+function processRemoteSitesListResponse(initalizing, remSitesList) {
   var js = JSON.parse(remSitesList);
   
 
@@ -50,7 +50,7 @@ function processRemoteSitesListResponse(remSitesList) {
     } else {
       var url = siteURL.substring(0, q);
       var apikey = siteURL.substring(q+8);
-    callRemoteAPI(url, apikey); 
+    callRemoteAPI(initalizing, url, apikey); 
     // need to make an API call to this site with this API key. 
     }
   
@@ -61,7 +61,7 @@ function processRemoteSitesListResponse(remSitesList) {
  *  Call the remote API of site in our registered sites list
  *  Get a list of available segments from each site. 
  */
-function callRemoteAPI(siteURL, apikey) {
+function callRemoteAPI(initalizing, siteURL, apikey) {
 	   var xhr = new XMLHttpRequest();
 	   xhr.open("GET", siteURL, true); 
 	   xhr.setRequestHeader("x-api-key", apikey);
@@ -73,9 +73,9 @@ function callRemoteAPI(siteURL, apikey) {
 	  xhr.onloadend = function () {
 	    if (xhr.readyState == XMLHttpRequest.DONE) {
 	      console.log ("XHR:" + xhr.responseText);
-	      processRemoteSegmentsListResponse(xhr.responseText);
+	      processRemoteSegmentsListResponse(initalizing, xhr.responseText);
 	    } else {
-	    	processRemoteSegmentsListResponse("N/A");
+	    	processRemoteSegmentsListResponse(initalizing, "N/A");
 	    }
 	  };
 	}
@@ -84,7 +84,7 @@ function callRemoteAPI(siteURL, apikey) {
  * Respond to JSON object from remote site.
  *
  */
-function processRemoteSegmentsListResponse(result) {
+function processRemoteSegmentsListResponse(initalizing, result) {
 	var js = JSON.parse(result);
 	// js.segments[i] is a remote segment
 	
@@ -138,7 +138,6 @@ function processRemoteSegmentsListResponse(result) {
 			remoteSegmentsList.innerHTML = remoteSegmentsList.innerHTML + output;
 		}
 	}
-	initalizing = 2;
 	  
 }
 

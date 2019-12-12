@@ -19,22 +19,21 @@
 	var currentPlaylistID = ""; 
 	var isAdmin = 2; 
 	var viewPlaylist = 1;
-	var initalizing = 4;
 
 	var currentPLJS = ""; 
 	var localSegsJSON = ""; 
 	var remoteSegsGlobal = []; // fully parsed, individual segments
 	
 	function initialize(){
-		refreshRemoteSegmentsList();
+		refreshRemoteSegmentsList(4);
 		localSegmentsPage();
 		refreshPlaylistsList();
 	}
 	
 	function remoteSegmentsPage(){
-		document.getElementById('segmentsColumnHeader').innerHTML = "";
+		document.getElementById('segmentsColumnHeader').innerHTML = "<h1>Remote Segments</h1><div>&nbsp;</div>";
 		document.getElementById('segmentsColumn').innerHTML = "";
-		refreshRemoteSegmentsList();
+		refreshRemoteSegmentsList(2);
 	}
 	
 	function localSegmentsPage(){
