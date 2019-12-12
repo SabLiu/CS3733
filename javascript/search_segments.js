@@ -23,16 +23,15 @@ function processSearch() {
 	var sentenceSearch = form.searchBarWords.value.toLowerCase();
 	
 	console.log("Searching: " + characterSearch + ", " + sentenceSearch); 
-	console.log("Searching  " + remoteSegsGlobal.length + " sites"); 
+	console.log("Searching  " + remoteSegsGlobal.length + " segments"); 
 
 	//get all local+remote segments, come in as js
 	localjs = localSegsJSON; 	// this is a global variable
-	// local js is an array of local segments
-	// localjs.model[i] is a segment
-	remotejs = remoteSegsGlobal; // this is a global variable
-	// remoteSegsGlobal: list of LONE REMOTE segments
-	// remotejs[i] is a segment
-	
+								// local js is an array of local segments
+								// localjs.model[i] is a segment
+	remotejs = remoteSegsGlobal; 	// this is a global variable
+									// remoteSegsGlobal: list of LONE REMOTE segments
+									// remotejs[i] is a segment
 	var localSearchResults = [];
 	var remoteSearchResults = [];
 	

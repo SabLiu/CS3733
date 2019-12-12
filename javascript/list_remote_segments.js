@@ -16,7 +16,6 @@ function refreshRemoteSegmentsList() {
    // get all remote sites (call our API) 
    xhr.send();
    
-
   // This will process results and update HTML as appropriate. 
    
   xhr.onloadend = function () {
@@ -92,7 +91,7 @@ function processRemoteSegmentsListResponse(result) {
 	if (remoteSegsGlobal.length > 0){
 		// check to see if any segments match the current segment 
 		if (js != null){
-			addNewSegs(result);//(js);
+			addNewSegs(js);//(js);
 			console.log("added new segments. "+ remoteSegsGlobal.length);
 		}
 		
@@ -118,7 +117,6 @@ function processRemoteSegmentsListResponse(result) {
 			//grabs stuff out of json
 			var remoteSegJson = js.segments[i]; // this is a segment. 
 			
-		    
 		    var segURL 			= remoteSegJson["url"];
 		    var sent			= remoteSegJson["text"];
 		    var character 		= remoteSegJson["character"];
@@ -131,13 +129,10 @@ function processRemoteSegmentsListResponse(result) {
 		        }catch(e){}
     
 		    // updates html
-	    	// character : sentence
 	    	output = output + "</br><p>" + character + ": &quot;" + sent + "&quot;&nbsp;</p>";
 	    	output = output + "<p><video controls=\"\" height=\"240\" id=\"\" width=\"320\"><source src=" + "\"" + segURL+ "\"" + " type=\"video/ogg\" /> Your browser does not support the video tag.</video></p>" ;
-	    	output = output + "<p><input type=\"button\" id = \"appendButton" + i + "\"value=\"Append to current playlist\" " + isDisabled + " onClick=\"JavaScript:processAppendToPlaylist('" + segURL + "')\"></p></br>";
-		        
+	    	output = output + "<p><input type=\"button\" id = \"appendButton" + i + "\"value=\"Append to current playlist\" " + isDisabled + " onClick=\"JavaScript:processAppendToPlaylist('" + segURL + "')\"></p></br>";  
 		}
-		
 		if(initalizing < 3){
 			// Update computation result
 			remoteSegmentsList.innerHTML = remoteSegmentsList.innerHTML + output;
@@ -157,39 +152,33 @@ function processRemoteSegmentsListResponse(result) {
 	// remoteSegsJSON[i]["segments"]: a list of remote segments ??????
 
 
-function addNewSegs(result){
-	// for each segment in js.segments
-	// check against all of the segments in remoteSegsGlobal
-
-	var js = JSON.parse(result);
-	var foundMatch = 3; // 3 is "false", 5 is "true" 
+function addNewSegs(js){
+//	var js = JSON.parse(result);
+	var foundMatch = 3; // 3 is "false", 5 is "true"
+	
+	// for each segment in the passed-in response
 	for (var j = 0; j < js.segments.length; j++){
+		foundMatch = 3; // reset boolean to toggle
 		var remoteSegJson = js.segments[j]; // this is a segment. 
 		
         var curSegURL 			= remoteSegJson["url"].toLowerCase();
         var curSent			= remoteSegJson["text"].toLowerCase();
         var curCharacter 		= remoteSegJson["character"].toLowerCase();
+        
+        // for each segment already in remoteSegsGlobal
         for (var i = 0; i < remoteSegsGlobal.length; i++){
-        	
         	var existingURL = remoteSegsGlobal[i]["url"].toLowerCase();
         	var existingSent = remoteSegsGlobal[i]["text"].toLowerCase();
         	var existingChar = remoteSegsGlobal[i]["character"].toLowerCase();
         	
         	if (((existingURL===curSegURL)&&(existingSent===curSent)&&(existingChar===curCharacter))){
         		foundMatch = 5;
-        		console.log("found matching segment. won't add");
-        		console.log("e,n " + existingURL + ", " + curSegURL);
-        		console.log("    " + existingSent + ", " + curSent);
-        		console.log("    " + existingChar + ", " + curCharacter);
-        		
+        		// found a matching segment. do not add again.
         	}
         }
-        if (foundMatch < 4){
+        if (foundMatch < 4){ // if still haven't set off the warning
         	remoteSegsGlobal.push(remoteSegJson);
-        	console.log("new segment. Added. " + remoteSegsGlobal.length);
-    		console.log("e,n " + existingURL + ", " + curSegURL);
-    		console.log("    " + existingChar + ", " + curCharacter);
-    		console.log("    " + existingSent + ", " + curSent);
+        	// didn't find a matching segment. add. 
         }
         
 	}
