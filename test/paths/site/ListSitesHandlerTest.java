@@ -12,6 +12,9 @@ import lamnda.LambdaTest;
 
 public class ListSitesHandlerTest extends LambdaTest{
 
+	/**
+	 * 
+	 */
 	@Test
 	public void hasGoogle(){
     	ListRemoteSitesHandler handler = new ListRemoteSitesHandler();
@@ -21,7 +24,7 @@ public class ListSitesHandlerTest extends LambdaTest{
         
         for (Site s: resp.model) {
         	System.out. println(s);
-        	if (s.getUrl().equals("google.com")) { hasGoogle = true; }
+        	if (s.getUrl().equals("https://21et641mh5.execute-api.us-east-2.amazonaws.com/Kirk/getAllRemotelyAvailableSegments?apikey=8yb0UifInF2OLxxkbGzIp58ZUmcifAYQ6llkTISP")) { hasGoogle = true; }
         }
         
         assertTrue("has a site with url = 'google.com' in the database", hasGoogle);
