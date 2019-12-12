@@ -23,7 +23,7 @@ public class RegisterRemoteSiteHandler implements RequestHandler<Site, Response<
 			if (addToDatabase(site)) {
 				response = new Response<Site[]>(ListRemoteSitesHandler.getSites(logger,dao), 200);
 			} else {
-				response = new Response<Site[]>(400, "Site not added"); 
+				response = new Response<Site[]>(400, "Site allready there"); 
 			}
 		} catch(Exception e) { 
 			response = new Response<Site[]>(400, "Unable to complete request: " +  "(" + e.getMessage() + ")");

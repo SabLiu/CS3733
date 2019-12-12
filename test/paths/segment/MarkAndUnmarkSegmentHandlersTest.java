@@ -27,6 +27,10 @@ public class MarkAndUnmarkSegmentHandlersTest extends LambdaTest{
 		}
 		assertTrue("Segment is unmarked", isunMarked);
 		
+		Response<Segment[]> unMarkedb = unmarkHandler.handleRequest(new Id(), createContext("list"));
+		boolean errorThrowna = unMarkedb.getStatusCode() == 400;
+		assertTrue("Error corectly thrown", errorThrowna);
+		
 		Response<Segment[]> marked = markHandler.handleRequest(segmentId, createContext("list"));
 		boolean isMarked = false;
 		for(Segment s: marked.model) {
@@ -35,6 +39,11 @@ public class MarkAndUnmarkSegmentHandlersTest extends LambdaTest{
 			}
 		}
 		assertTrue("Segment is marked", isMarked);
+		
+		
+		Response<Segment[]> Markedb = markHandler.handleRequest(new Id(), createContext("list"));
+		boolean errorThrownb = unMarkedb.getStatusCode() == 400;
+		assertTrue("Error corectly thrown", errorThrownb);
 	}
 
 	

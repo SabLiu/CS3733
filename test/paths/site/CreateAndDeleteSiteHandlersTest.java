@@ -38,6 +38,7 @@ public class CreateAndDeleteSiteHandlersTest extends LambdaTest{
         Site site = new Site("bing.com");
         try {
         	Response<Site[]> response = resgisterHandler.handleRequest(site, createContext("list"));
+        	Response<Site[]> response2 = resgisterHandler.handleRequest(site, createContext("list"));
 			Response<Site[]> expectedResponse =  listHandler.handleRequest(null, createContext("list"));
 			
 			testIdPass = site.getId();
@@ -53,6 +54,7 @@ public class CreateAndDeleteSiteHandlersTest extends LambdaTest{
 			
 			
 			assertTrue("Response indicates sucess", response.statusCode == 200);
+			assertTrue("Response indicates failure", response2.statusCode == 400);
 			assertTrue("Site added to database", addedToDatabase);
 			assertArrayEquals("All sites in database returned", response.getModel(), expectedResponse.getModel());  
 		} catch (Exception e) {

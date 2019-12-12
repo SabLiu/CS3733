@@ -2,9 +2,14 @@ package lamnda;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 
 import definitions.Id;
+import definitions.Playlist;
+import definitions.Response;
 import definitions.Segment;
 import definitions.Site;
 import definitions.remoteapi.SegmentsSendResponse;
@@ -69,6 +74,28 @@ public class DefinitionsTest {
 		boolean a = s.getSegments() == null;
 		boolean b = s.getError().equals("error");
 		boolean c = s.getStatusCode() == 123;
+		assertTrue(a && b && c);
+	}
+	
+	@Test
+	public void ResponceTest() {
+		Response r = new Response(123, "error");
+		String sr = r.getError();
+		assertTrue(sr.equals("error"));
+	}
+	
+	@Test
+	public void PlaylistTest() {
+		Segment sa[] = {new Segment()};
+		Segment sb[] = {new Segment()};
+		Id i = new Id();
+		
+		Playlist pa = new Playlist(i, "hi", sa);
+		Playlist pb = new Playlist(i, "hi", sb);
+		Playlist pc = new Playlist(i, "hi", sa);
+		boolean a = !pa.equals(pb);
+		boolean b = pa.hashCode() == pb.hashCode();
+		boolean c = pa.hashCode() == pc.hashCode();
 		assertTrue(a && b && c);
 	}
 

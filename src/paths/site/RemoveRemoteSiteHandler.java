@@ -35,7 +35,9 @@ public class RemoveRemoteSiteHandler implements RequestHandler<Id, Response<Site
 			return response;
 		}
 	boolean removeFromDatabase(Id id) throws Exception {
-		if (logger != null) { logger.log("in remove from database\n"); }
+		if (logger != null) { 
+			logger.log("in remove from database\n"); 
+		}
 		
 		return dao.deleteSite(id);
 	}

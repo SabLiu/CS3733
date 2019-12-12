@@ -27,6 +27,7 @@ public class AppendToandRemoveFromHandlersTest extends LambdaTest{
 	Segment seg2 = new Segment(false, "Test upload2", "test", getEncodedValue("test\\resources\\test_segment.ogg"));
 	SegmentAndPlaylistRequest request1 = new SegmentAndPlaylistRequest(seg1.getUrl(), new Id("c136cdf2-5877-4e86-b6c7-e72b3f05ea9b"));
 	SegmentAndPlaylistRequest request2 = new SegmentAndPlaylistRequest(seg2.getUrl(), new Id("c136cdf2-5877-4e86-b6c7-e72b3f05ea9b"));
+	SegmentAndPlaylistRequest request3 = new SegmentAndPlaylistRequest("dhfghf", new Id("c136cdf2-5877-4e86-b6c7-e72b3f05ea9b"));
 	AppendToPlaylistHandler appendHandler = new AppendToPlaylistHandler();
 	GetPlaylistHandler getHandler = new GetPlaylistHandler();
 	RemoveFromPlaylistHandler removeHandler = new RemoveFromPlaylistHandler();
@@ -35,6 +36,8 @@ public class AppendToandRemoveFromHandlersTest extends LambdaTest{
 	public void test() {
 		testAppendHandler();
 		testRemoveMiddleAndMultiple();
+		testRemoveNonExistent();
+		testAppendHandlerNonExisting();
 		testRemoveEnd();
 	}
 	
@@ -62,6 +65,22 @@ public class AppendToandRemoveFromHandlersTest extends LambdaTest{
 			assertTrue("Segment added to database", addedToPlaylist);
 			assertTrue("Segments in playlist increased by one", segmentsArrayIncreased);
 			assertArrayEquals("Updated playlist returend", response.getModel().getSegmentUrls(), afterResponse.getModel().getSegmentUrls());  
+		} catch (Exception e) {
+			System.out.println("EXCPETION: " + e.getMessage());
+			e.printStackTrace();
+			fail("EXCPETION: " + e.getMessage());
+		}
+        
+	}
+	
+	public void testAppendHandlerNonExisting(){
+        try {
+        	Response<Playlist> beforeResponse = getHandler.handleRequest(request1.getPlaylistId(), createContext("list"));
+        	Response<Playlist> response = appendHandler.handleRequest(request3,createContext("list"));
+			Response<Playlist> afterResponse = getHandler.handleRequest(request1.getPlaylistId(), createContext("list"));
+			
+			
+			assertTrue("Response indicates failure", response.statusCode == 400);
 		} catch (Exception e) {
 			System.out.println("EXCPETION: " + e.getMessage());
 			e.printStackTrace();
@@ -111,6 +130,44 @@ public class AppendToandRemoveFromHandlersTest extends LambdaTest{
 	}
 	
 	public void testRemoveEnd() {
+		try {
+    	Response<Playlist> beforeResponse = getHandler.handleRequest(request2.getPlaylistId(), createContext("list"));
+    	Response<Playlist> response = removeHandler.handleRequest(request3,createContext("list"));
+		Response<Playlist> afterResponse = getHandler.handleRequest(request2.getPlaylistId(), createContext("list"));
+		
+		System.out.println(beforeResponse.getModel());
+		//System.out.println(response.getModel());
+		System.out.println(afterResponse.getModel());
+		
+		boolean removedFromPlaylist = true;
+		for(String s : response.model.getSegmentUrls()) {
+			if(s.equals(request1.getSegmentUrl())) {
+				removedFromPlaylist = false;
+			}
+		}
+	
+		boolean segmentsArrayDecreased;
+		if(afterResponse.getModel() != null) {
+			segmentsArrayDecreased = (afterResponse.getModel().getSegmentUrls().length - beforeResponse.getModel().getSegmentUrls().length) < 0;
+		}
+		else {
+			segmentsArrayDecreased = true;
+		}
+		
+		
+		assertTrue("Response indicates failure", response.statusCode == 400);
+		assertTrue("Segment removed from database", removedFromPlaylist);
+		assertTrue("Number of segments in playlist decreased", segmentsArrayDecreased);
+		assertArrayEquals("Updated playlist returend", response.getModel().getSegmentUrls(), afterResponse.getModel().getSegmentUrls());  
+	} catch (Exception e) {
+		System.out.println("EXCPETION: " + e.getMessage());
+		e.printStackTrace();
+		fail("EXCPETION: " + e.getMessage());
+	}
+	}
+	
+	
+	public void testRemoveNonExistent() {
 		try {
     	Response<Playlist> beforeResponse = getHandler.handleRequest(request2.getPlaylistId(), createContext("list"));
     	Response<Playlist> response = removeHandler.handleRequest(request2,createContext("list"));
